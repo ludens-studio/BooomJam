@@ -43,54 +43,22 @@ public class BattleMgr : MonoBehaviour
         /// </summary>
         public bool freeze;
     }
-    
-    /// <summary>
-    /// 敌人
-    /// </summary>
-    public struct Enemies
-    {
-        /// <summary>
-        /// 攻击力
-        /// </summary>
-        public float attack;
 
-        /// <summary>
-        /// 防御值
-        /// </summary>
-        public float defence;
-
-        /// <summary>
-        /// 血量
-        /// </summary>
-        public float hp;
-    }
-    
-    /// <summary>
-    /// 我方单位
-    /// </summary>
-    public struct Towers
-    {
-        /// <summary>
-        /// 攻击力
-        /// </summary>
-        public float attack;
-
-        /// <summary>
-        /// 防御值
-        /// </summary>
-        public float defence;
-
-        /// <summary>
-        /// 血量
-        /// </summary>
-        public float hp;
-    }
-    
     // Start is called before the first frame update
     void Start()
     {
         diceList = new Dice[2];
     }
     
-    
+    // UI 功能
+    public void PauseGameFake()
+    {
+        
+    }
+
+    public void QuitGame()
+    {
+        Application.Quit();
+    }
+
 }
