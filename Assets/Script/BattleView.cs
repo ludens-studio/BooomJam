@@ -75,6 +75,21 @@ public class BattleView : MonoBehaviour
         BattleMgr.GetInstance().timer = 100;
     }
 
+    /// <summary>
+    /// 打开商店时暂停游戏
+    /// </summary>
+    public void PauseGame()
+    {
+        
+    }
+
+    /// <summary>
+    /// 退出游戏
+    /// </summary>
+    public void QuitGame()
+    {
+        Application.Quit();
+    }
 
 
 }

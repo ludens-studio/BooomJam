@@ -373,7 +373,19 @@ MonoBehaviour:
   - eventID: 4
     callback:
       m_PersistentCalls:
-        m_Calls: []
+        m_Calls:
+        - m_Target: {fileID: 1400140367}
+          m_TargetAssemblyTypeName: BattleView, Assembly-CSharp
+          m_MethodName: TestFunc
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 73306507}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &82462977
 GameObject:
   m_ObjectHideFlags: 0
@@ -3070,9 +3082,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 961028d48bda8e24d98cab2a6d10cc0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  waves:
+  - waveRate: 2
+    rate: 0.2
+    enemyObj:
+    - {fileID: 4235662185223176025, guid: 23a0cb81e3f713944ba32d30aef36faa, type: 3}
+    - {fileID: 2422515314913776992, guid: 20410a6bdef61e542bf73c198c5af30d, type: 3}
+    - {fileID: 2422515314913776992, guid: 20410a6bdef61e542bf73c198c5af30d, type: 3}
+  - waveRate: 3
+    rate: 1
+    enemyObj:
+    - {fileID: 2422515314913776992, guid: 20410a6bdef61e542bf73c198c5af30d, type: 3}
+    - {fileID: 4235662185223176025, guid: 23a0cb81e3f713944ba32d30aef36faa, type: 3}
+    - {fileID: 2422515314913776992, guid: 20410a6bdef61e542bf73c198c5af30d, type: 3}
+    - {fileID: 2422515314913776992, guid: 20410a6bdef61e542bf73c198c5af30d, type: 3}
+    - {fileID: 4235662185223176025, guid: 23a0cb81e3f713944ba32d30aef36faa, type: 3}
+  - waveRate: 4
+    rate: 2
+    enemyObj:
+    - {fileID: 4235662185223176025, guid: 23a0cb81e3f713944ba32d30aef36faa, type: 3}
+    - {fileID: 4235662185223176025, guid: 23a0cb81e3f713944ba32d30aef36faa, type: 3}
+    - {fileID: 4235662185223176025, guid: 23a0cb81e3f713944ba32d30aef36faa, type: 3}
+    - {fileID: 4235662185223176025, guid: 23a0cb81e3f713944ba32d30aef36faa, type: 3}
   hp: 20
   timer: 0
-  interval: 2
   towers: []
   enemies: []
 --- !u!4 &1361096408
@@ -3214,6 +3247,7 @@ MonoBehaviour:
   timer: {fileID: 438170265}
   setting: {fileID: 1727626912}
   shop: {fileID: 1063495847}
+  diceTimer: 1
 --- !u!1 &1422518236
 GameObject:
   m_ObjectHideFlags: 0
@@ -3847,11 +3881,11 @@ MonoBehaviour:
         m_Calls:
         - m_Target: {fileID: 1400140367}
           m_TargetAssemblyTypeName: BattleView, Assembly-CSharp
-          m_MethodName: TestFunc
-          m_Mode: 2
+          m_MethodName: UseDice
+          m_Mode: 1
           m_Arguments:
-            m_ObjectArgument: {fileID: 1509804477}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
             m_IntArgument: 0
             m_FloatArgument: 0
             m_StringArgument: 

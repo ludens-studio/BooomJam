@@ -76,8 +76,9 @@ public class Tower : Obj
     /// </summary>
     protected override void Attack()
     {
-        anim.speed = attackSpeed;
-        anim.Play("attack");    // 对于防御塔来说，这个动画就是防守动画
+        //todo: 这个还没搞，但我先写了
+        //anim.speed = attackSpeed;
+        //anim.Play("attack");    // 对于防御塔来说，这个动画就是防守动画
     }
 
     /// <summary>
@@ -85,8 +86,9 @@ public class Tower : Obj
     /// </summary>
     public void Idle()
     {
-        anim.speed = 1;
-        anim.Play("idle");
+        // todo: 这个也是，就是之后加一个动画机，有一些是动画事件
+        //anim.speed = 1;
+        //anim.Play("idle");
     }
 
     /// <summary>

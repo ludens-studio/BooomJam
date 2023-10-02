@@ -14,16 +14,24 @@ using Random = UnityEngine.Random;
 /// </summary>
 public class BattleMgr : BaseMgr<BattleMgr>
 {
+    [System.Serializable]
+    public class Wave
+    {
+        public float waveRate;  // 与下一波之间的间隔
+        public float rate;      // 波次内生成间隔
+        public List<GameObject> enemyObj;     // 波内会出现的敌人（可以按顺序也可以纯随机）
+    }
+    
+    /// <summary>
+    /// 波数配置
+    /// </summary>
+    public Wave[] waves;
+
     [Header("UI interface")]
     public int hp;
 
     public int timer;
 
-    /// <summary>
-    /// 固定刷怪时间间隔
-    /// </summary>
-    public float interval;
-    
     public string Buff { get; set; }
 
     [Header("Dices")]
@@ -51,13 +59,15 @@ public class BattleMgr : BaseMgr<BattleMgr>
         /// </summary>
         public bool freeze;
     }
+    
 
     // Start is called before the first frame update
     void Start()
     {
         diceList = new Dice[2];
-        StartCoroutine(EnemyWave());
+        StartCoroutine(WaveSpawner());
         StartCoroutine(Timer());
+        
     }
 
     private void Update()
@@ -65,22 +75,48 @@ public class BattleMgr : BaseMgr<BattleMgr>
         
     }
 
-    // UI 功能
-    public void PauseGameFake()
+    /// <summary>
+    /// 怪物攻击波
+    /// </summary>
+    /// <returns></returns>
+    IEnumerator WaveSpawner()
     {
-        
-    }
+        while (true)
+        {
+            int n = waves.Length;
+            // 打乱顺序
+            for (int i = 0; i < n; i++)
+            {
+                int r = i + Random.Range(0, n - i);
+                (waves[i], waves[r]) = (waves[r], waves[i]);
+            }
+            // 波之间
+            for (int i = 0; i < waves.Length; i++)
+            {
+                // 波内生成的
+                for (int j = 0; j < waves[i].enemyObj.Count; j++)
+                {
+                    PoolMgr.GetInstance().GetObj("Prefabs/" + waves[i].enemyObj[j].name, o=>{
+                        int row = Random.Range(-2, 3);    // 随机生成敌人所在的行,-2~2
 
-    public void QuitGame()
-    {
-        Application.Quit();
+                        o.transform.position = new Vector3(4, row, -0.1f);
+                        o.transform.parent = GameObject.Find("PoolEnemy").transform;
+                
+                        enemies.Add(o);
+                    });
+                    yield return new WaitForSeconds(waves[i].rate);
+                }
+                yield return new WaitForSeconds(waves[i].waveRate);
+            }
+
+        }
     }
 
     /// <summary>
     /// 固定刷新
     /// </summary>
     /// <returns></returns>
-    IEnumerator EnemyWave()
+    /*IEnumerator EnemyWave()
     {
         while (true)
         {
@@ -96,7 +132,7 @@ public class BattleMgr : BaseMgr<BattleMgr>
         }
 
         yield return null;
-    }
+    }*/
     
     /// <summary>
     /// 游戏计时器
