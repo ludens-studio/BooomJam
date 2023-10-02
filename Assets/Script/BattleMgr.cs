@@ -17,7 +17,7 @@ public class BattleMgr : BaseMgr<BattleMgr>
     [Header("UI interface")]
     public int hp;
 
-    public float timer;
+    public int timer;
 
     /// <summary>
     /// 固定刷怪时间间隔
@@ -33,8 +33,6 @@ public class BattleMgr : BaseMgr<BattleMgr>
     public List<GameObject> towers;
     
     public List<GameObject> enemies;
-
-    private UnityAction<GameObject> _enemyInitEvent;
 
     /// <summary>
     /// 骰子
@@ -57,17 +55,9 @@ public class BattleMgr : BaseMgr<BattleMgr>
     // Start is called before the first frame update
     void Start()
     {
-        _enemyInitEvent += (GameObject o) =>
-        {
-            int row = Random.Range(0, 5);    // 随机生成敌人所在的行
-            
-            o = Instantiate(o);
-            o.transform.position = new Vector3(0, row, 0.1f);
-            o.transform.parent = GameObject.Find("PoolEnemy").transform;
-        };
-        
         diceList = new Dice[2];
         StartCoroutine(EnemyWave());
+        StartCoroutine(Timer());
     }
 
     private void Update()
@@ -94,7 +84,6 @@ public class BattleMgr : BaseMgr<BattleMgr>
     {
         while (true)
         {
-            int row = Random.Range(0, 5);    // 生成敌人所在的行
             PoolMgr.GetInstance().GetObj("Prefabs/Enemy", o=>{
                 int row = Random.Range(-2, 3);    // 随机生成敌人所在的行,-2~2
 
@@ -108,6 +97,19 @@ public class BattleMgr : BaseMgr<BattleMgr>
 
         yield return null;
     }
+    
+    /// <summary>
+    /// 游戏计时器
+    /// </summary>
+    /// <returns></returns>
+    IEnumerator Timer()
+    {
+        while (true)
+        {
+            timer += 1;
+            yield return new WaitForSeconds(1.0f);
+        }
+    }
 
     // 回对象池以及死亡效果结算
     public void EnemyDeath()
@@ -119,17 +121,5 @@ public class BattleMgr : BaseMgr<BattleMgr>
     {
         
     }
-
-    public void Timer(int second)
-    {
-        if (second > 0)
-        {
-            second--; // 每秒减1
-        }
-        else
-        {
-            Debug.Log("Countdown finished!"); // 当倒计时结束时打印消息
-            CancelInvoke("UpdateTimer"); // 取消重复调用
-        }
-    }
+    
 }

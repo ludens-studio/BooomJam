@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -28,7 +29,11 @@ public class BattleView : MonoBehaviour
     void Update()
     {
         hp.value = BattleMgr.GetInstance().hp;
-        // timer.text = BattleMgr.GetInstance().timer
+        int time = BattleMgr.GetInstance().timer;
+        string min = (time / 60 < 10) ? "0" + (time / 60): (time / 60).ToString();
+        string sec = (time % 60 < 10) ? "0" + (time % 60) : (time % 60).ToString();
+        
+        timer.text = min + ":" + sec;
     }
 
     /// <summary>
@@ -59,18 +64,15 @@ public class BattleView : MonoBehaviour
     /// </summary>
     public void UseDice()
     {
-        InvokeRepeating(nameof(DiceTimer), 0f, 1f);
+        //如果state非冷却
+        //在鼠标处生成一个骰子，阴影指向落点
     }
 
-    public void DiceTimer()
-    {
-        BattleMgr.GetInstance().Timer(diceTimer);
-    }
 
+    // 随便测什么都可以
     public void TestFunc(GameObject o)
     {
-        
-        print(o.name);
+        BattleMgr.GetInstance().timer = 100;
     }
 
 
