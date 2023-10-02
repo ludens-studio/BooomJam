@@ -8,6 +8,23 @@ using UnityEngine;
 /// </summary>
 public class Enemy : Obj
 {
+
+    /// 
+    /// 加入到Mgr中
+    ///
+    public void AddToBattleMgr()
+    {
+        BattleMgr.GetInstance().enemies.Add(gameObject); 
+    }
+    /// <summary>
+    /// 从Mgr中删除
+    /// </summary>
+    public void DelFromBattleMgr()
+    {
+        BattleMgr.GetInstance().enemies.Remove(gameObject);
+    }
+
+
     private void Update()
     {
         throw new NotImplementedException();

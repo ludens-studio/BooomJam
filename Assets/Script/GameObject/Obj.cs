@@ -69,6 +69,15 @@ public class Obj : MonoBehaviour
             state = ObjState.Death;
         }
     }
+
+
+    /// <summary>
+    /// 搜索BattleMgr
+    /// </summary>
+    public void FindeBattleMgr()
+    {
+        
+    }
     
 }
 

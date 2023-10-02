@@ -24,6 +24,21 @@ public class Tower : Obj
         
     }
 
+    /// 
+    /// 加入到Mgr中
+    ///
+    public void AddToBattleMgr()
+    {
+        BattleMgr.GetInstance().towers.Add(gameObject);
+    }
+    /// <summary>
+    /// 从Mgr中删除
+    /// </summary>
+    public void DelFromBattleMgr()
+    {
+        BattleMgr.GetInstance().towers.Remove(gameObject);
+    }
+
     /// <summary>
     /// 攻击
     /// </summary>
