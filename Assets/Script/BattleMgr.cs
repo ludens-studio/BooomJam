@@ -5,7 +5,6 @@ using UnityEngine;
 using UnityEngine.Events;
 using Random = UnityEngine.Random;
 
-
 /// <summary>
 /// 1. 存玩家HP，全局Buff信息，游戏时间，骰子状态。
 /// 2. 获取以上提到的所有信息，然后扔色子接口
@@ -13,7 +12,7 @@ using Random = UnityEngine.Random;
 /// 4. 管理所有游戏单位的对象，包括塔，小怪，魔王。管理包括创建销毁以及更新
 /// 5. 游戏中所有的单位作为对象，存储在BattleMgr中。其存储单位的状态信息
 /// </summary>
-public class BattleMgr : MonoBehaviour
+public class BattleMgr : BaseMgr<BattleMgr>
 {
     [Header("UI interface")]
     public int hp;
@@ -31,9 +30,9 @@ public class BattleMgr : MonoBehaviour
     public Dice[] diceList;
     
     [Header("Game Objects Management")]
-    public GameObject[] towers;
+    public List<GameObject> towers;
     
-    public GameObject[] enemies;
+    public List<GameObject> enemies;
 
     private UnityAction<GameObject> _enemyInitEvent;
 
@@ -99,12 +98,26 @@ public class BattleMgr : MonoBehaviour
             PoolMgr.GetInstance().GetObj("Prefabs/Enemy", o=>{
                 int row = Random.Range(-2, 3);    // 随机生成敌人所在的行,-2~2
 
-                o.transform.position = new Vector3(0, row, -0.1f);
-                o.transform.parent = GameObject.Find("PoolEnemy").transform;});
+                o.transform.position = new Vector3(4, row, -0.1f);
+                o.transform.parent = GameObject.Find("PoolEnemy").transform;
+                
+                enemies.Add(o);
+            });
             yield return new WaitForSeconds(interval);
         }
 
         yield return null;
+    }
+
+    // 回对象池以及死亡效果结算
+    public void EnemyDeath()
+    {
+        
+    }
+
+    public void TowerDeath()
+    {
+        
     }
 
 }
