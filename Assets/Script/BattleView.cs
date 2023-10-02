@@ -18,6 +18,8 @@ public class BattleView : MonoBehaviour
     
     // 骰子的冷却时间
     public int diceTimer;
+
+    private GameObject dice;
     
     // Start is called before the first frame update
     void Start()
@@ -60,12 +62,33 @@ public class BattleView : MonoBehaviour
     }
 
     /// <summary>
-    /// 掷骰子
+    /// 点击骰子图标事件
+    /// 生成骰子实体
     /// </summary>
-    public void UseDice()
+    /// <param name="o"></param>
+    public void OnDiceClick(GameObject o)
     {
-        //如果state非冷却
-        //在鼠标处生成一个骰子，阴影指向落点
+        //如果骰子非冷却
+        if (!BattleMgr.GetInstance().IsDiceFreeze(o.name))
+        {
+            //在鼠标处生成一个骰子，阴影指向落点
+            dice = ResMgr.GetInstance().Load<GameObject>("Prefabs/Dice");
+            // dice = Instantiate(dice);
+            BattleMgr.GetInstance().FreezeDice(o.name);
+        }
+    }
+
+    /// <summary>
+    /// 拖拽骰子事件
+    /// 骰子跟随鼠标移动
+    /// </summary>
+    public void OnDiceDrag(GameObject o)
+    {
+        dice = GameObject.FindWithTag("Dice");
+        var mousePos = new Vector3(Input.mousePosition.x, Input.mousePosition.y, 10);
+        var objectPosition = Camera.main.ScreenToWorldPoint(mousePos);
+        dice.transform.position = objectPosition;
+
     }
 
 
@@ -90,6 +113,7 @@ public class BattleView : MonoBehaviour
     {
         Application.Quit();
     }
+    
 
 
 }

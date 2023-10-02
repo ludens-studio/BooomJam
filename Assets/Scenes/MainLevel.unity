@@ -817,7 +817,19 @@ MonoBehaviour:
   - eventID: 4
     callback:
       m_PersistentCalls:
-        m_Calls: []
+        m_Calls:
+        - m_Target: {fileID: 1400140367}
+          m_TargetAssemblyTypeName: BattleView, Assembly-CSharp
+          m_MethodName: UseDice
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 295486925}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &319451473
 GameObject:
   m_ObjectHideFlags: 0
@@ -3106,6 +3118,13 @@ MonoBehaviour:
     - {fileID: 4235662185223176025, guid: 23a0cb81e3f713944ba32d30aef36faa, type: 3}
   hp: 20
   timer: 0
+  diceList:
+  - state: 000000000000000000000000000000000000000000000000
+    freeze: 0
+  - state: 000000000000000000000000000000000000000000000000
+    freeze: 0
+  - state: 000000000000000000000000000000000000000000000000
+    freeze: 0
   towers: []
   enemies: []
 --- !u!4 &1361096408
@@ -3875,17 +3894,33 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+  - eventID: 5
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1400140367}
+          m_TargetAssemblyTypeName: BattleView, Assembly-CSharp
+          m_MethodName: OnDiceDrag
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 1509804477}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
   - eventID: 4
     callback:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 1400140367}
           m_TargetAssemblyTypeName: BattleView, Assembly-CSharp
-          m_MethodName: UseDice
-          m_Mode: 1
+          m_MethodName: OnDiceClick
+          m_Mode: 2
           m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_ObjectArgument: {fileID: 1509804477}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
             m_IntArgument: 0
             m_FloatArgument: 0
             m_StringArgument: 

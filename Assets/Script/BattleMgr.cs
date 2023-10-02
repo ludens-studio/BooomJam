@@ -45,6 +45,7 @@ public class BattleMgr : BaseMgr<BattleMgr>
     /// <summary>
     /// 骰子
     /// </summary>
+    [System.Serializable]
     public struct Dice
     {
         /// <summary>
@@ -64,7 +65,6 @@ public class BattleMgr : BaseMgr<BattleMgr>
     // Start is called before the first frame update
     void Start()
     {
-        diceList = new Dice[2];
         StartCoroutine(WaveSpawner());
         StartCoroutine(Timer());
         
@@ -81,7 +81,7 @@ public class BattleMgr : BaseMgr<BattleMgr>
     /// <returns></returns>
     IEnumerator WaveSpawner()
     {
-        while (true)
+        while (hp > 0)
         {
             int n = waves.Length;
             // 打乱顺序
@@ -113,28 +113,6 @@ public class BattleMgr : BaseMgr<BattleMgr>
     }
 
     /// <summary>
-    /// 固定刷新
-    /// </summary>
-    /// <returns></returns>
-    /*IEnumerator EnemyWave()
-    {
-        while (true)
-        {
-            PoolMgr.GetInstance().GetObj("Prefabs/Enemy", o=>{
-                int row = Random.Range(-2, 3);    // 随机生成敌人所在的行,-2~2
-
-                o.transform.position = new Vector3(4, row, -0.1f);
-                o.transform.parent = GameObject.Find("PoolEnemy").transform;
-                
-                enemies.Add(o);
-            });
-            yield return new WaitForSeconds(interval);
-        }
-
-        yield return null;
-    }*/
-    
-    /// <summary>
     /// 游戏计时器
     /// </summary>
     /// <returns></returns>
@@ -156,6 +134,26 @@ public class BattleMgr : BaseMgr<BattleMgr>
     public void TowerDeath()
     {
         
+    }
+
+    /// <summary>
+    /// 获取当前选择的骰子是否在冷却期
+    /// </summary>
+    /// <returns></returns>
+    public bool IsDiceFreeze(string diceName)
+    {
+        int id = Int32.Parse(diceName.Substring(diceName.Length-1,1)) - 1;
+        return diceList[id].freeze;
+    }
+
+    /// <summary>
+    /// 冷却骰子
+    /// </summary>
+    /// <param name="diceName"></param>
+    public void FreezeDice(string diceName)
+    {
+        int id = Int32.Parse(diceName.Substring(diceName.Length-1,1)) - 1;
+        diceList[id].freeze = true;
     }
     
 }
