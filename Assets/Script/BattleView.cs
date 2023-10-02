@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class BattleView : MonoBehaviour
 {
@@ -31,15 +32,33 @@ public class BattleView : MonoBehaviour
     /// 显示所有子节点
     /// 可用于显示骰子各个面的状态
     /// </summary>
-    public void ShowChild()
+    public void ShowChild(GameObject o)
     {
-        int children = transform.childCount;
-        for (int i = 0; i < children; ++i)
-            print("For loop: " + transform.GetChild(i));
+        Animator animator = o.GetComponent<Animator>();
+        //yield return new WaitForSeconds(animatorInfo.length);
+        AnimatorStateInfo animatorInfo = animator.GetCurrentAnimatorStateInfo(0);
+        //normalizedTime的值为0~1，0为开始，1为结束。
+        if (animatorInfo.normalizedTime >= 1.0f)
+        {
+            animator.Play("ShowState");
+        }
+
+    }
+    
+    /// <summary>
+    /// 隐藏所有子节点
+    /// </summary>
+    public void CloseChild(GameObject o)
+    {
+        o.GetComponent<Animator>().Play("CloseState");
     }
 
-    public void TestFunc()
+    public void TestFunc(GameObject o)
     {
-        print(transform.gameObject.name);
+        
+        print(o.name);
     }
+
+
+
 }
