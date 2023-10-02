@@ -16,12 +16,23 @@ public class Tower : Obj
         AttackTower,
         DefenceTower
     }
+
     private void Update()
     {
-        // 这一行有敌人,Attack
-        
-        // 否则Idle
-        
+        checkTarget(); // 检测目标 !!! 目前只是使用激光+攻击距离检测
+
+        // 这一行有目标,Attack
+        if (haveTarget && canAttack)
+        {
+            Attack(); 
+        }
+        else
+        {
+            // 否则Idle
+            Idle();
+
+        }
+
     }
 
     /// 
@@ -40,9 +51,30 @@ public class Tower : Obj
     }
 
     /// <summary>
+    /// 检测攻击范围内是否有目标
+    /// </summary>
+    public void checkTarget()
+    {
+        int layerMask = 1 << LayerMask.NameToLayer("Enemy"); // 只检测Enemy层
+        RaycastHit hit;
+        if (Physics.Raycast(transform.position, transform.forward, out hit, attackRange, layerMask))
+        {
+            if (hit.collider.CompareTag("enemy"))
+            {
+                // 范围内有enemy
+                haveTarget = true;
+            }else
+            {
+                haveTarget= false;
+            }
+        }
+
+    }
+
+    /// <summary>
     /// 攻击
     /// </summary>
-    public void Attack()
+    protected override void Attack()
     {
         anim.speed = attackSpeed;
         anim.Play("attack");    // 对于防御塔来说，这个动画就是防守动画
