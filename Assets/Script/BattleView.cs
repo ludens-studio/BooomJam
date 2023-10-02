@@ -15,6 +15,9 @@ public class BattleView : MonoBehaviour
 
     public Button shop;
     
+    // 骰子的冷却时间
+    public int diceTimer;
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -35,9 +38,7 @@ public class BattleView : MonoBehaviour
     public void ShowChild(GameObject o)
     {
         Animator animator = o.GetComponent<Animator>();
-        //yield return new WaitForSeconds(animatorInfo.length);
         AnimatorStateInfo animatorInfo = animator.GetCurrentAnimatorStateInfo(0);
-        //normalizedTime的值为0~1，0为开始，1为结束。
         if (animatorInfo.normalizedTime >= 1.0f)
         {
             animator.Play("ShowState");
@@ -51,6 +52,19 @@ public class BattleView : MonoBehaviour
     public void CloseChild(GameObject o)
     {
         o.GetComponent<Animator>().Play("CloseState");
+    }
+
+    /// <summary>
+    /// 掷骰子
+    /// </summary>
+    public void UseDice()
+    {
+        InvokeRepeating(nameof(DiceTimer), 0f, 1f);
+    }
+
+    public void DiceTimer()
+    {
+        BattleMgr.GetInstance().Timer(diceTimer);
     }
 
     public void TestFunc(GameObject o)

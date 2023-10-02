@@ -120,4 +120,16 @@ public class BattleMgr : BaseMgr<BattleMgr>
         
     }
 
+    public void Timer(int second)
+    {
+        if (second > 0)
+        {
+            second--; // 每秒减1
+        }
+        else
+        {
+            Debug.Log("Countdown finished!"); // 当倒计时结束时打印消息
+            CancelInvoke("UpdateTimer"); // 取消重复调用
+        }
+    }
 }

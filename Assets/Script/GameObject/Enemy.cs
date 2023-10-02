@@ -27,7 +27,6 @@ public class Enemy : Obj
 
     private void Update()
     {
-        throw new NotImplementedException();
         checkTarget(); // 检测目标 !!! 目前只是使用激光+攻击距离检测
 
         // 这一行有目标,Attack
