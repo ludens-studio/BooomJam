@@ -56,6 +56,8 @@ public class Tower : Obj
     /// </summary>
     public void checkTarget()
     {
+        // ! 这部分塔的激光朝右打，怪的激光朝左打。如果有特殊需求再改
+        //==================================================
         int layerMask = 1 << LayerMask.NameToLayer("Enemy");
         Ray ray = new Ray(transform.position, transform.right);
         RaycastHit hit;
