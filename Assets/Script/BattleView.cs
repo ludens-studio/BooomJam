@@ -50,6 +50,14 @@ public class BattleView : MonoBehaviour
         {
             animator.Play("ShowState");
         }
+        
+        // 骰子非冷却，且场上没有已生成的骰子 -> 生成骰子实例
+        if (!BattleMgr.GetInstance().IsDiceFreeze(o.name) && !GameObject.FindWithTag("Dice"))
+        {
+            //在鼠标处生成一个骰子，阴影指向落点
+            dice = ResMgr.GetInstance().Load<GameObject>("Prefabs/Dice");
+            // todo: 这个阴影我看直接用平行光投影吧
+        }
 
     }
     
@@ -62,33 +70,26 @@ public class BattleView : MonoBehaviour
     }
 
     /// <summary>
-    /// 点击骰子图标事件
-    /// 生成骰子实体
-    /// </summary>
-    /// <param name="o"></param>
-    public void OnDiceClick(GameObject o)
-    {
-        //如果骰子非冷却
-        if (!BattleMgr.GetInstance().IsDiceFreeze(o.name))
-        {
-            //在鼠标处生成一个骰子，阴影指向落点
-            dice = ResMgr.GetInstance().Load<GameObject>("Prefabs/Dice");
-            // dice = Instantiate(dice);
-            BattleMgr.GetInstance().FreezeDice(o.name);
-        }
-    }
-
-    /// <summary>
     /// 拖拽骰子事件
     /// 骰子跟随鼠标移动
     /// </summary>
     public void OnDiceDrag(GameObject o)
     {
+        BattleMgr.GetInstance().FreezeDice(o.name);
         dice = GameObject.FindWithTag("Dice");
         var mousePos = new Vector3(Input.mousePosition.x, Input.mousePosition.y, 10);
         var objectPosition = Camera.main.ScreenToWorldPoint(mousePos);
         dice.transform.position = objectPosition;
+        // todo: 格子高亮或者阴影落点
+    }
 
+    /// <summary>
+    /// 投掷骰子事件
+    /// 落点矫正（四舍五入）
+    /// </summary>
+    public void OnDiceRelease()
+    {
+        
     }
 
 
@@ -103,7 +104,7 @@ public class BattleView : MonoBehaviour
     /// </summary>
     public void PauseGame()
     {
-        
+        Time.timeScale = 0;
     }
 
     /// <summary>
