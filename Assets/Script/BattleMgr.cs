@@ -74,11 +74,7 @@ public class BattleMgr : BaseMgr<BattleMgr>
         StartCoroutine(Timer());
         
     }
-
-    private void Update()
-    {
-        
-    }
+    
 
     /// <summary>
     /// 怪物攻击波
@@ -156,7 +152,8 @@ public class BattleMgr : BaseMgr<BattleMgr>
     /// <summary>
     /// 获取当前选择的骰子是否在冷却期
     /// </summary>
-    /// <param name="diceName，例如Dice1"></param>
+    /// <param name="diceName">例如Dice1</param>
+    /// <returns></returns>
     public bool IsDiceFreeze(string diceName)
     {
         int id = Int32.Parse(diceName.Substring(diceName.Length-1,1)) - 1;
@@ -167,7 +164,8 @@ public class BattleMgr : BaseMgr<BattleMgr>
     /// 冷却骰子
     /// 同时开始倒计时，计时结束取消冷却
     /// </summary>
-    /// <param name="diceName，例如Dice1"></param>
+    /// <param name="diceName">例如Dice1</param>
+    /// <returns></returns>
     public void FreezeDice(string diceName)
     {
         int id = Int32.Parse(diceName.Substring(diceName.Length-1,1)) - 1;
@@ -178,7 +176,7 @@ public class BattleMgr : BaseMgr<BattleMgr>
     /// <summary>
     /// 获取骰子状态
     /// </summary>
-    /// <param name="diceName，例如Dice1"></param>
+    /// <param name="diceName">例如Dice1</param>
     /// <returns></returns>
     public int[] GetDiceState(string diceName)
     {
@@ -190,9 +188,9 @@ public class BattleMgr : BaseMgr<BattleMgr>
     /// 掷骰时修改骰子的面的状态
     /// 冻结骰子（已使用）
     /// </summary>
-    /// <param name="diceName，例如Dice1"></param>
-    /// <param name="id，第几个面(记得是从0开始的)"></param>
-    /// <param name="type，1：资源-恶魔；2：恶魔-资源；3：魔王全净化"></param>
+    /// <param name="diceName">例如Dice1</param>
+    /// <param name="faceId">第几个面(记得是从0开始的)</param>
+    /// <param name="type">1：资源-恶魔；2：恶魔-资源；3：魔王全净化</param>
     public void ChangeDiceState(string diceName, int faceId, int type)
     {
         int id = Int32.Parse(diceName.Substring(diceName.Length-1,1)) - 1;

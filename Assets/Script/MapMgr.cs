@@ -2,19 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// 地图/网格管理器
+/// </summary>
 public class MapMgr : BaseMgr<MapMgr>
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     /// <summary>
     /// 是否为空格子

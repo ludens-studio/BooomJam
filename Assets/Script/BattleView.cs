@@ -7,6 +7,10 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using Random = UnityEngine.Random;
 
+/// <summary>
+/// UI组件的更新
+/// 骰子事件
+/// </summary>
 public class BattleView : MonoBehaviour
 {
     public Slider hp;
@@ -16,16 +20,26 @@ public class BattleView : MonoBehaviour
     public Button setting;
 
     public Button shop;
+
+    public GameObject[] dices;
+    
     
     // 骰子的冷却时间
     public int diceTimer;
 
-    private GameObject dice;
+    /// <summary>
+    /// 场景中生成的骰子（唯一
+    /// </summary>
+    private GameObject _dice;
     
     // Start is called before the first frame update
     void Start()
     {
         hp.maxValue = BattleMgr.GetInstance().hp;
+        /*for (int i = 0; i < dices.Length; i++)
+        {
+            dices[i].transform.GetComponentsInChildren<Image>()
+        }*/
     }
 
     // Update is called once per frame
@@ -36,6 +50,8 @@ public class BattleView : MonoBehaviour
         int time = BattleMgr.GetInstance().timer;
         string min = (time / 60 < 10) ? "0" + (time / 60): (time / 60).ToString();
         string sec = (time % 60 < 10) ? "0" + (time % 60) : (time % 60).ToString();
+
+        
         
         timer.text = min + ":" + sec;
     }
@@ -57,7 +73,7 @@ public class BattleView : MonoBehaviour
         if (!BattleMgr.GetInstance().IsDiceFreeze(o.name) && !GameObject.FindWithTag("Dice"))
         {
             //在鼠标处生成一个骰子，阴影指向落点
-            dice = ResMgr.GetInstance().Load<GameObject>("Prefabs/Dice");
+            _dice = ResMgr.GetInstance().Load<GameObject>("Prefabs/Dice");
             // todo: 这个阴影我看直接用平行光投影吧
         }
 
@@ -79,10 +95,10 @@ public class BattleView : MonoBehaviour
     {
         if (!BattleMgr.GetInstance().IsDiceFreeze(o.name))
         {
-            dice = GameObject.FindWithTag("Dice");
+            _dice = GameObject.FindWithTag("Dice");
             var mousePos = new Vector3(Input.mousePosition.x, Input.mousePosition.y, 10);
             var objectPosition = Camera.main.ScreenToWorldPoint(mousePos);
-            dice.transform.position = objectPosition;
+            _dice.transform.position = objectPosition;
             // todo: 格子高亮或者阴影落点
         }
     }
@@ -94,7 +110,7 @@ public class BattleView : MonoBehaviour
     public void OnDiceRelease(GameObject o)
     {
         // if MapMgr return empty grid/ valid grid, then player can put the dice, or dice will be hide.
-        if (MapMgr.GetInstance().IsEmptyGrid() && MapMgr.GetInstance().IsValidGrid())
+        if (!BattleMgr.GetInstance().IsDiceFreeze(o.name) &&MapMgr.GetInstance().IsEmptyGrid() && MapMgr.GetInstance().IsValidGrid())
         {
             // random face
             int rdFace = Random.Range(0, 6);
@@ -103,12 +119,18 @@ public class BattleView : MonoBehaviour
             {
                 case 0:
                     BattleMgr.GetInstance().ChangeDiceState(o.name, rdFace, 1);
+                    o.transform.GetChild(rdFace).GetComponent<Image>().color = Color.yellow;
                     break;
                 case 1:
                     BattleMgr.GetInstance().ChangeDiceState(o.name, rdFace, 2);
+                    o.transform.GetChild(rdFace).GetComponent<Image>().color = Color.green;
                     break;
                 case 2:
                     BattleMgr.GetInstance().ChangeDiceState(o.name, rdFace, 3);
+                    for (int i = 0; i < 5; i++)
+                    {
+                        o.transform.GetChild(i).GetComponent<Image>().color = Color.green;
+                    }
                     break;
             }
         }
