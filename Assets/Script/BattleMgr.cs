@@ -7,7 +7,7 @@ using Random = UnityEngine.Random;
 
 /// <summary>
 /// 1. 存玩家HP，全局Buff信息，游戏时间，骰子状态。
-/// 2. 获取以上提到的所有信息，然后扔色子接口
+/// 2. 获取以上提到的所有信息，然后扔骰子接口
 /// 3. UI一直Update，或者数据状态改变发一个事件通知UI更新
 /// 4. 管理所有游戏单位的对象，包括塔，小怪，魔王。管理包括创建销毁以及更新
 /// 5. 游戏中所有的单位作为对象，存储在BattleMgr中。其存储单位的状态信息
@@ -36,6 +36,11 @@ public class BattleMgr : BaseMgr<BattleMgr>
 
     [Header("Dices")]
     public Dice[] diceList;
+    
+    /// <summary>
+    /// 骰子冷却时间
+    /// </summary>
+    public float diceTime;
     
     [Header("Game Objects Management")]
     public List<GameObject> towers;
@@ -125,6 +130,18 @@ public class BattleMgr : BaseMgr<BattleMgr>
         }
     }
 
+    IEnumerator DiceTime(int id)
+    {
+        float t = 0.0f;
+        while (t < diceTime)
+        {
+            yield return new WaitForSeconds(1.0f);
+            t += 1.0f;
+        }
+
+        diceList[id].freeze = false;
+    }
+
     // 回对象池以及死亡效果结算
     public void EnemyDeath()
     {
@@ -148,12 +165,14 @@ public class BattleMgr : BaseMgr<BattleMgr>
 
     /// <summary>
     /// 冷却骰子
+    /// 同时开始倒计时，计时结束取消冷却
     /// </summary>
     /// <param name="diceName，例如Dice1"></param>
     public void FreezeDice(string diceName)
     {
         int id = Int32.Parse(diceName.Substring(diceName.Length-1,1)) - 1;
         diceList[id].freeze = true;
+        StartCoroutine(DiceTime(id));
     }
 
     /// <summary>
@@ -169,6 +188,7 @@ public class BattleMgr : BaseMgr<BattleMgr>
 
     /// <summary>
     /// 掷骰时修改骰子的面的状态
+    /// 冻结骰子（已使用）
     /// </summary>
     /// <param name="diceName，例如Dice1"></param>
     /// <param name="id，第几个面(记得是从0开始的)"></param>
@@ -187,19 +207,14 @@ public class BattleMgr : BaseMgr<BattleMgr>
                 break;
             case 3:
                 // 全部净化
-                for (int i = 0; i < 6; i++)
+                for (int i = 0; i < 5; i++)
                 {
-                    if (faceId == i)
-                    {
-                        // 啥也不干
-                    }
-                    else
-                    {
-                        diceList[id].state[i] = 0;
-                    }
+                    diceList[id].state[i] = 0;
                 }
                 break;
         }
+        FreezeDice(diceName);
     }
+
     
 }

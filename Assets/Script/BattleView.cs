@@ -5,6 +5,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using Random = UnityEngine.Random;
 
 public class BattleView : MonoBehaviour
 {
@@ -24,13 +25,14 @@ public class BattleView : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        hp.maxValue = BattleMgr.GetInstance().hp;
     }
 
     // Update is called once per frame
     void Update()
     {
         hp.value = BattleMgr.GetInstance().hp;
+        // show time in tmp
         int time = BattleMgr.GetInstance().timer;
         string min = (time / 60 < 10) ? "0" + (time / 60): (time / 60).ToString();
         string sec = (time % 60 < 10) ? "0" + (time % 60) : (time % 60).ToString();
@@ -75,30 +77,48 @@ public class BattleView : MonoBehaviour
     /// </summary>
     public void OnDiceDrag(GameObject o)
     {
-        BattleMgr.GetInstance().FreezeDice(o.name);
-        dice = GameObject.FindWithTag("Dice");
-        var mousePos = new Vector3(Input.mousePosition.x, Input.mousePosition.y, 10);
-        var objectPosition = Camera.main.ScreenToWorldPoint(mousePos);
-        dice.transform.position = objectPosition;
-        // todo: 格子高亮或者阴影落点
+        if (!BattleMgr.GetInstance().IsDiceFreeze(o.name))
+        {
+            dice = GameObject.FindWithTag("Dice");
+            var mousePos = new Vector3(Input.mousePosition.x, Input.mousePosition.y, 10);
+            var objectPosition = Camera.main.ScreenToWorldPoint(mousePos);
+            dice.transform.position = objectPosition;
+            // todo: 格子高亮或者阴影落点
+        }
     }
 
     /// <summary>
     /// 投掷骰子事件
     /// 落点矫正（四舍五入）
     /// </summary>
-    public void OnDiceRelease()
+    public void OnDiceRelease(GameObject o)
     {
+        // if MapMgr return empty grid/ valid grid, then player can put the dice, or dice will be hide.
+        if (MapMgr.GetInstance().IsEmptyGrid() && MapMgr.GetInstance().IsValidGrid())
+        {
+            // random face
+            int rdFace = Random.Range(0, 6);
+            int[] stateList = BattleMgr.GetInstance().GetDiceState(o.name);
+            switch (stateList[rdFace])
+            {
+                case 0:
+                    BattleMgr.GetInstance().ChangeDiceState(o.name, rdFace, 1);
+                    break;
+                case 1:
+                    BattleMgr.GetInstance().ChangeDiceState(o.name, rdFace, 2);
+                    break;
+                case 2:
+                    BattleMgr.GetInstance().ChangeDiceState(o.name, rdFace, 3);
+                    break;
+            }
+        }
+        else
+        {
+            GameObject.FindWithTag("Dice").transform.position = new Vector3(100, 100, 0);
+        }
         
     }
-
-
-    // 随便测什么都可以
-    public void TestFunc(GameObject o)
-    {
-        BattleMgr.GetInstance().timer = 100;
-    }
-
+    
     /// <summary>
     /// 打开商店时暂停游戏
     /// </summary>
@@ -115,6 +135,10 @@ public class BattleView : MonoBehaviour
         Application.Quit();
     }
     
-
+    // 随便测什么都可以
+    public void TestFunc(GameObject o)
+    {
+        BattleMgr.GetInstance().timer = 100;
+    }
 
 }

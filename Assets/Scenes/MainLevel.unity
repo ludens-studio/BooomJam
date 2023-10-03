@@ -545,9 +545,9 @@ MonoBehaviour:
   m_HandleRect: {fileID: 0}
   m_Direction: 0
   m_MinValue: 0
-  m_MaxValue: 20
+  m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 20
+  m_Value: 1
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -3135,11 +3135,11 @@ MonoBehaviour:
   hp: 20
   timer: 0
   diceList:
-  - state: 000000000000000000000000000000000000000000000000
+  - state: 000000000000000000000000000000000000000002000000
     freeze: 0
-  - state: 000000000000000000000000000000000000000000000000
+  - state: 000000000000000000000000000000000000000002000000
     freeze: 0
-  - state: 000000000000000000000000000000000000000000000000
+  - state: 000000000000000000000000000000000000000002000000
     freeze: 0
   towers: []
   enemies: []
