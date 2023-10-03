@@ -8,6 +8,12 @@ using UnityEngine;
 /// </summary>
 public class Tower : Obj
 {
+    public bool shootTower = false; // 启用该项，tower会使用子弹攻击
+
+    [Header("Attack Type")]
+    public GameObject Bullet; // 生成的子弹
+    public Transform firePoint; // 生成子弹的位置
+
     /// <summary>
     /// 塔的类型
     /// </summary>
@@ -25,7 +31,15 @@ public class Tower : Obj
         // 这一行有目标,Attack
         if (haveTarget && canAttack)
         {
-            Attack(); 
+            if(shootTower)
+            {
+                Shoot();
+                Debug.Log("???");
+            }
+            else
+            {
+                Attack();
+            }
         }
         else
         {
@@ -112,5 +126,10 @@ public class Tower : Obj
     public void Shoot()
     {
         // todo: 射子弹
+        GameObject _bullet = Instantiate(Bullet, firePoint);
+        _bullet.transform.parent = null; 
+        canAttack = false; 
+         // _bullet.GetComponent<Bullet>().
+
     }
 }
