@@ -20,6 +20,7 @@ public class Tower : Obj
     private void Update()
     {
         checkTarget(); // 检测目标 !!! 目前只是使用激光+攻击距离检测
+        UpdateAttackSpeed();
 
         // 这一行有目标,Attack
         if (haveTarget && canAttack)

@@ -24,7 +24,7 @@ public class Obj : MonoBehaviour
 
     // 攻速
     public float attackSpeed;
-    private float attackSpeedTimer;
+    [SerializeField]private float attackSpeedTimer;
     public bool canAttack;
     // attackSpeedTimer倒数，到0，canAttack为真且不倒计时
 
@@ -91,7 +91,7 @@ public class Obj : MonoBehaviour
     /// </summary>
     protected virtual void Attack()
     {
-        
+        canAttack = false; 
     }
 
     /// <summary>
@@ -134,10 +134,15 @@ public class Obj : MonoBehaviour
     }
 
     // 测试用=================
-    void OnDrawGizmosSelected()
+    void OnDrawGizmos()
     {
-        Gizmos.color = Color.white;
-        Gizmos.DrawLine(transform.position, transform.position + transform.forward * attackRange);
+        Gizmos.color = Color.red;
+        /*        Vector3 start = new Vector3(transform.position.x, transform.position.y, 0);
+                Vector3 end = new Vector3(transform.lossyScale.x * (transform.position.x + attackRange), transform.position.y, 0);
+                Gizmos.DrawLine(start, end);*/
+
+        // Gizmos.DrawWireSphere(transform.position, attackRange);
+
     }
 
 }

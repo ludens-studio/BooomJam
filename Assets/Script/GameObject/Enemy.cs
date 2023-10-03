@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 /// <summary>
 /// 敌人
@@ -28,16 +29,23 @@ public class Enemy : Obj
     private void Update()
     {
         checkTarget(); // 检测目标 !!! 目前只是使用激光+攻击距离检测
+        UpdateAttackSpeed(); 
 
         // 这一行有目标,Attack
-        if (haveTarget && canAttack)
+        if (haveTarget)
         {
-            Attack();
+            if (canAttack)
+            {
+                Attack();
+
+            }
         }
         else
         {
-            // 否则Idle
-            // Idle();
+            // 否则移动
+
+            Walk();
+            Debug.Log("敌人移动");
 
         }
     }
@@ -48,13 +56,36 @@ public class Enemy : Obj
     public void checkTarget()
     {
         int layerMask = 1 << LayerMask.NameToLayer("Tower");
+        Ray ray = new Ray(transform.position, -transform.right);
+        RaycastHit hit;
+        if (Physics.Raycast(ray, out hit, attackRange))
+        {
+            Debug.DrawLine(ray.origin, hit.point, Color.blue);
+            if (hit.collider.CompareTag("Tower"))
+            {
+                haveTarget = true;
+            }
+        }
+        else
+        {
+            Debug.DrawLine(ray.origin, ray.origin + ray.direction * attackRange, Color.blue);
+            haveTarget = false; 
+        }
+    }
+
+    protected override void Attack()
+    {
+        canAttack = false;
+        Debug.Log("攻击");
 
     }
 
     private void Walk()
     {
-        
+
+        transform.position += Vector3.left * speed * Time.deltaTime;
+
     }
-    
-    
+
+
 }
