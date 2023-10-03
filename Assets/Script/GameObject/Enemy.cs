@@ -64,17 +64,20 @@ public class Enemy : Obj
             if (hit.collider.CompareTag("Tower"))
             {
                 haveTarget = true;
+                target = hit.collider.gameObject; 
             }
         }
         else
         {
             Debug.DrawLine(ray.origin, ray.origin + ray.direction * attackRange, Color.blue);
-            haveTarget = false; 
+            haveTarget = false;
+            target = null; 
         }
     }
 
     protected override void Attack()
     {
+        target.GetComponent<Obj>().Bleed(5); 
         canAttack = false;
         Debug.Log("攻击");
 

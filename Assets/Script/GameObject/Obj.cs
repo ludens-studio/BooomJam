@@ -26,6 +26,7 @@ public class Obj : MonoBehaviour
     public float attackSpeed;
     [SerializeField]private float attackSpeedTimer;
     public bool canAttack;
+    public GameObject target; // 通用的，当前攻击的目标
     // attackSpeedTimer倒数，到0，canAttack为真且不倒计时
 
 
