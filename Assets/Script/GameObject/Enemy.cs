@@ -78,6 +78,7 @@ public class Enemy : Obj
 
     protected override void Attack()
     {
+        // 目前就直接扣血了。没写其他的
         target.GetComponent<Obj>().Bleed(attack); 
         canAttack = false;
 
