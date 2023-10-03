@@ -120,20 +120,24 @@ public class BattleView : MonoBehaviour
         // if MapMgr return empty grid/ valid grid, then player can put the dice, or dice will be hide.
         if (!BattleMgr.GetInstance().IsDiceFreeze(o.name) && MapMgr.GetInstance().IsEmptyGrid(x,y))
         {
+            // random tower
+            int towerType = Random.Range(0, 5);
+            
             // random face
             int rdFace = Random.Range(0, 6);
             int[] stateList = BattleMgr.GetInstance().GetDiceState(o.name);
             switch (stateList[rdFace])
             {
-                case 0:
+                case 0: // 资源-》恶魔
                     BattleMgr.GetInstance().ChangeDiceState(o.name, rdFace, 1);
+                    BattleMgr.GetInstance().InitTower(x, y, towerType.ToString());
                     o.transform.GetChild(rdFace).GetComponent<Image>().color = Color.yellow;
                     break;
-                case 1:
+                case 1: // 恶魔-》资源
                     BattleMgr.GetInstance().ChangeDiceState(o.name, rdFace, 2);
                     o.transform.GetChild(rdFace).GetComponent<Image>().color = Color.green;
                     break;
-                case 2:
+                case 2: // 魔王-》全净化为资源
                     BattleMgr.GetInstance().ChangeDiceState(o.name, rdFace, 3);
                     for (int i = 0; i < 5; i++)
                     {
@@ -141,8 +145,7 @@ public class BattleView : MonoBehaviour
                     }
                     break;
             }
-            // todo: battleMgr生成塔
-            // MapMgr.GetInstance().SetTower();也写在上面的函数里
+            
         }
         else
         {

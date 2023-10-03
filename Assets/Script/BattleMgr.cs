@@ -126,6 +126,11 @@ public class BattleMgr : BaseMgr<BattleMgr>
         }
     }
 
+    /// <summary>
+    /// 骰子冷却倒计时
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
     IEnumerator DiceTime(int id)
     {
         float t = 0.0f;
@@ -136,6 +141,22 @@ public class BattleMgr : BaseMgr<BattleMgr>
         }
 
         diceList[id].freeze = false;
+    }
+
+    /// <summary>
+    /// 实例化塔并放置在地图上
+    /// </summary>
+    /// <param name="x">x轴坐标</param>
+    /// <param name="y">y轴坐标</param>
+    /// <param name="type">塔的类型</param>
+    public void InitTower(int x, int y, string type)
+    {
+        GameObject tower;
+        print(type);
+        tower = ResMgr.GetInstance().Load<GameObject>("Prefabs/T" + type);
+        // Instantiate(tower);
+        tower.transform.position = new Vector3(x, -y, -0.1f);
+        MapMgr.GetInstance().SetTower(x, y, tower.GetComponent<Tower>());
     }
 
     // 回对象池以及死亡效果结算

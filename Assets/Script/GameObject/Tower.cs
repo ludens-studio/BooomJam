@@ -14,15 +14,6 @@ public class Tower : Obj
     public GameObject Bullet; // 生成的子弹
     public Transform firePoint; // 生成子弹的位置
 
-    /// <summary>
-    /// 塔的类型
-    /// </summary>
-    public enum TowerType
-    {
-        AttackTower,
-        DefenceTower
-    }
-
     private void Update()
     {
         checkTarget(); // 检测目标 !!! 目前只是使用激光+攻击距离检测

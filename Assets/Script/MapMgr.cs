@@ -50,23 +50,15 @@ public class MapMgr : BaseMgr<MapMgr>
     /// <returns></returns>
     public bool IsEmptyGrid(int x, int y)
     {
-        print("1: " + x + ", " + y);
         if (!IsValidGrid(x, y)) // 非法
-        {
-            print("2");
             return false;
-        }
+        
 
         if (_gridList[x, y].tower == null)// 空的
-        {
-            print("3");
             return true;
-        }
         else
-        {
-            print("4");
             return false;
-        }
+        
             
     }
 
