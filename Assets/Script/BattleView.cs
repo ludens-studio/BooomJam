@@ -113,8 +113,12 @@ public class BattleView : MonoBehaviour
     /// </summary>
     public void OnDiceRelease(GameObject o)
     {
+        Vector3 position = _dice.transform.position;
+        int x = Mathf.RoundToInt(position.x);
+        int y = -Mathf.RoundToInt(position.y);
+        
         // if MapMgr return empty grid/ valid grid, then player can put the dice, or dice will be hide.
-        if (!BattleMgr.GetInstance().IsDiceFreeze(o.name) &&MapMgr.GetInstance().IsEmptyGrid() && MapMgr.GetInstance().IsValidGrid())
+        if (!BattleMgr.GetInstance().IsDiceFreeze(o.name) && MapMgr.GetInstance().IsEmptyGrid(x,y))
         {
             // random face
             int rdFace = Random.Range(0, 6);
@@ -137,9 +141,12 @@ public class BattleView : MonoBehaviour
                     }
                     break;
             }
+            // todo: battleMgr生成塔
+            // MapMgr.GetInstance().SetTower();也写在上面的函数里
         }
         else
         {
+            // 隐藏骰子（只是放到了远方
             GameObject.FindWithTag("Dice").transform.position = new Vector3(100, 100, 0);
         }
         
