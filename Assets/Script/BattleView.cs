@@ -22,6 +22,10 @@ public class BattleView : MonoBehaviour
     public Button shop;
 
     public GameObject[] dices;
+
+    public AudioSource bgm;
+
+    public AudioSource audioEffect;
     
     
     // 骰子的冷却时间
