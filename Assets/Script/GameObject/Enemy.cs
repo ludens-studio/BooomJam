@@ -45,7 +45,6 @@ public class Enemy : Obj
             // 否则移动
 
             Walk();
-            Debug.Log("敌人移动");
 
         }
     }
@@ -77,9 +76,8 @@ public class Enemy : Obj
 
     protected override void Attack()
     {
-        target.GetComponent<Obj>().Bleed(5); 
+        target.GetComponent<Obj>().Bleed(attack); 
         canAttack = false;
-        Debug.Log("攻击");
 
     }
 

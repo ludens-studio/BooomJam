@@ -468,9 +468,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71f14b38066e4b8693e973711125191d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attack: 0
+  attack: 5
   haveTarget: 0
-  hp: 10
+  hp: 100
   speed: 1
   attackSpeed: 1
   attackSpeedTimer: 0
@@ -606,15 +606,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47bb8e21e63b4df1810598436fed9c2c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attack: 0
+  attack: 10
   haveTarget: 0
   hp: 100
   speed: 0
-  attackSpeed: 0
+  attackSpeed: 1
   attackSpeedTimer: 0
   canAttack: 0
   target: {fileID: 0}
-  attackRange: 3.96
+  attackRange: 4
   state: 0
   anim: {fileID: 0}
 --- !u!54 &825909418

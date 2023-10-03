@@ -56,18 +56,23 @@ public class Tower : Obj
     /// </summary>
     public void checkTarget()
     {
-        int layerMask = 1 << LayerMask.NameToLayer("Enemy"); // 只检测Enemy层
+        int layerMask = 1 << LayerMask.NameToLayer("Enemy");
+        Ray ray = new Ray(transform.position, transform.right);
         RaycastHit hit;
-        if (Physics.Raycast(transform.position, transform.forward, out hit, attackRange, layerMask))
+        if (Physics.Raycast(ray, out hit, attackRange))
         {
-            if (hit.collider.CompareTag("enemy"))
+            Debug.DrawLine(ray.origin, hit.point, Color.blue);
+            if (hit.collider.CompareTag("Enemy"))
             {
-                // 范围内有enemy
                 haveTarget = true;
-            }else
-            {
-                haveTarget= false;
+                target = hit.collider.gameObject;
             }
+        }
+        else
+        {
+            Debug.DrawLine(ray.origin, ray.origin + ray.direction * attackRange, Color.blue);
+            haveTarget = false;
+            target = null;
         }
 
     }
@@ -80,6 +85,9 @@ public class Tower : Obj
         //todo: 这个还没搞，但我先写了
         //anim.speed = attackSpeed;
         //anim.Play("attack");    // 对于防御塔来说，这个动画就是防守动画
+        target.GetComponent<Obj>().Bleed(attack);
+        canAttack = false;
+        Debug.Log("攻击");
     }
 
     /// <summary>
