@@ -814,13 +814,29 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-  - eventID: 4
+  - eventID: 5
     callback:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 1400140367}
           m_TargetAssemblyTypeName: BattleView, Assembly-CSharp
-          m_MethodName: UseDice
+          m_MethodName: OnDiceDrag
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 295486925}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 3
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1400140367}
+          m_TargetAssemblyTypeName: BattleView, Assembly-CSharp
+          m_MethodName: TestFunc
           m_Mode: 2
           m_Arguments:
             m_ObjectArgument: {fileID: 295486925}
@@ -2759,8 +2775,8 @@ Camera:
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 60
-  orthographic: 0
-  orthographic size: 5
+  orthographic: 1
+  orthographic size: 3.68
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -2784,7 +2800,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1190898758}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -6.45}
+  m_LocalPosition: {x: 0, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3910,13 +3926,13 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-  - eventID: 4
+  - eventID: 3
     callback:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 1400140367}
           m_TargetAssemblyTypeName: BattleView, Assembly-CSharp
-          m_MethodName: OnDiceClick
+          m_MethodName: TestFunc
           m_Mode: 2
           m_Arguments:
             m_ObjectArgument: {fileID: 1509804477}

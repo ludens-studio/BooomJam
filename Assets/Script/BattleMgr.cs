@@ -139,7 +139,7 @@ public class BattleMgr : BaseMgr<BattleMgr>
     /// <summary>
     /// 获取当前选择的骰子是否在冷却期
     /// </summary>
-    /// <returns></returns>
+    /// <param name="diceName，例如Dice1"></param>
     public bool IsDiceFreeze(string diceName)
     {
         int id = Int32.Parse(diceName.Substring(diceName.Length-1,1)) - 1;
@@ -149,11 +149,57 @@ public class BattleMgr : BaseMgr<BattleMgr>
     /// <summary>
     /// 冷却骰子
     /// </summary>
-    /// <param name="diceName"></param>
+    /// <param name="diceName，例如Dice1"></param>
     public void FreezeDice(string diceName)
     {
         int id = Int32.Parse(diceName.Substring(diceName.Length-1,1)) - 1;
         diceList[id].freeze = true;
+    }
+
+    /// <summary>
+    /// 获取骰子状态
+    /// </summary>
+    /// <param name="diceName，例如Dice1"></param>
+    /// <returns></returns>
+    public int[] GetDiceState(string diceName)
+    {
+        int id = Int32.Parse(diceName.Substring(diceName.Length-1,1)) - 1;
+        return diceList[id].state;
+    }
+
+    /// <summary>
+    /// 掷骰时修改骰子的面的状态
+    /// </summary>
+    /// <param name="diceName，例如Dice1"></param>
+    /// <param name="id，第几个面(记得是从0开始的)"></param>
+    /// <param name="type，1：资源-恶魔；2：恶魔-资源；3：魔王全净化"></param>
+    public void ChangeDiceState(string diceName, int faceId, int type)
+    {
+        int id = Int32.Parse(diceName.Substring(diceName.Length-1,1)) - 1;
+
+        switch (type)
+        {
+            case 1:
+                diceList[id].state[faceId] = 1;
+                break;
+            case 2:
+                diceList[id].state[faceId] = 0;
+                break;
+            case 3:
+                // 全部净化
+                for (int i = 0; i < 6; i++)
+                {
+                    if (faceId == i)
+                    {
+                        // 啥也不干
+                    }
+                    else
+                    {
+                        diceList[id].state[i] = 0;
+                    }
+                }
+                break;
+        }
     }
     
 }
