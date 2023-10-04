@@ -79,7 +79,9 @@ public class Tower_Aoe : Obj
     /// </summary>
     public override void DelFromBattleMgr()
     {
+        Vector3 pos = gameObject.transform.position;
         BattleMgr.GetInstance().towers.Remove(gameObject);
+        MapMgr.GetInstance().RemoveTower((int)pos.x, (int)-pos.y);
     }
 
     /// <summary>

@@ -44,8 +44,6 @@ public class MapMgr : BaseMgr<MapMgr>
     /// </summary>
     public void RemoveTower(int x, int y)
     {
-        // 在ballteMgr中删除塔塔
-        _gridList[x, y].tower.GetComponent<Obj>().DelFromBattleMgr();
         _gridList[x, y].tower = null;
 
     }
