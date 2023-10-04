@@ -82,7 +82,9 @@ public class Tower_Aoe : Obj
         Vector3 pos = gameObject.transform.position;
         BattleMgr.GetInstance().towers.Remove(gameObject);
         MapMgr.GetInstance().RemoveTower((int)pos.x, (int)-pos.y);
-        PoolMgr.GetInstance().PushObj("Prefabs/Towers/" + gameObject.name,gameObject);
+        SetDefaultHP();
+        string name = "Prefabs/Towers/" + gameObject.name.Substring(0, gameObject.name.Length - 7);    // È¥µô(Clone)
+        PoolMgr.GetInstance().PushObj(name, gameObject);
     }
 
     /// <summary>

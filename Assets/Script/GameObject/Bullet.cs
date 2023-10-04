@@ -30,8 +30,8 @@ public class Bullet : MonoBehaviour
         {
             other.gameObject.GetComponent<Obj>().Bleed(attack);
             Debug.Log("»÷ÖÐ");
-            Destroy(gameObject);
-
+            string name = "Prefabs/Bullets/" + gameObject.name.Substring(0, gameObject.name.Length - 7);    // È¥µô(Clone)
+            PoolMgr.GetInstance().PushObj(name, gameObject);
         }
         else
         {

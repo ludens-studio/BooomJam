@@ -41,10 +41,18 @@ public class Obj : MonoBehaviour
     // 动画机
     public Animator anim;
 
+    // 原始血量
+    private float defaultHP;
+
     public enum ObjState
     {
         Active,
         Death
+    }
+
+    private void Start()
+    {
+        defaultHP = hp;
     }
 
     public void UpdateAttackSpeed()
@@ -87,6 +95,14 @@ public class Obj : MonoBehaviour
     public virtual void DelFromBattleMgr()
     {
         // 
+    }
+
+    /// <summary>
+    /// 回对象池之后需要把hp设回初始值
+    /// </summary>
+    public void SetDefaultHP()
+    {
+        hp = defaultHP;
     }
 
 

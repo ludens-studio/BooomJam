@@ -27,14 +27,14 @@ public class Bullet_Boom : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        print(other.gameObject.name);
         if (other.gameObject.CompareTag("Enemy"))
         {
             // other.gameObject.GetComponent<Obj>().Bleed(attack);
             // 若不注释上面这行，则对击中目标还会造成一次伤害
 
             Debug.Log("击中");
-            Destroy(gameObject);
+            string name = "Prefabs/Bullets/" + gameObject.name.Substring(0, gameObject.name.Length - 7);    // 去掉(Clone)
+            PoolMgr.GetInstance().PushObj(name, gameObject);
 
             Vector3 boomLocation = other.transform.position; // 爆炸点
             boomAttack(boomLocation); 
