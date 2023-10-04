@@ -151,27 +151,20 @@ public class BattleMgr : BaseMgr<BattleMgr>
     /// <param name="type">塔的类型</param>
     public void InitTower(int x, int y, string type)
     {
-        GameObject tower = null;
         int rd = Random.Range(0, 2);    //0或1
+        string name = "";
         if (rd == 0)    // 兵
-        {
-            PoolMgr.GetInstance().GetObj("Prefabs/Towers/F1-" + type,o=>
-            {
-                tower = o;
-                towers.Add(o);
-            });
-        }
+            name = "Prefabs/Towers/F1-";
         else
+            name = "Prefabs/Towers/T1-";
+        
+        PoolMgr.GetInstance().GetObj(name + type,o=>
         {
-            PoolMgr.GetInstance().GetObj("Prefabs/Towers/T1-" + type,o=>
-            {
-                tower = o;
-                towers.Add(o);
-            });
-        }
-        // Instantiate(tower);
-        tower.transform.position = new Vector3(x, -y, -0.5f);
-        MapMgr.GetInstance().SetTower(x, y, tower);
+            o.transform.parent = GameObject.Find("PoolTower").transform;
+            o.transform.position = new Vector3(x, -y, -0.5f);
+            MapMgr.GetInstance().SetTower(x, y, o);
+            towers.Add(o);
+        });
     }
     
     /// <summary>
@@ -182,26 +175,21 @@ public class BattleMgr : BaseMgr<BattleMgr>
     /// <param name="type">塔的类型</param>
     public void InitDarkTower(int x, int y, string type)
     {
-        GameObject tower = null;
+        string name = "";
+        
         int rd = Random.Range(0, 2);    //0或1
         if (rd == 0)    // 兵
-        {
-            PoolMgr.GetInstance().GetObj("Prefabs/Towers/F2-" + type,o=>
-            {
-                tower = o;
-                towers.Add(o);
-            });
-        }
+            name = "Prefabs/Towers/F2-";
         else
+            name = "Prefabs/Towers/T2-";
+        
+        PoolMgr.GetInstance().GetObj(name + type,o=>
         {
-            PoolMgr.GetInstance().GetObj("Prefabs/Towers/T2-" + type,o=>
-            {
-                tower = o;
-                towers.Add(o);
-            });
-        }
-        tower.transform.position = new Vector3(x, -y, -0.5f);
-        MapMgr.GetInstance().SetTower(x, y, tower);
+            o.transform.parent = GameObject.Find("PoolTower").transform;
+            o.transform.position = new Vector3(x, -y, -0.5f);
+            MapMgr.GetInstance().SetTower(x, y, o);
+            towers.Add(o);
+        });
     }
 
 

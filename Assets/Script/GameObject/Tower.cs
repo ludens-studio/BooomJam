@@ -31,7 +31,6 @@ public class Tower : Obj
             if(shootTower)
             {
                 Shoot();
-                Debug.Log("???");
             }
             else
             {

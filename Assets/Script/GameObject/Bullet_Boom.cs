@@ -27,6 +27,7 @@ public class Bullet_Boom : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        print(other.gameObject.name);
         if (other.gameObject.CompareTag("Enemy"))
         {
             // other.gameObject.GetComponent<Obj>().Bleed(attack);
