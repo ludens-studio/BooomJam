@@ -24,6 +24,8 @@ public class Obj : MonoBehaviour
 
     // 攻速
     public float attackSpeed;
+    [SerializeField] private float attackSpeed_true  ; 
+
     [SerializeField]private float attackSpeedTimer;
     public bool canAttack;
     public GameObject target; // 通用的，当前攻击的目标
@@ -47,11 +49,14 @@ public class Obj : MonoBehaviour
 
     public void UpdateAttackSpeed()
     {
-        if(attackSpeedTimer <= 0.001f)
+        attackSpeed_true = 1 / attackSpeed;  // 换算，策划案里面的攻速是这里实际表现的 1/speed 秒攻击一次
+
+        if (attackSpeedTimer <= 0.001f)
         {
             canAttack = true;
-            attackSpeedTimer = attackSpeed; 
-        }else
+            attackSpeedTimer = attackSpeed_true;
+        }
+        else
         {
             attackSpeedTimer -= Time.deltaTime; 
         }
