@@ -30,6 +30,9 @@ public class MapMgr : BaseMgr<MapMgr>
     public void SetTower(int x, int y, Tower tower)
     {
         _gridList[x, y].tower = tower;
+
+        // 在ballteMgr中注册塔
+        tower.AddToBattleMgr();
     }
 
     /// <summary>
@@ -40,6 +43,10 @@ public class MapMgr : BaseMgr<MapMgr>
     public void RemoveTower(int x, int y)
     {
         _gridList[x, y].tower = null;
+
+        // 在ballteMgr中删除塔塔
+        _gridList[x, y].tower.DelFromBattleMgr();
+
     }
     
     /// <summary>
