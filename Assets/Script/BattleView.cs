@@ -30,6 +30,8 @@ public class BattleView : MonoBehaviour
 
     public GameObject retryWindow;  // 重开面板
 
+    public GameObject settingWindow;    // 设置面板
+
     /// <summary>
     /// 场景中生成的骰子（唯一
     /// </summary>
@@ -220,6 +222,24 @@ public class BattleView : MonoBehaviour
     public void BackToMenu()
     {
         SceneManager.LoadScene(0,LoadSceneMode.Single);
+    }
+
+    /// <summary>
+    /// 返回游戏
+    /// </summary>
+    public void BackToGame()
+    {
+        settingWindow.SetActive(false);
+        Time.timeScale = 1;
+    }
+
+    /// <summary>
+    /// 打开设置面板
+    /// </summary>
+    public void ShowSetting()
+    {
+        Time.timeScale = 0;
+        settingWindow.SetActive(true);
     }
     
     // 随便测什么都可以
