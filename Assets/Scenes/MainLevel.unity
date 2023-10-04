@@ -3256,25 +3256,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waves:
-  - waveRate: 2
-    rate: 0.2
-    enemyObj:
-    - {fileID: 4235662185223176025, guid: 23a0cb81e3f713944ba32d30aef36faa, type: 3}
-  - waveRate: 3
-    rate: 1
-    enemyObj:
-    - {fileID: 4235662185223176025, guid: 23a0cb81e3f713944ba32d30aef36faa, type: 3}
-    - {fileID: 4235662185223176025, guid: 23a0cb81e3f713944ba32d30aef36faa, type: 3}
-    - {fileID: 4235662185223176025, guid: 23a0cb81e3f713944ba32d30aef36faa, type: 3}
-    - {fileID: 4235662185223176025, guid: 23a0cb81e3f713944ba32d30aef36faa, type: 3}
-    - {fileID: 4235662185223176025, guid: 23a0cb81e3f713944ba32d30aef36faa, type: 3}
-  - waveRate: 4
+  - waveRate: 5
     rate: 2
     enemyObj:
-    - {fileID: 4235662185223176025, guid: 23a0cb81e3f713944ba32d30aef36faa, type: 3}
-    - {fileID: 4235662185223176025, guid: 23a0cb81e3f713944ba32d30aef36faa, type: 3}
-    - {fileID: 4235662185223176025, guid: 23a0cb81e3f713944ba32d30aef36faa, type: 3}
-    - {fileID: 4235662185223176025, guid: 23a0cb81e3f713944ba32d30aef36faa, type: 3}
+    - {fileID: 6204324833779771937, guid: 42e19623e7709504da308debdd1eb5cf, type: 3}
+  - waveRate: 4
+    rate: 3
+    enemyObj:
+    - {fileID: 397412956120048591, guid: 07cba1619266b234e95de95a719fe3a3, type: 3}
+    - {fileID: 397412956120048591, guid: 07cba1619266b234e95de95a719fe3a3, type: 3}
+    - {fileID: 397412956120048591, guid: 07cba1619266b234e95de95a719fe3a3, type: 3}
+    - {fileID: 397412956120048591, guid: 07cba1619266b234e95de95a719fe3a3, type: 3}
+    - {fileID: 397412956120048591, guid: 07cba1619266b234e95de95a719fe3a3, type: 3}
+  - waveRate: 4
+    rate: 2.5
+    enemyObj:
+    - {fileID: 587069962221228619, guid: 534bae9b127c0ab48a7b9b4d615541ba, type: 3}
+    - {fileID: 587069962221228619, guid: 534bae9b127c0ab48a7b9b4d615541ba, type: 3}
+    - {fileID: 587069962221228619, guid: 534bae9b127c0ab48a7b9b4d615541ba, type: 3}
+    - {fileID: 587069962221228619, guid: 534bae9b127c0ab48a7b9b4d615541ba, type: 3}
   hp: 20
   timer: 0
   diceList:
@@ -3447,8 +3447,6 @@ MonoBehaviour:
   - {fileID: 1509804477}
   - {fileID: 73306507}
   - {fileID: 295486925}
-  bgm: {fileID: 0}
-  audioEffect: {fileID: 0}
   diceTimer: 1
 --- !u!1 &1422518236
 GameObject:

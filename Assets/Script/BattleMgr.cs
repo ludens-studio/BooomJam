@@ -97,10 +97,10 @@ public class BattleMgr : BaseMgr<BattleMgr>
                 // 波内生成的
                 for (int j = 0; j < waves[i].enemyObj.Count; j++)
                 {
-                    PoolMgr.GetInstance().GetObj("Prefabs/" + waves[i].enemyObj[j].name, o=>{
+                    PoolMgr.GetInstance().GetObj("Prefabs/Enemys/" + waves[i].enemyObj[j].name, o=>{
                         int row = Random.Range(-4, 1);    // 随机生成敌人所在的行, 0~-4
 
-                        o.transform.position = new Vector3(9, row, -0.1f);
+                        o.transform.position = new Vector3(9, row, -0.5f);
                         o.transform.parent = GameObject.Find("PoolEnemy").transform;
                 
                         enemies.Add(o);

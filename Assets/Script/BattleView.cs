@@ -114,7 +114,7 @@ public class BattleView : MonoBehaviour
             int towerType = Random.Range(1, 5); //1~4
 
             // random face
-            int rdFace = Random.Range(0, 1);
+            int rdFace = Random.Range(0, 6);
             int[] stateList = BattleMgr.GetInstance().GetDiceState(o.name);
             switch (stateList[rdFace])
             {
