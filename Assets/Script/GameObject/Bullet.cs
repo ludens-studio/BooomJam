@@ -24,11 +24,11 @@ public class Bullet : MonoBehaviour
     }
 
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerEnter(Collider other)
     {
-        if (collision.gameObject.CompareTag("Enemy"))
+        if (other.gameObject.CompareTag("Enemy"))
         {
-            collision.gameObject.GetComponent<Obj>().Bleed(attack);
+            other.gameObject.GetComponent<Obj>().Bleed(attack);
             Debug.Log("Лїжа");
             Destroy(gameObject);
 
