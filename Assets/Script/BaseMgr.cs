@@ -15,9 +15,6 @@ public class BaseMgr<T> : MonoBehaviour where T : MonoBehaviour
             GameObject obj = new GameObject();
             //设置对象的名字为脚本名
             obj.name = typeof(T).ToString();
-            //让这个单例模式对象 过场景 不移除
-            //因为 单例模式对象 往往 是存在整个程序生命周期中的
-            DontDestroyOnLoad(obj);
             instance = obj.AddComponent<T>();
         }
         return instance;
@@ -27,7 +24,6 @@ public class BaseMgr<T> : MonoBehaviour where T : MonoBehaviour
     {
         if(instance==null) instance=this as T;
         else Destroy(gameObject);
-        DontDestroyOnLoad(this);
     }
 
 }

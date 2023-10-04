@@ -126,7 +126,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4100750298174653412}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
@@ -148,6 +148,7 @@ MonoBehaviour:
   hp: 75
   speed: 0
   attackSpeed: 1.7
+  attackSpeed_true: 0
   attackSpeedTimer: 0
   canAttack: 0
   target: {fileID: 0}
@@ -157,6 +158,8 @@ MonoBehaviour:
   shootTower: 0
   Bullet: {fileID: 8170145843320807693, guid: 28c949be8af221743b55d01649ce0fc8, type: 3}
   firePoint: {fileID: 4100750297720841850}
+  isDark: 0
+  dark_debuff_Hp: 0
 --- !u!54 &4100750298174653418
 Rigidbody:
   m_ObjectHideFlags: 0

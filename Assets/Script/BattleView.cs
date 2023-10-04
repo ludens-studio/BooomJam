@@ -5,6 +5,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 using Random = UnityEngine.Random;
 
 /// <summary>
@@ -27,6 +28,8 @@ public class BattleView : MonoBehaviour
     // 骰子的冷却时间
     public int diceTimer;
 
+    public GameObject retryWindow;  // 重开面板
+
     /// <summary>
     /// 场景中生成的骰子（唯一
     /// </summary>
@@ -48,6 +51,11 @@ public class BattleView : MonoBehaviour
         string sec = (time % 60 < 10) ? "0" + (time % 60) : (time % 60).ToString();
 
         timer.text = min + ":" + sec;
+
+        if (BattleMgr.GetInstance().hp == 0)
+        {
+            retryWindow.SetActive(true);
+        }
     }
 
     /// <summary>
@@ -110,12 +118,15 @@ public class BattleView : MonoBehaviour
         // if MapMgr return empty grid/ valid grid, then player can put the dice, or dice will be hide.
         if (!BattleMgr.GetInstance().IsDiceFreeze(o.name) && MapMgr.GetInstance().IsEmptyGrid(x,y))
         {
+            // 播放冷却动画
+            o.GetComponent<Animator>().Play("CountDown");
             // random tower
             int towerType = Random.Range(1, 5); //1~4
 
             // random face
             int rdFace = Random.Range(0, 6);
             int[] stateList = BattleMgr.GetInstance().GetDiceState(o.name);
+            
             switch (stateList[rdFace])
             {
                 case 0: // 资源-》恶魔
@@ -159,10 +170,7 @@ public class BattleView : MonoBehaviour
                     }
                 }
             }
-            
-            // 播放冷却动画
-            o.GetComponent<Animator>().Play("CountDown");
-            
+
         }
         else
         {
@@ -196,6 +204,22 @@ public class BattleView : MonoBehaviour
     public void QuitGame()
     {
         Application.Quit();
+    }
+
+    /// <summary>
+    /// 重试游戏
+    /// </summary>
+    public void RetryGame()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name,LoadSceneMode.Single);
+    }
+
+    /// <summary>
+    /// 回到标题
+    /// </summary>
+    public void BackToMenu()
+    {
+        SceneManager.LoadScene(0,LoadSceneMode.Single);
     }
     
     // 随便测什么都可以
