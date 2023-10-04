@@ -95,6 +95,21 @@ public class Enemy : Obj
         transform.position += Vector3.left * speed * Time.deltaTime;
 
     }
+    
+    /// <summary>
+    /// 进入回收器
+    /// 玩家扣血，敌人回满血后回收进池子
+    /// </summary>
+    /// <param name="other"></param>
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Finish"))
+        {
+            BattleMgr.GetInstance().hp -= 1;
+            DelFromBattleMgr();
+        }
+    }
+
 
 
 }

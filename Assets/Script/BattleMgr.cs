@@ -78,7 +78,7 @@ public class BattleMgr : BaseMgr<BattleMgr>
         StartCoroutine(Timer());
         
     }
-    
+
 
     /// <summary>
     /// 怪物攻击波
@@ -87,7 +87,7 @@ public class BattleMgr : BaseMgr<BattleMgr>
     IEnumerator WaveSpawner()
     {
         yield return new WaitForSeconds(beforeWaveStartTime);
-        while (hp > 0)
+        while (hp >= 1 )
         {
             int n = waves.Length;
             // 打乱顺序
@@ -102,6 +102,10 @@ public class BattleMgr : BaseMgr<BattleMgr>
                 // 波内生成的
                 for (int j = 0; j < waves[i].enemyObj.Count; j++)
                 {
+                    if (hp == 0)
+                    {
+                        yield break;
+                    }
                     PoolMgr.GetInstance().GetObj("Prefabs/Enemys/" + waves[i].enemyObj[j].name, o=>{
                         int row = Random.Range(-4, 1);    // 随机生成敌人所在的行, 0~-4
 
@@ -124,7 +128,7 @@ public class BattleMgr : BaseMgr<BattleMgr>
     /// <returns></returns>
     IEnumerator Timer()
     {
-        while (true)
+        while (hp >= 1)
         {
             timer += 1;
             yield return new WaitForSeconds(1.0f);
