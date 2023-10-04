@@ -152,10 +152,40 @@ public class BattleMgr : BaseMgr<BattleMgr>
     public void InitTower(int x, int y, string type)
     {
         GameObject tower;
-        //tower = ResMgr.GetInstance().Load<GameObject>("Prefabs/Towers/T1-" + type);
-        tower = ResMgr.GetInstance().Load<GameObject>("Prefabs/T" + type);
+        int rd = Random.Range(0, 2);    //0或1
+        if (rd == 0)    // 兵
+        {
+            tower = ResMgr.GetInstance().Load<GameObject>("Prefabs/Towers/F1-" + type);
+        }
+        else
+        {
+            tower = ResMgr.GetInstance().Load<GameObject>("Prefabs/Towers/T1-" + type);
+        }
         // Instantiate(tower);
-        tower.transform.position = new Vector3(x, -y, -0.1f);
+        tower.transform.position = new Vector3(x, -y, -0.5f);
+        MapMgr.GetInstance().SetTower(x, y, tower);
+    }
+    
+    /// <summary>
+    /// 实例化**暗**塔并放置在地图上
+    /// </summary>
+    /// <param name="x">x轴坐标</param>
+    /// <param name="y">y轴坐标</param>
+    /// <param name="type">塔的类型</param>
+    public void InitDarkTower(int x, int y, string type)
+    {
+        GameObject tower;
+        int rd = Random.Range(0, 2);    //0或1
+        if (rd == 0)    // 兵
+        {
+            tower = ResMgr.GetInstance().Load<GameObject>("Prefabs/Towers/F2-" + type);
+        }
+        else
+        {
+            tower = ResMgr.GetInstance().Load<GameObject>("Prefabs/Towers/T2-" + type);
+        }
+        // Instantiate(tower);
+        tower.transform.position = new Vector3(x, -y, -0.5f);
         MapMgr.GetInstance().SetTower(x, y, tower);
     }
 
@@ -211,7 +241,7 @@ public class BattleMgr : BaseMgr<BattleMgr>
     /// </summary>
     /// <param name="diceName">例如Dice1</param>
     /// <param name="faceId">第几个面(记得是从0开始的)</param>
-    /// <param name="type">1：资源-恶魔；2：恶魔-资源；3：魔王全净化</param>
+    /// <param name="type">1：资源-恶魔；2：恶魔-资源；3：魔王全净化；4：全部变魔王</param>
     public void ChangeDiceState(string diceName, int faceId, int type)
     {
         int id = Int32.Parse(diceName.Substring(diceName.Length-1,1)) - 1;
@@ -229,6 +259,13 @@ public class BattleMgr : BaseMgr<BattleMgr>
                 for (int i = 0; i < 5; i++)
                 {
                     diceList[id].state[i] = 0;
+                }
+                break;
+            case 4:
+                // 全部变魔王
+                for (int i = 0; i < 5; i++)
+                {
+                    diceList[id].state[i] = 2;
                 }
                 break;
         }

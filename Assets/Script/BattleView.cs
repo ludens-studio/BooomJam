@@ -9,7 +9,8 @@ using Random = UnityEngine.Random;
 
 /// <summary>
 /// UI组件的更新
-/// 骰子事件
+/// 骰子相关事件
+/// 商店
 /// </summary>
 public class BattleView : MonoBehaviour
 {
@@ -105,35 +106,56 @@ public class BattleView : MonoBehaviour
         Vector3 position = _dice.transform.position;
         int x = Mathf.RoundToInt(position.x);
         int y = -Mathf.RoundToInt(position.y);
-        
+
         // if MapMgr return empty grid/ valid grid, then player can put the dice, or dice will be hide.
         if (!BattleMgr.GetInstance().IsDiceFreeze(o.name) && MapMgr.GetInstance().IsEmptyGrid(x,y))
         {
             // random tower
             int towerType = Random.Range(1, 5); //1~4
-            // print(towerType);
-            
+
             // random face
-            int rdFace = Random.Range(0, 6);
+            int rdFace = Random.Range(0, 1);
             int[] stateList = BattleMgr.GetInstance().GetDiceState(o.name);
             switch (stateList[rdFace])
             {
                 case 0: // 资源-》恶魔
+                    print("投到资源面" + towerType.ToString());
                     BattleMgr.GetInstance().ChangeDiceState(o.name, rdFace, 1);
                     BattleMgr.GetInstance().InitTower(x, y, towerType.ToString());
                     o.transform.GetChild(rdFace).GetComponent<Image>().color = Color.yellow;
                     break;
                 case 1: // 恶魔-》资源
+                    print("投到恶魔面" + towerType.ToString());
                     BattleMgr.GetInstance().ChangeDiceState(o.name, rdFace, 2);
+                    BattleMgr.GetInstance().InitDarkTower(x, y, towerType.ToString());
                     o.transform.GetChild(rdFace).GetComponent<Image>().color = Color.green;
                     break;
                 case 2: // 魔王-》全净化为资源
+                    print("投到魔王面");
                     BattleMgr.GetInstance().ChangeDiceState(o.name, rdFace, 3);
                     for (int i = 0; i < 5; i++)
                     {
                         o.transform.GetChild(i).GetComponent<Image>().color = Color.green;
                     }
                     break;
+            }
+
+            // 判断是否除魔王面外全为恶魔面
+            for (int i = 0; i < 5; i++)
+            {
+                if (stateList[i] == 0)
+                {
+                    return;
+                }
+                if (i == 4 && stateList[i] == 1)
+                {
+                    // 除魔王面外全部为恶魔面，则所有面都转换为魔王面
+                    BattleMgr.GetInstance().ChangeDiceState(o.name, rdFace, 4);
+                    for (int j = 0; j < 5; j++)
+                    {
+                        o.transform.GetChild(j).GetComponent<Image>().color = Color.red;
+                    }
+                }
             }
             
         }
