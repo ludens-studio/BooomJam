@@ -80,12 +80,12 @@ public class Obj : MonoBehaviour
         // todo: obj pool
     }
 
-    protected virtual void AddToBattleMgr()
+    public virtual void AddToBattleMgr()
     {
         // 
     }
 
-    protected virtual void DelFromBattleMgr()
+    public virtual void DelFromBattleMgr()
     {
         // 
     }

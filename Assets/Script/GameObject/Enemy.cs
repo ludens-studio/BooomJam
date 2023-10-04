@@ -13,14 +13,14 @@ public class Enemy : Obj
     /// 
     /// 加入到Mgr中
     ///
-    protected override void AddToBattleMgr()
+    public override void AddToBattleMgr()
     {
         BattleMgr.GetInstance().enemies.Add(gameObject); 
     }
     /// <summary>
     /// 从Mgr中删除
     /// </summary>
-    protected override void DelFromBattleMgr()
+    public override void DelFromBattleMgr()
     {
         BattleMgr.GetInstance().enemies.Remove(gameObject);
     }

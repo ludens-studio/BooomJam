@@ -23,11 +23,6 @@ public class BattleView : MonoBehaviour
 
     public GameObject[] dices;
 
-    public AudioSource bgm;
-
-    public AudioSource audioEffect;
-    
-    
     // 骰子的冷却时间
     public int diceTimer;
 
@@ -40,10 +35,6 @@ public class BattleView : MonoBehaviour
     void Start()
     {
         hp.maxValue = BattleMgr.GetInstance().hp;
-        /*for (int i = 0; i < dices.Length; i++)
-        {
-            dices[i].transform.GetComponentsInChildren<Image>()
-        }*/
     }
 
     // Update is called once per frame
@@ -55,8 +46,6 @@ public class BattleView : MonoBehaviour
         string min = (time / 60 < 10) ? "0" + (time / 60): (time / 60).ToString();
         string sec = (time % 60 < 10) ? "0" + (time % 60) : (time % 60).ToString();
 
-        
-        
         timer.text = min + ":" + sec;
     }
 
@@ -121,7 +110,8 @@ public class BattleView : MonoBehaviour
         if (!BattleMgr.GetInstance().IsDiceFreeze(o.name) && MapMgr.GetInstance().IsEmptyGrid(x,y))
         {
             // random tower
-            int towerType = Random.Range(0, 5);
+            int towerType = Random.Range(1, 5); //1~4
+            // print(towerType);
             
             // random face
             int rdFace = Random.Range(0, 6);

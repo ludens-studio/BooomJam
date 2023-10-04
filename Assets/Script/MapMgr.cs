@@ -19,33 +19,34 @@ public class MapMgr : BaseMgr<MapMgr>
     [System.Serializable]
     public struct Coordinate
     {
-        public Tower tower;
+        public GameObject tower;
     }
 
     /// <summary>
     /// 地图数据结构放置塔
+    /// BattleMgr放置塔
     /// <param name="x">x轴坐标</param>
     /// <param name="y">y轴坐标,记得取绝对值</param>
     /// </summary>
-    public void SetTower(int x, int y, Tower tower)
+    public void SetTower(int x, int y, GameObject tower)
     {
         _gridList[x, y].tower = tower;
 
-        // 在ballteMgr中注册塔
-        tower.AddToBattleMgr();
+        // 在battleeMgr中注册塔
+        tower.GetComponent<Obj>().AddToBattleMgr();
     }
 
     /// <summary>
     /// 地图数据结构移除塔
+    /// BattleMgr移除塔
     /// <param name="x">x轴坐标</param>
     /// <param name="y">y轴坐标,记得取绝对值</param>
     /// </summary>
     public void RemoveTower(int x, int y)
     {
-        _gridList[x, y].tower = null;
-
         // 在ballteMgr中删除塔塔
-        _gridList[x, y].tower.DelFromBattleMgr();
+        _gridList[x, y].tower.GetComponent<Obj>().DelFromBattleMgr();
+        _gridList[x, y].tower = null;
 
     }
     
@@ -77,7 +78,7 @@ public class MapMgr : BaseMgr<MapMgr>
     /// <returns></returns>
     public bool IsValidGrid(int x, int y)
     {
-        if (x > 4 || y > 9 || x < 0 || y < 0)
+        if (x > 9 || y > 4 || x < 0 || y < 0)
             return false;
         else
             return true;

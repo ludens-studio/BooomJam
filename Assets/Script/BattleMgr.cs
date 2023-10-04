@@ -152,11 +152,11 @@ public class BattleMgr : BaseMgr<BattleMgr>
     public void InitTower(int x, int y, string type)
     {
         GameObject tower;
-        print(type);
+        //tower = ResMgr.GetInstance().Load<GameObject>("Prefabs/Towers/T1-" + type);
         tower = ResMgr.GetInstance().Load<GameObject>("Prefabs/T" + type);
         // Instantiate(tower);
         tower.transform.position = new Vector3(x, -y, -0.1f);
-        MapMgr.GetInstance().SetTower(x, y, tower.GetComponent<Tower>());
+        MapMgr.GetInstance().SetTower(x, y, tower);
     }
 
     // 回对象池以及死亡效果结算

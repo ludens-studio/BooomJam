@@ -121,8 +121,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attack: 0
-  hp: 0
+  haveTarget: 0
+  hp: 10
   speed: 0
-  shootSpeed: 0
+  attackSpeed: 0
+  attackSpeed_true: 0
+  attackSpeedTimer: 0
+  canAttack: 0
+  target: {fileID: 0}
+  attackRange: 0
   state: 0
   anim: {fileID: 0}
+  shootTower: 0
+  Bullet: {fileID: 0}
+  firePoint: {fileID: 0}
+  isDark: 0
+  dark_debuff_Hp: 0

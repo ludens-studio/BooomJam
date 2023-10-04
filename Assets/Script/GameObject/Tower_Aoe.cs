@@ -70,14 +70,14 @@ public class Tower_Aoe : Obj
     /// 
     /// 加入到Mgr中
     ///
-    public void AddToBattleMgr()
+    public override void AddToBattleMgr()
     {
         BattleMgr.GetInstance().towers.Add(gameObject);
     }
     /// <summary>
     /// 从Mgr中删除
     /// </summary>
-    public void DelFromBattleMgr()
+    public override void DelFromBattleMgr()
     {
         BattleMgr.GetInstance().towers.Remove(gameObject);
     }
