@@ -128,11 +128,13 @@ public class BattleView : MonoBehaviour
                     print("投到恶魔面" + towerType.ToString());
                     BattleMgr.GetInstance().ChangeDiceState(o.name, rdFace, 2);
                     BattleMgr.GetInstance().InitDarkTower(x, y, towerType.ToString());
+                    // init 精英怪
                     o.transform.GetChild(rdFace).GetComponent<Image>().color = Color.green;
                     break;
                 case 2: // 魔王-》全净化为资源
                     print("投到魔王面");
                     BattleMgr.GetInstance().ChangeDiceState(o.name, rdFace, 3);
+                    // init 魔王
                     for (int i = 0; i < 5; i++)
                     {
                         o.transform.GetChild(i).GetComponent<Image>().color = Color.green;
@@ -158,6 +160,9 @@ public class BattleView : MonoBehaviour
                 }
             }
             
+            // 播放冷却动画
+            o.GetComponent<Animator>().Play("CountDown");
+            
         }
         else
         {
@@ -172,7 +177,17 @@ public class BattleView : MonoBehaviour
     /// </summary>
     public void PauseGame()
     {
-        Time.timeScale = 0;
+        // 至少有三个塔才允许进行交易
+        if (BattleMgr.GetInstance().towers.Count >= 3)
+        {
+            Time.timeScale = 0;
+            // 播放交易询问的动画，上面有对话框和按钮，按钮有别的事件
+        }
+        else
+        {
+            // 播放一个无法交易的动画
+        }
+
     }
 
     /// <summary>

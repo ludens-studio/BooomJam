@@ -22,10 +22,14 @@ public class BattleMgr : BaseMgr<BattleMgr>
         public List<GameObject> enemyObj;     // 波内会出现的敌人（可以按顺序也可以纯随机）
     }
     
+    [Header("怪物波配置")]
+    
     /// <summary>
     /// 波数配置
     /// </summary>
     public Wave[] waves;
+
+    public float beforeWaveStartTime;   // 怪物波开始之前的空隙时间
 
     [Header("UI interface")]
     public int hp;
@@ -34,7 +38,7 @@ public class BattleMgr : BaseMgr<BattleMgr>
 
     public string Buff { get; set; }
 
-    [Header("Dices")]
+    [Header("骰子")]
     public Dice[] diceList;
     
     /// <summary>
@@ -82,6 +86,7 @@ public class BattleMgr : BaseMgr<BattleMgr>
     /// <returns></returns>
     IEnumerator WaveSpawner()
     {
+        yield return new WaitForSeconds(beforeWaveStartTime);
         while (hp > 0)
         {
             int n = waves.Length;
