@@ -151,15 +151,23 @@ public class BattleMgr : BaseMgr<BattleMgr>
     /// <param name="type">塔的类型</param>
     public void InitTower(int x, int y, string type)
     {
-        GameObject tower;
+        GameObject tower = null;
         int rd = Random.Range(0, 2);    //0或1
         if (rd == 0)    // 兵
         {
-            tower = ResMgr.GetInstance().Load<GameObject>("Prefabs/Towers/F1-" + type);
+            PoolMgr.GetInstance().GetObj("Prefabs/Towers/F1-" + type,o=>
+            {
+                tower = o;
+                towers.Add(o);
+            });
         }
         else
         {
-            tower = ResMgr.GetInstance().Load<GameObject>("Prefabs/Towers/T1-" + type);
+            PoolMgr.GetInstance().GetObj("Prefabs/Towers/T1-" + type,o=>
+            {
+                tower = o;
+                towers.Add(o);
+            });
         }
         // Instantiate(tower);
         tower.transform.position = new Vector3(x, -y, -0.5f);
@@ -167,38 +175,35 @@ public class BattleMgr : BaseMgr<BattleMgr>
     }
     
     /// <summary>
-    /// 实例化**暗**塔并放置在地图上
+    /// 实例化*暗*塔并放置在地图上
     /// </summary>
     /// <param name="x">x轴坐标</param>
     /// <param name="y">y轴坐标</param>
     /// <param name="type">塔的类型</param>
     public void InitDarkTower(int x, int y, string type)
     {
-        GameObject tower;
+        GameObject tower = null;
         int rd = Random.Range(0, 2);    //0或1
         if (rd == 0)    // 兵
         {
-            tower = ResMgr.GetInstance().Load<GameObject>("Prefabs/Towers/F2-" + type);
+            PoolMgr.GetInstance().GetObj("Prefabs/Towers/F2-" + type,o=>
+            {
+                tower = o;
+                towers.Add(o);
+            });
         }
         else
         {
-            tower = ResMgr.GetInstance().Load<GameObject>("Prefabs/Towers/T2-" + type);
+            PoolMgr.GetInstance().GetObj("Prefabs/Towers/T2-" + type,o=>
+            {
+                tower = o;
+                towers.Add(o);
+            });
         }
-        // Instantiate(tower);
         tower.transform.position = new Vector3(x, -y, -0.5f);
         MapMgr.GetInstance().SetTower(x, y, tower);
     }
 
-    // 回对象池以及死亡效果结算
-    public void EnemyDeath()
-    {
-        
-    }
-
-    public void TowerDeath()
-    {
-        
-    }
 
     /// <summary>
     /// 获取当前选择的骰子是否在冷却期

@@ -77,7 +77,6 @@ public class Obj : MonoBehaviour
     {
         DelFromBattleMgr(); // 从对应的列表中删除该对象
         gameObject.SetActive(false);
-        // todo: obj pool
     }
 
     public virtual void AddToBattleMgr()

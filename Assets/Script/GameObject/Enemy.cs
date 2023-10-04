@@ -23,6 +23,7 @@ public class Enemy : Obj
     public override void DelFromBattleMgr()
     {
         BattleMgr.GetInstance().enemies.Remove(gameObject);
+        PoolMgr.GetInstance().PushObj("Prefabs/Enemys/" + gameObject.name,gameObject);
     }
 
 

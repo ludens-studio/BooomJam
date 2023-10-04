@@ -69,12 +69,14 @@ public class Tower : Obj
     }
     /// <summary>
     /// 从Mgr中删除
+    /// 回到对象池
     /// </summary>
     public override void DelFromBattleMgr()
     {
         Vector3 pos = gameObject.transform.position;
         BattleMgr.GetInstance().towers.Remove(gameObject);
         MapMgr.GetInstance().RemoveTower((int)pos.x, (int)-pos.y);
+        PoolMgr.GetInstance().PushObj("Prefabs/Towers/" + gameObject.name,gameObject);
     }
 
     /// <summary>
@@ -127,13 +129,13 @@ public class Tower : Obj
     /// </summary>
     public void Idle()
     {
-        // todo: 这个也是，就是之后加一个动画机，有一些是动画事件
+        // todo: 未进攻时
         //anim.speed = 1;
         //anim.Play("idle");
     }
 
     /// <summary>
-    /// 动画事件，发射子弹
+    /// 发射子弹
     /// </summary>
     public void Shoot()
     {

@@ -46,6 +46,7 @@ public class Tower_Ray : Obj
         Vector3 pos = gameObject.transform.position;
         BattleMgr.GetInstance().towers.Remove(gameObject);
         MapMgr.GetInstance().RemoveTower((int)pos.x, (int)-pos.y);
+        PoolMgr.GetInstance().PushObj("Prefabs/Towers/" + gameObject.name,gameObject);
     }
 
     /// <summary>
