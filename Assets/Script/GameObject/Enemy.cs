@@ -50,7 +50,7 @@ public class Enemy : Obj
     private void Update()
     {
         SkillCheck();
-        UseBuffTimer(); 
+        
         checkTarget(); // 检测目标 !!! 目前只是使用激光+攻击距离检测
         UpdateAttackSpeed();
 
@@ -80,6 +80,11 @@ public class Enemy : Obj
             Walk();
 
         }
+    }
+
+    private void FixedUpdate()
+    {
+        UseBuffTimer();
     }
 
     /// <summary>

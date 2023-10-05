@@ -161,15 +161,19 @@ public class Obj : MonoBehaviour
 
     public void UseBuffTimer()
     {
-        if(BuffTimer <= 0.0f)
+        if(buffs.Count> 0)
         {
-            BuffTimer = 1.0f; 
-            UseBuffs();
+            if (BuffTimer <= 0.0f)
+            {
+                BuffTimer = 1.0f;
+                UseBuffs();
+            }
+            else
+            {
+                BuffTimer -= Time.fixedDeltaTime;
+            }
         }
-        else
-        {
-            BuffTimer -= Time.fixedDeltaTime; 
-        }
+
     }
 
     public void AddBuff(Buff buff)
@@ -191,7 +195,7 @@ public class Obj : MonoBehaviour
                 }
                 else
                 {
-                    // _buff.UseBuff();
+                     _buff.UseBuff();
                 }
             }
         }
