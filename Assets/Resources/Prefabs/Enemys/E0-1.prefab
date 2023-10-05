@@ -97,6 +97,7 @@ GameObject:
   - component: {fileID: 2249909054583975361}
   - component: {fileID: 2249909054583975365}
   - component: {fileID: 5674884441881580499}
+  - component: {fileID: 7671361704228612527}
   m_Layer: 6
   m_Name: E0-1
   m_TagString: Enemy
@@ -223,3 +224,34 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &7671361704228612527
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2249909054583975362}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a9902e5ba992c764ab7353768e6ec339, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attack: 500
+  haveTarget: 0
+  hp: 1000
+  speed: 0.8
+  attackSpeed: 0.5
+  attackSpeed_true: 0
+  attackSpeedTimer: 0
+  canAttack: 0
+  target: {fileID: 0}
+  attackRange: 0
+  state: 0
+  anim: {fileID: 0}
+  ToNextLevelHp: 250
+  UpLevel: 0
+  newSpeed: 1.2
+  healEnemy_Time: 2
+  healEnemy_Range: 20
+  healEnemy_amount: 25
+  healEnemy_CD: 5

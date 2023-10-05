@@ -47,8 +47,10 @@ public class Enemy : Obj
 
     private void Update()
     {
+        SkillCheck();
         checkTarget(); // 检测目标 !!! 目前只是使用激光+攻击距离检测
         UpdateAttackSpeed(); 
+        
 
         // 这一行有目标,Attack
         if (haveTarget)
@@ -71,7 +73,7 @@ public class Enemy : Obj
     /// <summary>
     /// 检测攻击范围内是否有目标
     /// </summary>
-    public void checkTarget()
+    public virtual void checkTarget()
     {
         // ! 这部分塔的激光朝右打，怪的激光朝左打。如果有特殊需求再改
         //==================================================
@@ -107,6 +109,14 @@ public class Enemy : Obj
     {
 
         transform.position += Vector3.left * speed * Time.deltaTime;
+
+    }
+    
+    /// <summary>
+    /// 检测是否释放技能(如果有)
+    /// </summary>
+    public virtual void SkillCheck()
+    {
 
     }
     

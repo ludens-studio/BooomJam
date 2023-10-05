@@ -118,7 +118,7 @@ public class Obj : MonoBehaviour
     /// <summary>
     /// 受伤
     /// </summary>
-    public void Bleed(float harm)
+    public virtual void Bleed(float harm)
     {
         hp -= harm;
         if (hp <= 0)
