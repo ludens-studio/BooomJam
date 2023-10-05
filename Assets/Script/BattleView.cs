@@ -15,6 +15,7 @@ using Random = UnityEngine.Random;
 /// </summary>
 public class BattleView : MonoBehaviour
 {
+    [Header("战斗主界面")]
     public Slider hp;
 
     public TMP_Text timer;
@@ -22,15 +23,20 @@ public class BattleView : MonoBehaviour
     public Button setting;
 
     public Button shop;
-
+    
+    [Header("骰子")]
     public GameObject[] dices;
 
     // 骰子的冷却时间
     public int diceTimer;
 
+    [Header("UI 面板")]
     public GameObject retryWindow;  // 重开面板
 
     public GameObject settingWindow;    // 设置面板
+
+    public GameObject loadingWindow;    // 加载面板
+    public TMP_Text loadingBar;         // 加载进度条
 
     /// <summary>
     /// 场景中生成的骰子（唯一
@@ -41,6 +47,7 @@ public class BattleView : MonoBehaviour
     void Start()
     {
         hp.maxValue = BattleMgr.GetInstance().hp;
+        StartCoroutine(TransformInput(3.0f));
     }
 
     // Update is called once per frame
@@ -186,6 +193,36 @@ public class BattleView : MonoBehaviour
         {
             // 隐藏骰子（只是放到了远方
             GameObject.FindWithTag("Dice").transform.position = new Vector3(100, 100, 0);
+        }
+        
+    }
+    
+    /// <summary>
+    /// 非线性进度条（伪加载）
+    /// 用于关卡开始
+    /// </summary>
+    /// <param name="duration">变换时间</param>
+    /// <returns></returns>
+    IEnumerator TransformInput(float duration)
+    {
+        float startTime = Time.time;
+        float endTime = startTime + duration;
+        
+        float baseNum = 10f;
+        // 对数的最大值
+        float maxValue = Mathf.Log(100, baseNum);
+
+        while (Time.time <= endTime)
+        {
+            float t = (Time.time - startTime) / duration;
+            // 将时间比例映射到[0, maxValue]区间
+            float mappedT = Mathf.Lerp(0, maxValue, t);
+            // 非线性变换
+            float result = Mathf.Pow(baseNum, mappedT);
+            // 更新进度条
+            loadingBar.text = Mathf.RoundToInt(result) + "%";
+
+            yield return null;
         }
         
     }
