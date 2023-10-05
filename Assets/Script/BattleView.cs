@@ -54,9 +54,17 @@ public class BattleView : MonoBehaviour
 
         timer.text = min + ":" + sec;
 
+        // 血量为0，游戏结束
         if (BattleMgr.GetInstance().hp == 0)
         {
-            retryWindow.SetActive(true);
+            if (BattleMgr.GetInstance().hasReachKilled)
+            {
+                // todo: 特殊剧情(此处可以播动画，在动画末尾加上GameOver()事件即可)
+            }
+            else
+            {
+                GameOver();
+            }
         }
     }
 
@@ -180,6 +188,14 @@ public class BattleView : MonoBehaviour
             GameObject.FindWithTag("Dice").transform.position = new Vector3(100, 100, 0);
         }
         
+    }
+
+    /// <summary>
+    /// 游戏结束，打开面板
+    /// </summary>
+    public void GameOver()
+    {
+        retryWindow.SetActive(true);
     }
     
     /// <summary>
