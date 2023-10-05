@@ -10,6 +10,8 @@ using static UnityEngine.GraphicsBuffer;
 public class Enemy : Obj
 {
 
+    public Buff testBuff; 
+
     /// <summary>
     /// 检测是否因为击杀数而升级
     /// </summary>
@@ -48,9 +50,19 @@ public class Enemy : Obj
     private void Update()
     {
         SkillCheck();
+        UseBuffTimer(); 
         checkTarget(); // 检测目标 !!! 目前只是使用激光+攻击距离检测
-        UpdateAttackSpeed(); 
-        
+        UpdateAttackSpeed();
+
+        if (Input.GetKeyDown(KeyCode.K)){
+            testBuff.SetBuffTarget(this); 
+            AddBuff(testBuff); 
+        }
+
+        if (Input.GetKeyDown(KeyCode.J))
+        {
+            RemoveBuff(testBuff);
+        }
 
         // 这一行有目标,Attack
         if (haveTarget)

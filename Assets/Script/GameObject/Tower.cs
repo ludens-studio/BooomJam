@@ -22,6 +22,7 @@ public class Tower : Obj
     private void Update()
     {
         darkTimer(); // 暗属性扣血
+        UseBuffTimer(); 
         checkTarget(); // 检测目标 !!! 目前只是使用激光+攻击距离检测
         UpdateAttackSpeed();
 

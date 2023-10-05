@@ -44,6 +44,10 @@ public class Obj : MonoBehaviour
     // 原始血量
     private float defaultHP;
 
+    // Buff
+    [SerializeField] private float BuffTimer = 1.0f; 
+    public List<Buff> buffs= new List<Buff>();
+
     public enum ObjState
     {
         Active,
@@ -152,6 +156,52 @@ public class Obj : MonoBehaviour
         distance = Vector3.Distance(a.transform.position, gameObject.transform.position);
 
         return distance;
+    }
+
+
+    public void UseBuffTimer()
+    {
+        if(BuffTimer <= 0.0f)
+        {
+            BuffTimer = 1.0f; 
+            UseBuffs();
+        }
+        else
+        {
+            BuffTimer -= Time.fixedDeltaTime; 
+        }
+    }
+
+    public void AddBuff(Buff buff)
+    {
+        buff.SetBuffTarget(this); 
+        buffs.Add(buff);
+        buff.EnterBuff();
+    }
+
+    public void UseBuffs()
+    {
+        if(buffs.Count > 0)
+        {
+            foreach (Buff _buff in buffs)
+            {
+                if (_buff.count <= 0)
+                {
+                    RemoveBuff(_buff);
+                }
+                else
+                {
+                    // _buff.UseBuff();
+                }
+            }
+        }
+
+    }
+
+    public void RemoveBuff(Buff buff)
+    {
+        buff.ExitBuff();
+        buffs.Remove(buff);
     }
 
     // 测试用=================
