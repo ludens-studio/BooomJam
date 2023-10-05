@@ -118,6 +118,7 @@ public class BattleMgr : BaseMgr<BattleMgr>
 
                         o.transform.position = new Vector3(9, row, -0.5f);
                         o.transform.parent = GameObject.Find("PoolEnemy").transform;
+                        o.gameObject.GetComponent<Enemy>().checkLevelUp(); //检测是否加血
                 
                         enemies.Add(o);
                     });

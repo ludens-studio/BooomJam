@@ -4992,6 +4992,10 @@ MonoBehaviour:
   diceTime: 3
   towers: []
   enemies: []
+  killedEnemy: 0
+  nextLevelKilled: 3
+  hasReachKilled: 0
+  enemyAttackUp: 1
 --- !u!4 &1361096408
 Transform:
   m_ObjectHideFlags: 0

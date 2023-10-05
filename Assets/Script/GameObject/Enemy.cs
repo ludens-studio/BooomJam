@@ -11,6 +11,19 @@ public class Enemy : Obj
 {
 
     /// <summary>
+    /// 检测是否因为击杀数而升级
+    /// </summary>
+    public void checkLevelUp()
+    {
+        if(BattleMgr.GetInstance().hasReachKilled)
+        {
+            // 如果已经到达
+            float _upAttack = BattleMgr.GetInstance().enemyAttackUp; 
+            attack = attack * (1 + _upAttack);
+        }
+    }
+
+    /// <summary>
     /// 加入到Mgr中
     /// </summary>
     public override void AddToBattleMgr()
