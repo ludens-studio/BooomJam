@@ -204,7 +204,7 @@ MonoBehaviour:
   attackSpeedTimer: 0
   canAttack: 0
   target: {fileID: 0}
-  attackRange: 2.01
+  attackRange: 1.3
   state: 0
   anim: {fileID: 0}
 --- !u!54 &2203626454115496001

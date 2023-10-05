@@ -25,6 +25,7 @@ public class Enemy : Obj
     public override void DelFromBattleMgr()
     {
         BattleMgr.GetInstance().enemies.Remove(gameObject);
+        BattleMgr.GetInstance().enemyKilled(); 
         SetDefaultHP();
         string name = "Prefabs/Enemys/" + gameObject.name.Substring(0, gameObject.name.Length - 7);    // 去掉(Clone)
         PoolMgr.GetInstance().PushObj(name, gameObject);

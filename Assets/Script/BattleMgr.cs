@@ -69,7 +69,14 @@ public class BattleMgr : BaseMgr<BattleMgr>
         /// </summary>
         public bool freeze;
     }
-    
+
+
+    [Header("游戏进程相关")]
+    public int killedEnemy = 0; // 已经击杀的怪物数量    
+    public int nextLevelKilled; // 到达N之后解锁新剧情（有需求的话这里可以改成list）
+    public bool hasReachKilled = false; //是否已经到达指定数量n
+    public float enemyAttackUp; // 到达后新生成的敌人应增加的攻击力（这里写x%）
+
 
     // Start is called before the first frame update
     void Start()
@@ -275,5 +282,19 @@ public class BattleMgr : BaseMgr<BattleMgr>
         FreezeDice(diceName);
     }
 
-    
+    /// <summary>
+    /// 每当有enemy被击杀
+    /// </summary>
+    public void enemyKilled()
+    {
+        killedEnemy++; 
+        if(!hasReachKilled)
+        {
+            if (killedEnemy >= nextLevelKilled)
+            {
+                hasReachKilled = true;
+            }
+        }
+
+    }
 }
