@@ -201,14 +201,6 @@ public class BattleView : MonoBehaviour
     }
 
     /// <summary>
-    /// 退出游戏
-    /// </summary>
-    public void QuitGame()
-    {
-        Application.Quit();
-    }
-
-    /// <summary>
     /// 重试游戏
     /// </summary>
     public void RetryGame()
