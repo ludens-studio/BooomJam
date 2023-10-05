@@ -75,6 +75,7 @@ public class Tower : Obj
         Vector3 pos = gameObject.transform.position;
         BattleMgr.GetInstance().towers.Remove(gameObject);
         MapMgr.GetInstance().RemoveTower((int)pos.x, (int)-pos.y);
+        MapMgr.GetInstance().ReleaseGrid((int)pos.x, (int)-pos.y);
         SetDefaultHP();
         string name = "Prefabs/Towers/" + gameObject.name.Substring(0, gameObject.name.Length - 7);    // 去掉(Clone)
         PoolMgr.GetInstance().PushObj(name, gameObject);

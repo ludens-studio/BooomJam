@@ -198,7 +198,7 @@ MonoBehaviour:
   attack: 25
   haveTarget: 0
   hp: 200
-  speed: 1
+  speed: 0.3
   attackSpeed: 1
   attackSpeed_true: 0
   attackSpeedTimer: 0

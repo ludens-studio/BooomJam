@@ -197,6 +197,7 @@ public class BattleMgr : BaseMgr<BattleMgr>
             o.transform.parent = GameObject.Find("PoolTower").transform;
             o.transform.position = new Vector3(x, -y, -0.5f);
             MapMgr.GetInstance().SetTower(x, y, o);
+            MapMgr.GetInstance().LockGrid(x, y);
             towers.Add(o);
         });
     }

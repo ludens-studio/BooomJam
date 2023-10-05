@@ -20,6 +20,7 @@ public class MapMgr : BaseMgr<MapMgr>
     public struct Coordinate
     {
         public GameObject tower;
+        public bool lockGrid;
     }
 
     /// <summary>
@@ -60,12 +61,11 @@ public class MapMgr : BaseMgr<MapMgr>
             return false;
         
 
-        if (_gridList[x, y].tower == null)// 空的
+        if (_gridList[x, y].tower == null && !_gridList[x,y].lockGrid)// 空的且未被锁住格子
             return true;
         else
             return false;
         
-            
     }
 
     /// <summary>
@@ -80,5 +80,33 @@ public class MapMgr : BaseMgr<MapMgr>
             return false;
         else
             return true;
+    }
+
+    /// <summary>
+    /// 暗塔放置
+    /// 锁住左右两边的格子
+    /// <param name="x">x轴坐标</param>
+    /// <param name="y">y轴坐标,记得取绝对值</param>
+    /// </summary>
+    public void LockGrid(int x, int y)
+    {
+        if(IsValidGrid(x - 1, y) && IsEmptyGrid(x - 1, y))  // 合法格子而且是空的
+            _gridList[x - 1, y].lockGrid = true;
+        if(IsValidGrid(x + 1, y) && IsEmptyGrid(x + 1, y))
+            _gridList[x + 1, y].lockGrid = true;
+    }
+
+    /// <summary>
+    /// 暗塔死亡
+    /// 释放被锁住的格子
+    /// </summary>
+    /// <param name="x"></param>
+    /// <param name="y"></param>
+    public void ReleaseGrid(int x, int y)
+    {
+        if(IsValidGrid(x - 1,y))
+            _gridList[x - 1, y].lockGrid = false;
+        if(IsValidGrid(x + 1,y))
+            _gridList[x + 1, y].lockGrid = false;
     }
 }
