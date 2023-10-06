@@ -238,12 +238,12 @@ public class BattleView : MonoBehaviour
     /// <summary>
     /// 打开商店时暂停游戏
     /// </summary>
-    public void PauseGame()
+    public void OpenShop()
     {
         // 至少有三个塔才允许进行交易
         if (BattleMgr.GetInstance().towers.Count >= 3)
         {
-            Time.timeScale = 0;
+            PauseGame();
             // 播放交易询问的动画，上面有对话框和按钮，按钮有别的事件
         }
         else
@@ -251,6 +251,11 @@ public class BattleView : MonoBehaviour
             // 播放一个无法交易的动画
         }
 
+    }
+
+    public void PauseGame()
+    {
+        Time.timeScale = 0;
     }
 
     /// <summary>
