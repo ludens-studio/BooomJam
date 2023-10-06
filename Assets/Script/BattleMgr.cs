@@ -116,7 +116,7 @@ public class BattleMgr : BaseMgr<BattleMgr>
                     PoolMgr.GetInstance().GetObj("Prefabs/Enemys/" + waves[i].enemyObj[j].name, o=>{
                         int row = Random.Range(-4, 1);    // 随机生成敌人所在的行, 0~-4
 
-                        o.transform.position = new Vector3(9, row, -0.5f);
+                        o.transform.position = new Vector3(9, row, -1f);
                         o.transform.parent = GameObject.Find("PoolEnemy").transform;
                         o.gameObject.GetComponent<Enemy>().checkLevelUp(); //检测是否加血
                 
@@ -178,7 +178,7 @@ public class BattleMgr : BaseMgr<BattleMgr>
         PoolMgr.GetInstance().GetObj(name + type,o=>
         {
             o.transform.parent = GameObject.Find("PoolTower").transform;
-            o.transform.position = new Vector3(x, -y, -0.5f);
+            o.transform.position = new Vector3(x, -y, -1f);
             MapMgr.GetInstance().SetTower(x, y, o);
             towers.Add(o);
         });
@@ -203,7 +203,7 @@ public class BattleMgr : BaseMgr<BattleMgr>
         PoolMgr.GetInstance().GetObj(name + type,o=>
         {
             o.transform.parent = GameObject.Find("PoolTower").transform;
-            o.transform.position = new Vector3(x, -y, -0.5f);
+            o.transform.position = new Vector3(x, -y, -1f);
             MapMgr.GetInstance().SetTower(x, y, o);
             MapMgr.GetInstance().LockGrid(x, y);
             towers.Add(o);
