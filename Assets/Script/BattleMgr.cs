@@ -51,6 +51,8 @@ public class BattleMgr : BaseMgr<BattleMgr>
     
     public List<GameObject> enemies;
 
+    private float _barTime;    // 伪进度条数值
+
     /// <summary>
     /// 骰子
     /// </summary>
@@ -81,9 +83,7 @@ public class BattleMgr : BaseMgr<BattleMgr>
     // Start is called before the first frame update
     void Start()
     {
-        StartCoroutine(WaveSpawner());
-        StartCoroutine(Timer());
-        
+        StartCoroutine(StartLoadingBar(3.0f));
     }
 
 
@@ -158,6 +158,38 @@ public class BattleMgr : BaseMgr<BattleMgr>
         }
 
         diceList[id].freeze = false;
+    }
+    
+    /// <summary>
+    /// 非线性进度条（伪加载）
+    /// 用于关卡开始
+    /// </summary>
+    /// <param name="duration">变换时间</param>
+    /// <returns></returns>
+    IEnumerator StartLoadingBar(float duration)
+    {
+        float startTime = Time.time;
+        float endTime = startTime + duration;
+        
+        float baseNum = 10f;
+        // 对数的最大值
+        float maxValue = Mathf.Log(105, baseNum);
+
+        while (_barTime <= 100)
+        {
+            float t = (Time.time - startTime) / duration;
+            // 将时间比例映射到[0, 100]区间
+            float mappedT = Mathf.Lerp(0, maxValue, t);
+            // 非线性变换
+            _barTime = Mathf.Pow(baseNum, mappedT);
+
+            print(_barTime);
+            yield return null;
+        }
+
+        yield return new WaitForSeconds(5.0f);
+        StartCoroutine(Timer());
+        StartCoroutine(WaveSpawner());
     }
 
     /// <summary>
@@ -297,5 +329,10 @@ public class BattleMgr : BaseMgr<BattleMgr>
             }
         }
 
+    }
+
+    public float GetBarTime()
+    {
+        return _barTime;
     }
 }

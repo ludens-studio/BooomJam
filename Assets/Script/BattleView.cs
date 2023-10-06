@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
 /// <summary>
@@ -36,7 +37,8 @@ public class BattleView : MonoBehaviour
     public GameObject settingWindow;    // 设置面板
 
     public GameObject loadingWindow;    // 加载面板
-    public TMP_Text loadingBar;         // 加载进度条
+    public TMP_Text loadingText;         // 加载进度条文字，下面那个是条
+    public Slider loadingBar;
 
     /// <summary>
     /// 场景中生成的骰子（唯一
@@ -47,7 +49,7 @@ public class BattleView : MonoBehaviour
     void Start()
     {
         hp.maxValue = BattleMgr.GetInstance().hp;
-        StartCoroutine(TransformInput(3.0f));
+        loadingWindow.SetActive(true);
     }
 
     // Update is called once per frame
@@ -60,6 +62,18 @@ public class BattleView : MonoBehaviour
         string sec = (time % 60 < 10) ? "0" + (time % 60) : (time % 60).ToString();
 
         timer.text = min + ":" + sec;
+
+        if (loadingBar.value >= 100)
+        {
+            loadingText.text = "100%";
+            Invoke(nameof(CameraTransition),1.0f);
+        }
+        else
+        {
+            // 伪进度条
+            loadingText.text = Mathf.RoundToInt(BattleMgr.GetInstance().GetBarTime()) + "%";
+            loadingBar.value = Mathf.RoundToInt(BattleMgr.GetInstance().GetBarTime());
+        }
 
         // 血量为0，游戏结束
         if (BattleMgr.GetInstance().hp == 0)
@@ -74,6 +88,16 @@ public class BattleView : MonoBehaviour
             }
         }
     }
+
+    /// <summary>
+    /// 镜头转场，从底往上
+    /// 隐藏伪加载面板
+    /// </summary>
+    public void CameraTransition()
+    {
+        Camera.main.GetComponent<Animator>().Play("CameraTransition");
+    }
+    
 
     /// <summary>
     /// 显示所有子节点
@@ -196,36 +220,6 @@ public class BattleView : MonoBehaviour
         }
         
     }
-    
-    /// <summary>
-    /// 非线性进度条（伪加载）
-    /// 用于关卡开始
-    /// </summary>
-    /// <param name="duration">变换时间</param>
-    /// <returns></returns>
-    IEnumerator TransformInput(float duration)
-    {
-        float startTime = Time.time;
-        float endTime = startTime + duration;
-        
-        float baseNum = 10f;
-        // 对数的最大值
-        float maxValue = Mathf.Log(100, baseNum);
-
-        while (Time.time <= endTime)
-        {
-            float t = (Time.time - startTime) / duration;
-            // 将时间比例映射到[0, maxValue]区间
-            float mappedT = Mathf.Lerp(0, maxValue, t);
-            // 非线性变换
-            float result = Mathf.Pow(baseNum, mappedT);
-            // 更新进度条
-            loadingBar.text = Mathf.RoundToInt(result) + "%";
-
-            yield return null;
-        }
-        
-    }
 
     /// <summary>
     /// 游戏结束，打开面板
@@ -255,7 +249,10 @@ public class BattleView : MonoBehaviour
 
     public void PauseGame()
     {
-        Time.timeScale = 0;
+        if (Time.timeScale == 1)
+            Time.timeScale = 0;
+        else
+            Time.timeScale = 1;
     }
 
     /// <summary>
