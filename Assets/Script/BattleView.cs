@@ -32,13 +32,13 @@ public class BattleView : MonoBehaviour
     public int diceTimer;
 
     [Header("UI 面板")]
+    public GameObject gameWindow;   // 游戏主面板
+    
     public GameObject retryWindow;  // 重开面板
 
     public GameObject settingWindow;    // 设置面板
 
     public GameObject loadingWindow;    // 加载面板
-    public TMP_Text loadingText;         // 加载进度条文字，下面那个是条
-    public Slider loadingBar;
 
     /// <summary>
     /// 场景中生成的骰子（唯一
@@ -50,6 +50,8 @@ public class BattleView : MonoBehaviour
     {
         hp.maxValue = BattleMgr.GetInstance().hp;
         loadingWindow.SetActive(true);
+        gameWindow.SetActive(false);
+        Invoke(nameof(CameraTransition),10f);
     }
 
     // Update is called once per frame
@@ -62,17 +64,9 @@ public class BattleView : MonoBehaviour
         string sec = (time % 60 < 10) ? "0" + (time % 60) : (time % 60).ToString();
 
         timer.text = min + ":" + sec;
-
-        if (loadingBar.value >= 100)
+        if (BattleMgr.GetInstance().GetBarTime() == 100)
         {
-            loadingText.text = "100%";
-            Invoke(nameof(CameraTransition),8.0f);
-        }
-        else
-        {
-            // 伪进度条
-            loadingText.text = Mathf.RoundToInt(BattleMgr.GetInstance().GetBarTime()) + "%";
-            loadingBar.value = Mathf.RoundToInt(BattleMgr.GetInstance().GetBarTime());
+            gameWindow.SetActive(true);
         }
 
         // 血量为0，游戏结束
@@ -102,9 +96,11 @@ public class BattleView : MonoBehaviour
     /// <summary>
     /// 显示所有子节点
     /// 可用于显示骰子各个面的状态
+    /// 更改鼠标图标（click）
     /// </summary>
     public void ShowChild(GameObject o)
     {
+        Cursor.SetCursor(Resources.Load<Texture2D>("Cursors/PointerClick"), Vector2.zero, CursorMode.Auto);
         Animator animator = o.GetComponent<Animator>();
         AnimatorStateInfo animatorInfo = animator.GetCurrentAnimatorStateInfo(0);
         if (animatorInfo.normalizedTime >= 1.0f)
@@ -124,20 +120,24 @@ public class BattleView : MonoBehaviour
     
     /// <summary>
     /// 隐藏所有子节点
+    /// 恢复鼠标状态
     /// </summary>
     public void CloseChild(GameObject o)
     {
+        Cursor.SetCursor(Resources.Load<Texture2D>("Cursors/PointerPut"), Vector2.zero, CursorMode.Auto);
         o.GetComponent<Animator>().Play("CloseState");
     }
 
     /// <summary>
     /// 拖拽骰子事件
     /// 骰子跟随鼠标移动
+    /// 鼠标变为Grab
     /// </summary>
     public void OnDiceDrag(GameObject o)
     {
         if (!BattleMgr.GetInstance().IsDiceFreeze(o.name))
         {
+            Cursor.SetCursor(Resources.Load<Texture2D>("Cursors/PointerGrab"), Vector2.zero, CursorMode.Auto);
             _dice = GameObject.FindWithTag("Dice");
             var mousePos = new Vector3(Input.mousePosition.x, Input.mousePosition.y, 10);
             var objectPosition = Camera.main.ScreenToWorldPoint(mousePos);
@@ -149,9 +149,11 @@ public class BattleView : MonoBehaviour
     /// <summary>
     /// 投掷骰子事件
     /// 落点矫正（四舍五入）
+    /// 鼠标变为Put
     /// </summary>
     public void OnDiceRelease(GameObject o)
     {
+        Cursor.SetCursor(Resources.Load<Texture2D>("Cursors/PointerPut"), Vector2.zero, CursorMode.Auto);
         Vector3 position = _dice.transform.position;
         int x = Mathf.RoundToInt(position.x);
         int y = -Mathf.RoundToInt(position.y);
