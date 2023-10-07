@@ -70,6 +70,13 @@ public class BattleMgr : BaseMgr<BattleMgr>
         /// 冷却状态
         /// </summary>
         public bool freeze;
+
+        /// <summary>
+        /// 塔类型
+        /// 0: 远程塔
+        /// 1: 近战塔
+        /// </summary>
+        public int type;
     }
 
 
@@ -180,17 +187,17 @@ public class BattleMgr : BaseMgr<BattleMgr>
     /// </summary>
     /// <param name="x">x轴坐标</param>
     /// <param name="y">y轴坐标</param>
-    /// <param name="type">塔的类型</param>
-    public void InitTower(int x, int y, string type)
+    /// <param name="diceType">骰子类型</param>
+    /// <param name="towerType">塔的类型</param>
+    public void InitTower(int x, int y, int diceType, string towerType)
     {
-        int rd = Random.Range(0, 2);    //0或1
         string name = "";
-        if (rd == 0)    // 兵
-            name = "Prefabs/Towers/F1-";
-        else
+        if (diceType == 0)    // 远塔
             name = "Prefabs/Towers/T1-";
+        else// 近兵
+            name = "Prefabs/Towers/F1-";
         
-        PoolMgr.GetInstance().GetObj(name + type,o=>
+        PoolMgr.GetInstance().GetObj(name + towerType,o=>
         {
             o.transform.parent = GameObject.Find("PoolTower").transform;
             o.transform.position = new Vector3(x, -y, -1f);
@@ -198,29 +205,32 @@ public class BattleMgr : BaseMgr<BattleMgr>
             towers.Add(o);
         });
     }
-    
+
     /// <summary>
     /// 实例化*暗*塔并放置在地图上
     /// </summary>
     /// <param name="x">x轴坐标</param>
     /// <param name="y">y轴坐标</param>
+    /// <param name="diceType">骰子类型</param>
     /// <param name="type">塔的类型</param>
-    public void InitDarkTower(int x, int y, string type)
+    public void InitDarkTower(int x, int y, int diceType, string type)
     {
         string name = "";
-        
-        int rd = Random.Range(0, 2);    //0或1
-        if (rd == 0)    // 兵
-            name = "Prefabs/Towers/F2-";
-        else
-            name = "Prefabs/Towers/T2-";
+        if (diceType == 0)    // 远塔
+            name = "Prefabs/Towers/T1-";
+        else// 近兵
+            name = "Prefabs/Towers/F1-";
         
         PoolMgr.GetInstance().GetObj(name + type,o=>
         {
             o.transform.parent = GameObject.Find("PoolTower").transform;
             o.transform.position = new Vector3(x, -y, -1f);
             MapMgr.GetInstance().SetTower(x, y, o);
-            MapMgr.GetInstance().LockGrid(x, y);
+            if (name.Contains("F2"))
+            {
+                // 暗塔锁格子
+                MapMgr.GetInstance().LockGrid(x, y);
+            }
             towers.Add(o);
         });
     }
@@ -259,6 +269,18 @@ public class BattleMgr : BaseMgr<BattleMgr>
     {
         int id = Int32.Parse(diceName.Substring(diceName.Length-1,1)) - 1;
         return diceList[id].state;
+    }
+
+    /// <summary>
+    /// 获取骰子类型
+    /// 近战或远程骰子
+    /// </summary>
+    /// <param name="diceName">例如Dice1</param>
+    /// <returns></returns>
+    public int GetDiceType(string diceName)
+    {
+        int id = Int32.Parse(diceName.Substring(diceName.Length-1,1)) - 1;
+        return diceList[id].type;
     }
 
     /// <summary>

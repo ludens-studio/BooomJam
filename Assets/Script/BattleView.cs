@@ -161,59 +161,63 @@ public class BattleView : MonoBehaviour
         // if MapMgr return empty grid/ valid grid, then player can put the dice, or dice will be hide.
         if (!BattleMgr.GetInstance().IsDiceFreeze(o.name) && MapMgr.GetInstance().IsEmptyGrid(x,y))
         {
-            // 播放冷却动画
-            o.GetComponent<Animator>().Play("CountDown");
+            // 骰子类型、六面状态、骰子三面统计
+            int diceType = BattleMgr.GetInstance().GetDiceType(o.name);
+            int[] stateList = BattleMgr.GetInstance().GetDiceState(o.name);
+            Dictionary<int, List<int>> diceStateNum = CountStateList(stateList);
+            // fake random face
+            int rdFace = FakeProbability(diceStateNum);    //0~5
             // random tower
             int towerType = Random.Range(1, 5); //1~4
-
-            // random face
-            int rdFace = Random.Range(0, 6);    //0~5
-            int[] stateList = BattleMgr.GetInstance().GetDiceState(o.name);
+            string filePath = "";
             
+            // 播放冷却动画
+            o.GetComponent<Animator>().Play("CountDown");
+            GameObject.FindWithTag("Dice").GetComponent<Animator>().Play((rdFace + 1).ToString());
+
             switch (stateList[rdFace])
             {
                 case 0: // 资源-》恶魔
                     print("投到资源面" + towerType.ToString());
                     BattleMgr.GetInstance().ChangeDiceState(o.name, rdFace, 1);
-                    BattleMgr.GetInstance().InitTower(x, y, towerType.ToString());
-                    o.transform.GetChild(rdFace).GetComponent<Image>().color = Color.yellow;
+                    BattleMgr.GetInstance().InitTower(x, y, diceType, towerType.ToString());
+                    filePath = diceType == 0? "Dices/DiceTowerDark":"Dices/DiceSoldierDark";
+                    o.transform.GetChild(rdFace).GetComponent<Image>().sprite =
+                        Resources.Load<Sprite>(filePath);
                     break;
                 case 1: // 恶魔-》资源
                     print("投到恶魔面" + towerType.ToString());
                     BattleMgr.GetInstance().ChangeDiceState(o.name, rdFace, 2);
-                    BattleMgr.GetInstance().InitDarkTower(x, y, towerType.ToString());
-                    // init 精英怪
-                    o.transform.GetChild(rdFace).GetComponent<Image>().color = Color.green;
+                    BattleMgr.GetInstance().InitDarkTower(x, y, diceType, towerType.ToString());
+                    filePath = diceType == 0? "Dices/DiceTower":"Dices/DiceSoldier";
+                    o.transform.GetChild(rdFace).GetComponent<Image>().sprite =
+                        Resources.Load<Sprite>(filePath);
                     break;
                 case 2: // 魔王-》全净化为资源
                     print("投到魔王面");
                     BattleMgr.GetInstance().ChangeDiceState(o.name, rdFace, 3);
                     // init 魔王
+                    
                     for (int i = 0; i < 5; i++)
                     {
-                        o.transform.GetChild(i).GetComponent<Image>().color = Color.green;
+                        filePath = diceType == 0? "Dices/DiceTower":"Dices/DiceSoldier";
+                        o.transform.GetChild(i).GetComponent<Image>().sprite =
+                            Resources.Load<Sprite>(filePath);
                     }
                     break;
             }
 
             // 判断是否除魔王面外全为恶魔面
-            for (int i = 0; i < 5; i++)
+            if (diceStateNum[0].Count == 0)
             {
-                if (stateList[i] == 0)
+                // 除魔王面外全部为恶魔面，则所有面都转换为魔王面
+                BattleMgr.GetInstance().ChangeDiceState(o.name, rdFace, 4);
+                for (int j = 0; j < 5; j++)
                 {
-                    return;
-                }
-                if (i == 4 && stateList[i] == 1)
-                {
-                    // 除魔王面外全部为恶魔面，则所有面都转换为魔王面
-                    BattleMgr.GetInstance().ChangeDiceState(o.name, rdFace, 4);
-                    for (int j = 0; j < 5; j++)
-                    {
-                        o.transform.GetChild(j).GetComponent<Image>().color = Color.red;
-                    }
+                    o.transform.GetChild(j).GetComponent<Image>().sprite =
+                        Resources.Load<Sprite>("Dices/DiceDevilDark");
                 }
             }
-
         }
         else
         {
@@ -221,6 +225,99 @@ public class BattleView : MonoBehaviour
             GameObject.FindWithTag("Dice").transform.position = new Vector3(100, 100, 0);
         }
         
+    }
+
+    /// <summary>
+    /// 计算当前骰子各类面的情况
+    /// result[0]代表哪些面是资源面
+    /// result[1]代表哪些面是恶魔面
+    /// result[2] = 5 即唯一的恶魔面
+    /// </summary>
+    /// <param name="state">骰子各面状态列表</param>
+    /// <returns></returns>
+    public Dictionary<int,List<int>> CountStateList(int[] state)
+    {
+        Dictionary<int, List<int>> result = new Dictionary<int, List<int>>();
+        result.Add(0,new List<int>(){});
+        result.Add(1,new List<int>(){});
+        result.Add(2,new List<int>(){5});
+        for (int i = 0; i < state.Length; i++)
+        {
+            if (state[i] == 0)  //资源面数量
+            {
+                result[0].Add(i);
+            }
+            if (state[i] == 1)  //恶魔面数量
+            {
+                result[1].Add(i);
+            }
+        }
+        return result;
+    }
+
+    /// <summary>
+    /// 对骰子各面分类讨论的伪概率
+    /// </summary>
+    /// <param name="input">骰子状态字典</param>
+    /// <returns></returns>
+    public int FakeProbability(Dictionary<int, List<int>> input)
+    {
+        float random = 0;
+        if (input[0].Count == 5)    // 5-0-1 / 95-0-5
+        {
+            random = Random.Range(0, 100);
+            if (random <= 95)
+                return input[0].IndexOf(Random.Range(0, 5));
+            else
+                return 5;
+        }
+        if (input[0].Count == 4)    // 4-1-1 / 85-7.5-7.5
+        {
+            random = Random.Range(0, 100);
+            if (random <= 85)
+                return input[0].IndexOf(Random.Range(0, 4));
+            else if (random > 85 && random <= 92.5)
+                return input[1].IndexOf(0);
+            else
+                return 5;
+        }
+        if (input[0].Count == 3)    // 3-2-1 / 70-20-10
+        {
+            random = Random.Range(0, 100);
+            if (random <= 70)
+                return input[0].IndexOf(Random.Range(0, 3));
+            else if (random > 70 && random <= 90)
+                return input[1].IndexOf(Random.Range(0, 2));
+            else
+                return 5;
+        }
+        if (input[0].Count == 2)    // 2-3-1 / 40-47.5-12.5
+        {
+            random = Random.Range(0, 100);
+            if (random <= 40)
+                return input[0].IndexOf(Random.Range(0, 2));
+            else if (random > 40 && random <= 87.5)
+                return input[1].IndexOf(Random.Range(0, 3));
+            else
+                return 5;
+        }
+        if (input[0].Count == 1)    // 1-4-1 / 15-70-15
+        {
+            random = Random.Range(0, 100);
+            if (random <= 15)
+                return input[0].IndexOf(0);
+            else if (random > 15 && random <= 85)
+                return input[1].IndexOf(Random.Range(0, 4));
+            else
+                return 5;
+        }
+        if (input[0].Count == 0)    // 0-5-1 / 0-0-100
+        {
+            return 5;
+        }
+
+        print("出错了");
+        return 0;
     }
 
     /// <summary>
