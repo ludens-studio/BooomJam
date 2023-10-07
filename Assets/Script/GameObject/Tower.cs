@@ -123,7 +123,7 @@ public class Tower : Obj
         // 目前就直接扣血了。没写其他的
         target.GetComponent<Obj>().Bleed(attack);
         canAttack = false;
-        Debug.Log("攻击");
+        // Debug.Log("攻击");
     }
 
     /// <summary>
@@ -145,7 +145,6 @@ public class Tower : Obj
         {
             o.gameObject.transform.position = firePoint.position;
             o.transform.parent = GameObject.Find("PoolBullet").transform;
-            print("Prefabs/Bullets/" + Bullet.name);
         });
 
         canAttack = false; 

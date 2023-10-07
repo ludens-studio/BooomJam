@@ -7721,10 +7721,13 @@ MonoBehaviour:
   diceList:
   - state: 000000000000000000000000000000000000000002000000
     freeze: 0
+    type: 0
   - state: 000000000000000000000000000000000000000002000000
     freeze: 0
+    type: 0
   - state: 000000000000000000000000000000000000000002000000
     freeze: 0
+    type: 1
   diceTime: 3
   towers: []
   enemies: []
@@ -10220,7 +10223,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1912870526
 RectTransform:
   m_ObjectHideFlags: 0

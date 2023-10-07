@@ -217,9 +217,9 @@ public class BattleMgr : BaseMgr<BattleMgr>
     {
         string name = "";
         if (diceType == 0)    // 远塔
-            name = "Prefabs/Towers/T1-";
+            name = "Prefabs/Towers/T2-";
         else// 近兵
-            name = "Prefabs/Towers/F1-";
+            name = "Prefabs/Towers/F2-";
         
         PoolMgr.GetInstance().GetObj(name + type,o=>
         {

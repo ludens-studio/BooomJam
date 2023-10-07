@@ -32,7 +32,7 @@ public class Bullet_Boom : MonoBehaviour
             // other.gameObject.GetComponent<Obj>().Bleed(attack);
             // 若不注释上面这行，则对击中目标还会造成一次伤害
 
-            Debug.Log("击中");
+            // Debug.Log("击中");
             string name = "Prefabs/Bullets/" + gameObject.name.Substring(0, gameObject.name.Length - 7);    // 去掉(Clone)
             PoolMgr.GetInstance().PushObj(name, gameObject);
 
