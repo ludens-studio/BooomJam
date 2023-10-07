@@ -395,7 +395,8 @@ MonoBehaviour:
   attack: 500
   haveTarget: 0
   hp: 1000
-  speed: 0.8
+  hpUI: {fileID: 4244533606917404674}
+  speed: 0.024
   attackSpeed: 0.5
   attackSpeed_true: 0
   attackSpeedTimer: 0
@@ -438,6 +439,7 @@ MonoBehaviour:
   attack: 500
   haveTarget: 0
   hp: 1000
+  hpUI: {fileID: 0}
   speed: 0.8
   attackSpeed: 0.5
   attackSpeed_true: 0
@@ -482,8 +484,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2523819540530882572}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.3, z: 0}
-  m_LocalScale: {x: 0.120000005, y: 0.120000005, z: 0.120000005}
+  m_LocalPosition: {x: 0, y: 0.493, z: 0}
+  m_LocalScale: {x: 0.15, y: 0.15, z: 0.15}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 2249909054583975366}

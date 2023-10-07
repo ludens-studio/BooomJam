@@ -126,8 +126,9 @@ public class BattleMgr : BaseMgr<BattleMgr>
 
                         o.transform.position = new Vector3(9, row, -1f);
                         o.transform.parent = GameObject.Find("PoolEnemy").transform;
+                        o.GetComponent<Obj>().state = Obj.ObjState.Active;
                         o.gameObject.GetComponent<Enemy>().checkLevelUp(); //检测是否加血
-                
+
                         enemies.Add(o);
                     });
                     yield return new WaitForSeconds(waves[i].rate);
@@ -181,6 +182,23 @@ public class BattleMgr : BaseMgr<BattleMgr>
         StartCoroutine(Timer());
         StartCoroutine(WaveSpawner());
     }
+    
+    /// <summary>
+    /// 实例化塔并放置在地图上
+    /// </summary>
+    public void InitBoss()
+    {
+        PoolMgr.GetInstance().GetObj("Prefabs/Enemys/E0-1", o=>{
+            int row = Random.Range(-4, 1);    // 随机生成敌人所在的行, 0~-4
+
+            o.transform.position = new Vector3(9, row, -1f);
+            o.transform.parent = GameObject.Find("PoolEnemy").transform;
+            o.GetComponent<Obj>().state = Obj.ObjState.Active;
+            o.gameObject.GetComponent<Enemy>().checkLevelUp(); //检测是否加血
+
+            enemies.Add(o);
+        });
+    }
 
     /// <summary>
     /// 实例化塔并放置在地图上
@@ -201,6 +219,7 @@ public class BattleMgr : BaseMgr<BattleMgr>
         {
             o.transform.parent = GameObject.Find("PoolTower").transform;
             o.transform.position = new Vector3(x, -y, -1f);
+            o.GetComponent<Obj>().state = Obj.ObjState.Active;
             MapMgr.GetInstance().SetTower(x, y, o);
             towers.Add(o);
         });
@@ -225,6 +244,7 @@ public class BattleMgr : BaseMgr<BattleMgr>
         {
             o.transform.parent = GameObject.Find("PoolTower").transform;
             o.transform.position = new Vector3(x, -y, -1f);
+            o.GetComponent<Obj>().state = Obj.ObjState.Active;
             MapMgr.GetInstance().SetTower(x, y, o);
             if (name.Contains("F2"))
             {

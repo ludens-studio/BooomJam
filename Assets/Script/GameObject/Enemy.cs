@@ -21,6 +21,7 @@ public class Enemy : Obj
         {
             // 如果已经到达
             float _upAttack = BattleMgr.GetInstance().enemyAttackUp; 
+            hpUI.maxValue = hp;
             attack = attack * (1 + _upAttack);
         }
     }

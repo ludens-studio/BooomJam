@@ -174,7 +174,7 @@ public class BattleView : MonoBehaviour
             
             // 播放冷却动画
             o.GetComponent<Animator>().Play("CountDown");
-            GameObject.FindWithTag("Dice").GetComponent<Animator>().Play(rdFace.ToString());
+            GameObject.FindWithTag("Dice").GetComponent<Animator>().Play((rdFace+1).ToString(), -1, 0f);
 
             switch (stateList[rdFace])
             {
@@ -198,7 +198,7 @@ public class BattleView : MonoBehaviour
                     print("投到魔王面");
                     BattleMgr.GetInstance().ChangeDiceState(o.name, rdFace, 3);
                     // init 魔王
-                    
+                    BattleMgr.GetInstance().InitBoss();
                     for (int i = 0; i < 5; i++)
                     {
                         filePath = diceType == 0? "Dices/DiceTower":"Dices/DiceSoldier";
@@ -264,12 +264,9 @@ public class BattleView : MonoBehaviour
     public int FakeProbability(Dictionary<int, List<int>> input)
     {
         float random = 0;
-        print(string.Join(", ", input[0]));
-        print(string.Join(", ", input[1]));
         if (input[0].Count == 5)    // 5-0-1 / 95-0-5
         {
             random = Random.Range(0, 100);
-            print(random);
             if (random <= 95)
                 return input[0][Random.Range(0, 5)];
             else
@@ -278,7 +275,6 @@ public class BattleView : MonoBehaviour
         if (input[0].Count == 4)    // 4-1-1 / 85-7.5-7.5
         {
             random = Random.Range(0, 100);
-            print(random);
             if (random <= 85)
                 return input[0][Random.Range(0, 4)];
             else if (random > 85 && random <= 92.5)
@@ -289,7 +285,6 @@ public class BattleView : MonoBehaviour
         if (input[0].Count == 3)    // 3-2-1 / 70-20-10
         {
             random = Random.Range(0, 100);
-            print(random);
             if (random <= 70)
                 return input[0][Random.Range(0, 3)];
             else if (random > 70 && random <= 90)
@@ -300,7 +295,6 @@ public class BattleView : MonoBehaviour
         if (input[0].Count == 2)    // 2-3-1 / 40-47.5-12.5
         {
             random = Random.Range(0, 100);
-            print(random);
             if (random <= 40)
                 return input[0][Random.Range(0, 2)];
             else if (random > 40 && random <= 87.5)
@@ -311,7 +305,6 @@ public class BattleView : MonoBehaviour
         if (input[0].Count == 1)    // 1-4-1 / 15-70-15
         {
             random = Random.Range(0, 100);
-            print(random);
             if (random <= 15)
                 return input[0][0];
             else if (random > 15 && random <= 85)
@@ -354,6 +347,9 @@ public class BattleView : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// 暂停游戏
+    /// </summary>
     public void PauseGame()
     {
         if (Time.timeScale == 1)

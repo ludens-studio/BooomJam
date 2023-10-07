@@ -7707,11 +7707,9 @@ MonoBehaviour:
     - {fileID: 397412956120048591, guid: 07cba1619266b234e95de95a719fe3a3, type: 3}
     - {fileID: 397412956120048591, guid: 07cba1619266b234e95de95a719fe3a3, type: 3}
     - {fileID: 397412956120048591, guid: 07cba1619266b234e95de95a719fe3a3, type: 3}
-    - {fileID: 397412956120048591, guid: 07cba1619266b234e95de95a719fe3a3, type: 3}
   - waveRate: 4
     rate: 2.5
     enemyObj:
-    - {fileID: 587069962221228619, guid: 534bae9b127c0ab48a7b9b4d615541ba, type: 3}
     - {fileID: 587069962221228619, guid: 534bae9b127c0ab48a7b9b4d615541ba, type: 3}
     - {fileID: 587069962221228619, guid: 534bae9b127c0ab48a7b9b4d615541ba, type: 3}
     - {fileID: 587069962221228619, guid: 534bae9b127c0ab48a7b9b4d615541ba, type: 3}

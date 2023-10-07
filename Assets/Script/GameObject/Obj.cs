@@ -58,6 +58,7 @@ public class Obj : MonoBehaviour
 
     private void Start()
     {
+        state = ObjState.Active;
         defaultHP = hp;
         hpUI.maxValue = hp;
     }
