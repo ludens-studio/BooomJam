@@ -275,6 +275,7 @@ MonoBehaviour:
   attack: 25
   haveTarget: 0
   hp: 200
+  hpUI: {fileID: 7766411875856296934}
   speed: 0.3
   attackSpeed: 1
   attackSpeed_true: 0

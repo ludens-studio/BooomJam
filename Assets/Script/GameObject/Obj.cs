@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using static UnityEngine.RuleTile.TilingRuleOutput;
 using UnityEngine.Experimental.GlobalIllumination;
+using UnityEngine.UI;
 
 /// <summary>
 /// 对象总类
@@ -18,6 +19,7 @@ public class Obj : MonoBehaviour
 
     // 血量
     public float hp;
+    public Slider hpUI;
 
     // 移速
     public float speed;
@@ -57,6 +59,7 @@ public class Obj : MonoBehaviour
     private void Start()
     {
         defaultHP = hp;
+        hpUI.maxValue = hp;
     }
 
     public void UpdateAttackSpeed()
@@ -76,6 +79,7 @@ public class Obj : MonoBehaviour
     
     private void LateUpdate()
     {
+        hpUI.value = hp;
         if (state == ObjState.Death)
         {
             Death();
