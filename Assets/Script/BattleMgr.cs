@@ -83,7 +83,7 @@ public class BattleMgr : BaseMgr<BattleMgr>
     // Start is called before the first frame update
     void Start()
     {
-        StartCoroutine(StartLoadingBar(3.0f));
+        StartCoroutine(StartLoadingBar(2.3f));
     }
 
 
@@ -183,11 +183,10 @@ public class BattleMgr : BaseMgr<BattleMgr>
             // 非线性变换
             _barTime = Mathf.Pow(baseNum, mappedT);
 
-            print(_barTime);
             yield return null;
         }
 
-        yield return new WaitForSeconds(5.0f);
+        yield return new WaitForSeconds(12.0f);
         StartCoroutine(Timer());
         StartCoroutine(WaveSpawner());
     }

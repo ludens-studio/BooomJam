@@ -66,7 +66,7 @@ public class BattleView : MonoBehaviour
         if (loadingBar.value >= 100)
         {
             loadingText.text = "100%";
-            Invoke(nameof(CameraTransition),1.0f);
+            Invoke(nameof(CameraTransition),8.0f);
         }
         else
         {
