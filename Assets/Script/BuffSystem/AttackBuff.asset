@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: AttackBuff
   m_EditorClassIdentifier: 
   target: {fileID: 0}
+  BuffName: Attack_Up
   count: 2
   amount: 5

@@ -65,6 +65,18 @@ public class Enemy : Obj
             RemoveBuff(testBuff);
         }
 
+        if(Input.GetKeyDown(KeyCode.S))
+        {
+            List<int> test = getBuffList();
+            String s =" "; 
+            for(int i = 0; i < test.Count; i++)
+            {
+                s += test[i] + ","; 
+            }
+            Debug.Log(gameObject.name + ":"  + s);
+
+        }
+
         // 这一行有目标,Attack
         if (haveTarget)
         {

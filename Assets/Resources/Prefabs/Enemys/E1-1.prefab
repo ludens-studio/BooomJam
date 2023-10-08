@@ -534,7 +534,7 @@ MonoBehaviour:
   anim: {fileID: 0}
   BuffTimer: 1
   buffs: []
-  testBuff: {fileID: 0}
+  testBuff: {fileID: 11400000, guid: 7ccb64224779a6a44be921150394bb6a, type: 2}
 --- !u!54 &2203626454115496001
 Rigidbody:
   m_ObjectHideFlags: 0

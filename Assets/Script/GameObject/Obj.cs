@@ -49,8 +49,7 @@ public class Obj : MonoBehaviour
     // Buff
     [SerializeField] private float BuffTimer = 1.0f; 
     public List<Buff> buffs= new List<Buff>();
-
-    private bool isAddingBuff; // 正在修改buff的List的时候不进行遍历
+    public Dictionary<String , int> buffs_Dic = new Dictionary<String , int>(); // 拥有的buff
 
     public enum ObjState
     {
@@ -58,11 +57,13 @@ public class Obj : MonoBehaviour
         Death
     }
 
+
     private void Start()
     {
         state = ObjState.Active;
         defaultHP = hp;
         hpUI.maxValue = hp;
+        InitBuffDic(); 
     }
 
     public void UpdateAttackSpeed()
@@ -186,13 +187,20 @@ public class Obj : MonoBehaviour
     public void AddBuff(Buff buff)
     {
         buff.SetBuffTarget(this); 
+        if(buffs_Dic.ContainsKey(buff.BuffName))
+        {
+            buffs_Dic[buff.BuffName]++;
+        }
+        else
+        {
+            Debug.Log("Buff有误"); 
+        }
         buffs.Add(buff);
         buff.EnterBuff();
     }
 
     public void UseBuffs()
     {
-        int _index = 0; 
         if(buffs.Count > 0)
         {
 
@@ -216,7 +224,63 @@ public class Obj : MonoBehaviour
     public void RemoveBuff(Buff buff)
     {
         buff.ExitBuff();
+        if (buffs_Dic.ContainsKey(buff.BuffName))
+        {
+            buffs_Dic[buff.BuffName]--;
+            if(buffs_Dic[buff.BuffName] < 0)
+            {
+                Debug.Log("Buff Count Error");
+            }
+        }
+        else
+        {
+            Debug.Log("Buff有误");
+        }
         buffs.Remove(buff);
+    }
+
+
+    private void InitBuffDic()
+    {
+        // 初始化buff子弹
+        buffs_Dic.Add("Speed_Up", 0);
+        buffs_Dic.Add("Speed_Down", 0);
+        buffs_Dic.Add("Attack_Up", 0);
+        buffs_Dic.Add("Attack_Down", 0);
+
+    }
+
+    /// <summary>
+    /// 得到一个代表buff层数的List,按特定顺序排列，顺序同“InitBuffDic”中的排序
+    /// </summary>
+    /// <returns></returns>
+    public List<int> getBuffList()
+    {
+        List<int> list = new List<int>();
+        list.Add(CheckBuffCount("Speed_Up"));
+        list.Add(CheckBuffCount("Speed_Down"));
+        list.Add(CheckBuffCount("Attack_Up"));
+        list.Add(CheckBuffCount("Attack_Down"));
+
+
+        return list;
+    }
+
+    /// <summary>
+    /// 返回"buffName"的在当前单位的层数，如果没有则是0，有的话是一个大于1的数值（buff可叠加）。如果buffName有误则返回-1
+    /// </summary>
+    /// <param name="buffName"></param>
+    /// <returns></returns>
+    public int CheckBuffCount(string buffName)
+    {
+        if (buffs_Dic.ContainsKey(buffName))
+        {
+            return buffs_Dic[buffName];
+        }
+        else
+        {
+            return -1; 
+        }
     }
 
     // 测试用=================

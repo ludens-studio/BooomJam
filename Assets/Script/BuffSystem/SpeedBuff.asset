@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: SpeedBuff
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  count: 2
+  BuffName: Speed_Down
+  count: 0
   amount: -1
