@@ -11,7 +11,8 @@ using Random = UnityEngine.Random;
 
 /// <summary>
 /// UI组件的更新
-/// 骰子相关事件
+/// UI相关事件
+/// 骰子相关事件(伪随机概率、投掷骰子、动画)
 /// 商店
 /// </summary>
 public class BattleView : MonoBehaviour
@@ -21,15 +22,7 @@ public class BattleView : MonoBehaviour
 
     public TMP_Text timer;
 
-    public Button setting;
-
     public Button shop;
-    
-    [Header("骰子")]
-    public GameObject[] dices;
-
-    // 骰子的冷却时间
-    public int diceTimer;
 
     [Header("UI 面板")]
     public GameObject gameWindow;   // 游戏主面板
@@ -44,6 +37,11 @@ public class BattleView : MonoBehaviour
     /// 场景中生成的骰子（唯一
     /// </summary>
     private GameObject _dice;
+
+    /// <summary>
+    /// 选中用于交易的塔们
+    /// </summary>
+    private List<Obj> _towers = new List<Obj>();
     
     // Start is called before the first frame update
     void Start()
@@ -70,11 +68,12 @@ public class BattleView : MonoBehaviour
         }
 
         // 血量为0，游戏结束
-        if (BattleMgr.GetInstance().hp == 0)
+        if (BattleMgr.GetInstance().hp <= 0)
         {
             if (BattleMgr.GetInstance().hasReachKilled)
             {
                 // todo: 特殊剧情(此处可以播动画，在动画末尾加上GameOver()事件即可)
+                GameOver();
             }
             else
             {
@@ -330,7 +329,9 @@ public class BattleView : MonoBehaviour
     }
     
     /// <summary>
-    /// 打开商店时暂停游戏
+    /// 打开商店交易
+    /// 暂停游戏
+    /// 净化骰子
     /// </summary>
     public void OpenShop()
     {
@@ -338,7 +339,26 @@ public class BattleView : MonoBehaviour
         if (BattleMgr.GetInstance().towers.Count >= 3)
         {
             PauseGame();
-            // 播放交易询问的动画，上面有对话框和按钮，按钮有别的事件
+            // 点击场上的两个塔
+            /*while (_towers.Count < 2)
+            {
+                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                RaycastHit hit;
+
+                if (Physics.Raycast(ray, out hit))
+                {
+                    if (hit.collider.CompareTag("Tower"))
+                    {
+                        // 输出碰撞体的名字
+                        print(hit.collider.gameObject.name);
+                    }
+                    
+                }
+            }*/
+            
+            // 点击需要净化的骰子，弹出确定
+            // 净化可以直接用ChangeDiceState的第三种类型
+            
         }
         else
         {
@@ -390,12 +410,6 @@ public class BattleView : MonoBehaviour
     {
         Time.timeScale = 0;
         settingWindow.SetActive(true);
-    }
-    
-    // 随便测什么都可以
-    public void TestFunc(GameObject o)
-    {
-        BattleMgr.GetInstance().timer = 100;
     }
 
 }

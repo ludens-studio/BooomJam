@@ -159,7 +159,7 @@ public class Enemy : Obj
     {
         if (other.CompareTag("Finish"))
         {
-            BattleMgr.GetInstance().hp -= 1;
+            BattleMgr.GetInstance().hp -= gameObject.name.Contains("0-") ? 3 : 1;
             DelFromBattleMgr();
         }
     }

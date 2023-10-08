@@ -218,7 +218,7 @@ public class BattleMgr : BaseMgr<BattleMgr>
         PoolMgr.GetInstance().GetObj(name + towerType,o=>
         {
             o.transform.parent = GameObject.Find("PoolTower").transform;
-            o.transform.position = new Vector3(x, -y, -1f);
+            o.transform.position = new Vector3(x, -y, -1.1f);
             o.GetComponent<Obj>().state = Obj.ObjState.Active;
             MapMgr.GetInstance().SetTower(x, y, o);
             towers.Add(o);
@@ -243,7 +243,7 @@ public class BattleMgr : BaseMgr<BattleMgr>
         PoolMgr.GetInstance().GetObj(name + type,o=>
         {
             o.transform.parent = GameObject.Find("PoolTower").transform;
-            o.transform.position = new Vector3(x, -y, -1f);
+            o.transform.position = new Vector3(x, -y, -1.1f);
             o.GetComponent<Obj>().state = Obj.ObjState.Active;
             MapMgr.GetInstance().SetTower(x, y, o);
             if (name.Contains("F2"))
