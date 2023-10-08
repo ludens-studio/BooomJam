@@ -50,6 +50,8 @@ public class Obj : MonoBehaviour
     [SerializeField] private float BuffTimer = 1.0f; 
     public List<Buff> buffs= new List<Buff>();
 
+    private bool isAddingBuff; // 正在修改buff的List的时候不进行遍历
+
     public enum ObjState
     {
         Active,
@@ -190,17 +192,21 @@ public class Obj : MonoBehaviour
 
     public void UseBuffs()
     {
+        int _index = 0; 
         if(buffs.Count > 0)
         {
-            foreach (Buff _buff in buffs)
+
+            for(int i =  0;  i< buffs.Count; i++)
             {
+                Buff _buff = buffs[i];
+
                 if (_buff.count <= 0)
                 {
                     RemoveBuff(_buff);
                 }
                 else
                 {
-                     _buff.UseBuff();
+                    _buff.UseBuff();
                 }
             }
         }
