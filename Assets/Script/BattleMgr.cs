@@ -313,7 +313,6 @@ public class BattleMgr : BaseMgr<BattleMgr>
     public void ChangeDiceState(string diceName, int faceId, int type)
     {
         int id = Int32.Parse(diceName.Substring(diceName.Length-1,1)) - 1;
-
         switch (type)
         {
             case 1:

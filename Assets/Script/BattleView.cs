@@ -33,6 +33,8 @@ public class BattleView : MonoBehaviour
 
     public GameObject loadingWindow;    // 加载面板
 
+    public GameObject logWindow;        // 商店对话面板
+
     /// <summary>
     /// 场景中生成的骰子（唯一
     /// </summary>
@@ -42,6 +44,18 @@ public class BattleView : MonoBehaviour
     /// 选中用于交易的塔们
     /// </summary>
     private List<Obj> _towers = new List<Obj>();
+
+    /// <summary>
+    /// 判断是否开始交易
+    /// 开始则进行射线检测
+    /// </summary>
+    private bool _beginSelect = false;
+
+    /// <summary>
+    /// 被选中的骰子
+    /// </summary>
+    private GameObject _choosenDice;
+    
     
     // Start is called before the first frame update
     void Start()
@@ -79,6 +93,35 @@ public class BattleView : MonoBehaviour
             {
                 GameOver();
             }
+        }
+        
+        // 开始商店逻辑
+        if (_beginSelect)
+        {
+            // 点击场上的两个塔
+            // 点击需要净化的骰子，弹出确定
+            // 净化可以直接用ChangeDiceState的第三种类型
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+
+            if (Physics.Raycast(ray, out hit))
+            {
+                if (hit.collider.CompareTag("Tower"))
+                {
+                    // 已选择的塔少于2个，鼠标点击时往list中加入塔
+                    if (Input.GetMouseButtonDown(0) && _towers.Count <= 2)
+                    {
+                        // 不重复地添加塔
+                        if(!_towers.Contains(hit.collider.gameObject.GetComponent<Obj>()))
+                            _towers.Add(hit.collider.gameObject.GetComponent<Obj>());
+                        else
+                            _towers.Remove(hit.collider.gameObject.GetComponent<Obj>());
+                        
+                    }
+                }
+                
+            }
+            
         }
     }
 
@@ -128,13 +171,28 @@ public class BattleView : MonoBehaviour
     }
 
     /// <summary>
+    /// 点击骰子事件
+    /// 用于商店交易
+    /// </summary>
+    /// <param name="o"></param>
+    public void OnDiceClick(GameObject o)
+    {
+        // 在选择状态且已经选满了两个塔
+        if (_beginSelect && _towers.Count == 2)
+        {
+            _choosenDice = o;
+            logWindow.SetActive(true);
+        }
+    }
+
+    /// <summary>
     /// 拖拽骰子事件
     /// 骰子跟随鼠标移动
     /// 鼠标变为Grab
     /// </summary>
     public void OnDiceDrag(GameObject o)
     {
-        if (!BattleMgr.GetInstance().IsDiceFreeze(o.name))
+        if (!BattleMgr.GetInstance().IsDiceFreeze(o.name) && Time.timeScale != 0)
         {
             Cursor.SetCursor(Resources.Load<Texture2D>("Cursors/PointerGrab"), Vector2.zero, CursorMode.Auto);
             _dice = GameObject.FindWithTag("Dice");
@@ -158,7 +216,7 @@ public class BattleView : MonoBehaviour
         int y = -Mathf.RoundToInt(position.y);
 
         // if MapMgr return empty grid/ valid grid, then player can put the dice, or dice will be hide.
-        if (!BattleMgr.GetInstance().IsDiceFreeze(o.name) && MapMgr.GetInstance().IsEmptyGrid(x,y))
+        if (!BattleMgr.GetInstance().IsDiceFreeze(o.name) && MapMgr.GetInstance().IsEmptyGrid(x,y) && Time.timeScale!=0)
         {
             // 骰子类型、六面状态、骰子三面统计
             int diceType = BattleMgr.GetInstance().GetDiceType(o.name);
@@ -335,34 +393,15 @@ public class BattleView : MonoBehaviour
     /// </summary>
     public void OpenShop()
     {
-        // 至少有三个塔才允许进行交易
-        if (BattleMgr.GetInstance().towers.Count >= 3)
+        // 至少有两个塔才允许进行交易
+        if (BattleMgr.GetInstance().towers.Count >= 2)
         {
             PauseGame();
-            // 点击场上的两个塔
-            /*while (_towers.Count < 2)
-            {
-                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-                RaycastHit hit;
-
-                if (Physics.Raycast(ray, out hit))
-                {
-                    if (hit.collider.CompareTag("Tower"))
-                    {
-                        // 输出碰撞体的名字
-                        print(hit.collider.gameObject.name);
-                    }
-                    
-                }
-            }*/
-            
-            // 点击需要净化的骰子，弹出确定
-            // 净化可以直接用ChangeDiceState的第三种类型
-            
+            _beginSelect = true;
         }
         else
         {
-            // 播放一个无法交易的动画
+            // 播放一个无法交易的动画？
         }
 
     }
@@ -410,6 +449,34 @@ public class BattleView : MonoBehaviour
     {
         Time.timeScale = 0;
         settingWindow.SetActive(true);
+    }
+
+    /// <summary>
+    /// 关闭商店对话
+    /// </summary>
+    public void CloseLog()
+    {
+        logWindow.SetActive(false);
+    }
+
+    /// <summary>
+    /// 完成商店逻辑
+    /// </summary>
+    public void ShopComplete()
+    {
+        logWindow.SetActive(false);
+        BattleMgr.GetInstance().ChangeDiceState(_choosenDice.name,0,3);
+        string filePath = BattleMgr.GetInstance().GetDiceType(_choosenDice.name) == 0? "Dices/DiceTower":"Dices/DiceSoldier";
+        // 替换状态贴图
+        for (int i = 0; i < 5; i++)
+            _choosenDice.transform.GetChild(i).GetComponent<Image>().sprite =
+                Resources.Load<Sprite>(filePath);
+        // 回收选中的塔
+        foreach (var tower in _towers)
+            tower.state = Obj.ObjState.Death;
+        
+        _beginSelect = false;
+        PauseGame();
     }
 
 }
