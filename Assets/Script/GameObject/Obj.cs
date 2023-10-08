@@ -283,6 +283,27 @@ public class Obj : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 得到已持有buff的List，目前只检测"Speed_Down"，"Attack_Up"
+    /// </summary>
+    /// <returns></returns>
+
+    public List<String> getBuffList_String()
+    {
+        List<String> list = new List<String>();
+        if(CheckBuffCount("Speed_Down") >= 1){
+            list.Add("Speed_Down");
+        }
+
+        if(CheckBuffCount("Attack_Up") >= 1)
+        {
+            list.Add("Attack_Up");
+        }
+
+        return list ; 
+
+    }
+
     // 测试用=================
     void OnDrawGizmos()
     {
