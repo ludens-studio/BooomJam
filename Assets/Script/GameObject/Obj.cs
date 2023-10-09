@@ -210,6 +210,7 @@ public class Obj : MonoBehaviour
 
                 if (_buff.count <= 0)
                 {
+                    Debug.Log(gameObject.name + ":  " + _buff.name); 
                     RemoveBuff(_buff);
                 }
                 else
