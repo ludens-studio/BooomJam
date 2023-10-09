@@ -417,12 +417,13 @@ MonoBehaviour:
   attackSpeedTimer: 0
   canAttack: 0
   target: {fileID: 0}
-  attackRange: 0
+  attackRange: 0.9
   state: 0
   anim: {fileID: 0}
   BuffTimer: 1
   buffs: []
   testBuff: {fileID: 0}
+  targets: []
   ToNextLevelHp: 250
   UpLevel: 0
   newSpeed: 1.2

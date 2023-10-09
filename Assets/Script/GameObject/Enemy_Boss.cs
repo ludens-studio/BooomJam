@@ -7,6 +7,7 @@ public class Enemy_Boss : Enemy
 {
 
     [Header("Boss相关的数值设计")]
+    public List<GameObject> targets = new List<GameObject>();
     public float ToNextLevelHp; // 什么时候进入二阶段(血量)
     [SerializeField] private bool UpLevel; //进入二阶段
     public float newSpeed; //二阶段修改移速至xx
@@ -34,6 +35,7 @@ public class Enemy_Boss : Enemy
             {
                 haveTarget = true;
                 target = hit.collider.gameObject;
+                targets.Add(target); 
             }
         }
         else
@@ -52,6 +54,8 @@ public class Enemy_Boss : Enemy
             {
                 haveTarget = true;
                 target = hit.collider.gameObject;
+                targets.Add(target);
+
             }
         }
         else
@@ -71,6 +75,7 @@ public class Enemy_Boss : Enemy
             {
                 haveTarget = true;
                 target = hit.collider.gameObject;
+                targets.Add(target);
             }
         }
         else
@@ -79,8 +84,24 @@ public class Enemy_Boss : Enemy
             haveTarget = false;
             target = null;
         }
+
+        if(targets.Count> 0)
+        {
+            haveTarget= true;
+        }
         //==============================
-        canAttack= false;
+    }
+
+    protected override void Attack()
+    {
+        foreach(GameObject target in targets)
+        {
+            target.GetComponent<Obj>().Bleed(attack);
+        }
+
+        targets.Clear();
+        canAttack = false;
+
     }
 
     public override void Bleed(float harm)
