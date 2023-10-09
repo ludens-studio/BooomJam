@@ -22,7 +22,7 @@ public class BattleView : MonoBehaviour
 
     public TMP_Text timer;
 
-    public Button shop;
+    public TMP_Text shopGuide;  // 商店引导面板
 
     [Header("UI 面板")]
     public GameObject gameWindow;   // 游戏主面板
@@ -118,6 +118,8 @@ public class BattleView : MonoBehaviour
                             _towers.Remove(hit.collider.gameObject.GetComponent<Obj>());
                         
                     }
+                    if(_towers.Count == 2)
+                        shopGuide.text = "Choose the Dice";
                 }
                 
             }
@@ -397,6 +399,8 @@ public class BattleView : MonoBehaviour
         if (BattleMgr.GetInstance().towers.Count >= 2)
         {
             PauseGame();
+            // 引导
+            shopGuide.text = "Choose Two Towers or Soldiers in the map";
             _beginSelect = true;
         }
         else
@@ -475,7 +479,9 @@ public class BattleView : MonoBehaviour
         foreach (var tower in _towers)
             tower.state = Obj.ObjState.Death;
         
+        _towers.Clear();
         _beginSelect = false;
+        shopGuide.text = "";
         PauseGame();
     }
 
