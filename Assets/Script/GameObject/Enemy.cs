@@ -111,7 +111,7 @@ public class Enemy : Obj
         int layerMask = 1 << LayerMask.NameToLayer("Tower");
         Ray ray = new Ray(transform.position, -transform.right);
         RaycastHit hit;
-        if (Physics.Raycast(ray, out hit, attackRange))
+        if (Physics.Raycast(ray, out hit, attackRange,layerMask))
         {
             Debug.DrawLine(ray.origin, hit.point, Color.blue);
             if (hit.collider.CompareTag("Tower"))

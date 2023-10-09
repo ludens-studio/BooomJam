@@ -93,7 +93,7 @@ public class Tower_Aoe : Tower
         int layerMask = 1 << LayerMask.NameToLayer("Enemy");
         Ray ray = new Ray(transform.position, transform.right);
         RaycastHit hit;
-        if (Physics.Raycast(ray, out hit, attackRange))
+        if (Physics.Raycast(ray, out hit, attackRange , layerMask))
         {
             Debug.DrawLine(ray.origin, hit.point, Color.blue);
             if (hit.collider.CompareTag("Enemy"))
@@ -126,7 +126,7 @@ public class Tower_Aoe : Tower
 
 
         RaycastHit hit;
-        if (Physics.Raycast(ray, out hit, attackRange))
+        if (Physics.Raycast(ray, out hit, attackRange,layerMask))
         {
             Debug.DrawLine(ray.origin, hit.point, Color.blue);
             if (hit.collider.CompareTag("Enemy"))
@@ -144,7 +144,7 @@ public class Tower_Aoe : Tower
 
         // ==================
         ray = new Ray(transform.position + new Vector3(0, 1, 0), transform.right);
-        if (Physics.Raycast(ray, out hit, attackRange))
+        if (Physics.Raycast(ray, out hit, attackRange, layerMask))
         {
             Debug.DrawLine(ray.origin, hit.point, Color.blue);
             if (hit.collider.CompareTag("Enemy"))
@@ -163,7 +163,7 @@ public class Tower_Aoe : Tower
 
         //=======================
         ray = new Ray(transform.position + new Vector3(0, -1, 0), transform.right);
-        if (Physics.Raycast(ray, out hit, attackRange))
+        if (Physics.Raycast(ray, out hit, attackRange, layerMask))
         {
             Debug.DrawLine(ray.origin, hit.point, Color.blue);
             if (hit.collider.CompareTag("Enemy"))

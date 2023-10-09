@@ -37,6 +37,7 @@ public class Tower : Obj
             {
                 Attack();
             }
+            canAttack = false;
         }
         else
         {
@@ -92,7 +93,7 @@ public class Tower : Obj
         int layerMask = 1 << LayerMask.NameToLayer("Enemy");
         Ray ray = new Ray(transform.position, transform.right);
         RaycastHit hit;
-        if (Physics.Raycast(ray, out hit, attackRange))
+        if (Physics.Raycast(ray, out hit, attackRange , layerMask))
         {
             Debug.DrawLine(ray.origin, hit.point, Color.blue);
             if (hit.collider.CompareTag("Enemy"))
@@ -143,9 +144,9 @@ public class Tower : Obj
     {
         PoolMgr.GetInstance().GetObj("Prefabs/Bullets/" + Bullet.name, o =>
         {
+            o.gameObject.GetComponent<Bullet>().InitBullet(attack);  // 设置子弹的伤害为塔的伤害
             o.gameObject.transform.position = firePoint.position;
             o.transform.parent = GameObject.Find("PoolBullet").transform;
-            o.gameObject.GetComponent<Bullet>().InitBullet(this.attack);  // 设置子弹的伤害为塔的伤害
         });
 
         canAttack = false; 

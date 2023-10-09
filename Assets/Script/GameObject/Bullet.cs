@@ -7,7 +7,7 @@ public class Bullet : MonoBehaviour
     public float attack; //子弹攻击
 
     public float speed = 10f;
-    private Vector3 direction = Vector3.right;
+    protected Vector3 direction = Vector3.right;
 
     void Update()
     {
@@ -37,14 +37,18 @@ public class Bullet : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Enemy"))
         {
-            other.gameObject.GetComponent<Obj>().Bleed(attack);
-            Debug.Log("击中");
-            string name = "Prefabs/Bullets/" + gameObject.name.Substring(0, gameObject.name.Length - 7);    // 去掉(Clone)
-            PoolMgr.GetInstance().PushObj(name, gameObject);
+            bulletEffect(other); 
         }
         else
         {
             // 
         }
+    }
+
+    public virtual void bulletEffect(Collider other)
+    {
+        other.gameObject.GetComponent<Obj>().Bleed(attack);
+        string name = "Prefabs/Bullets/" + gameObject.name.Substring(0, gameObject.name.Length - 7);    // 去掉(Clone)
+        PoolMgr.GetInstance().PushObj(name, gameObject);
     }
 }

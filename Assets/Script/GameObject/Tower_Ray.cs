@@ -58,7 +58,7 @@ public class Tower_Ray : Tower
         //==================================================
         int layerMask = 1 << LayerMask.NameToLayer("Enemy");
         Ray ray = new Ray(transform.position, transform.right);
-        RaycastHit[] hits = Physics.RaycastAll(ray,attackRange); // 获得范围内所有的敌人
+        RaycastHit[] hits = Physics.RaycastAll(ray,attackRange,layerMask); // 获得范围内所有的敌人
         if(hits.Length> 0 )
         {
             canAttack = false;
