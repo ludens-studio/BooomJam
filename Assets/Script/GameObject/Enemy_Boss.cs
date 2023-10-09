@@ -6,25 +6,25 @@ using static UnityEditor.PlayerSettings;
 public class Enemy_Boss : Enemy
 {
 
-    [Header("BossÏà¹ØµÄÊıÖµÉè¼Æ")]
+    [Header("Bossç›¸å…³çš„æ•°å€¼è®¾è®¡")]
     public List<GameObject> targets = new List<GameObject>();
-    public float ToNextLevelHp; // Ê²Ã´Ê±ºò½øÈë¶ş½×¶Î(ÑªÁ¿)
-    [SerializeField] private bool UpLevel; //½øÈë¶ş½×¶Î
-    public float newSpeed; //¶ş½×¶ÎĞŞ¸ÄÒÆËÙÖÁxx
-    public float healEnemy_Time; //Ê¹ÓÃ»ØÑªµÄÊ±ºòÍ£Ö¹ÒÆ¶¯µÄÊ±¼ä
-    public float healEnemy_Range; //»ØÑª·¶Î§   ¡¾ÎÒÕâÀïĞ´ÁË20´ú±íÈ«ÆÁ¡¿
-    public float healEnemy_amount; //»Ø¶àÉÙÑª
-    public float healEnemy_CD; //Ê¹ÓÃCD ;  
-    private float healEnemy_CD_Timer; //¼ÆÊ±Æ÷ ;  
+    public float ToNextLevelHp; // ä»€ä¹ˆæ—¶å€™è¿›å…¥äºŒé˜¶æ®µ(è¡€é‡)
+    [SerializeField] private bool UpLevel; //è¿›å…¥äºŒé˜¶æ®µ
+    public float newSpeed; //äºŒé˜¶æ®µä¿®æ”¹ç§»é€Ÿè‡³xx
+    public float healEnemy_Time; //ä½¿ç”¨å›è¡€çš„æ—¶å€™åœæ­¢ç§»åŠ¨çš„æ—¶é—´
+    public float healEnemy_Range; //å›è¡€èŒƒå›´   ã€æˆ‘è¿™é‡Œå†™äº†20ä»£è¡¨å…¨å±ã€‘
+    public float healEnemy_amount; //å›å¤šå°‘è¡€
+    public float healEnemy_CD; //ä½¿ç”¨CD ;  
+    private float healEnemy_CD_Timer; //è®¡æ—¶å™¨ ;  
 
 
     public override void checkTarget()
     {
-        // ! Õâ²¿·ÖËşµÄ¼¤¹â³¯ÓÒ´ò£¬¹ÖµÄ¼¤¹â³¯×ó´ò¡£Èç¹ûÓĞÌØÊâĞèÇóÔÙ¸Ä
+        // ! è¿™éƒ¨åˆ†å¡”çš„æ¿€å…‰æœå³æ‰“ï¼Œæ€ªçš„æ¿€å…‰æœå·¦æ‰“ã€‚å¦‚æœæœ‰ç‰¹æ®Šéœ€æ±‚å†æ”¹
         //==================================================
         int layerMask = 1 << LayerMask.NameToLayer("Tower"); 
 
-        // ! ÎÒÕâÀïÖ±½ÓĞ´ÂÖÁ÷ÈıÌõÉäÏß¼ì²âÁË£¬¿ÉÄÜÓĞbug
+        // ! æˆ‘è¿™é‡Œç›´æ¥å†™è½®æµä¸‰æ¡å°„çº¿æ£€æµ‹äº†ï¼Œå¯èƒ½æœ‰bug
 
         Ray ray = new Ray(transform.position, -transform.right);
         RaycastHit hit;
@@ -97,6 +97,8 @@ public class Enemy_Boss : Enemy
         foreach(GameObject target in targets)
         {
             target.GetComponent<Obj>().Bleed(attack);
+            // æ’­æ”¾å—å‡»ç‰¹æ•ˆ.è¯¥ç‰¹æ•ˆä½äºå­èŠ‚ç‚¹çš„æœ€åä¸€ä¸ªï¼Œä¸è¦è°ƒæ•´
+            target.transform.GetChild(target.transform.childCount-1).GetComponent<ParticleSystem>().Play();
         }
 
         targets.Clear();
@@ -112,7 +114,7 @@ public class Enemy_Boss : Enemy
         {
             if(hp <= ToNextLevelHp)
             {
-                // ¸üĞÂËÙ¶È²¢±ê¼Ç½øÈë¶ş½×¶Î
+                // æ›´æ–°é€Ÿåº¦å¹¶æ ‡è®°è¿›å…¥äºŒé˜¶æ®µ
                 speed = newSpeed;
                 UpLevel= true;
                 healEnemy_CD_Timer = healEnemy_CD; 
@@ -132,7 +134,7 @@ public class Enemy_Boss : Enemy
         {
             if (healEnemy_CD_Timer <= 0)
             {
-                //·Å»ØÑª¼¼ÄÜ
+                //æ”¾å›è¡€æŠ€èƒ½
                 HealEnemy();
                 healEnemy_CD_Timer = healEnemy_CD;
             }
@@ -144,7 +146,7 @@ public class Enemy_Boss : Enemy
 
             if (healEnemy_CD_Timer <= healEnemy_CD - healEnemy_Time)
             {
-                speed = newSpeed; // »Ö¸´ÒÆ¶¯
+                speed = newSpeed; // æ¢å¤ç§»åŠ¨
             }
         }
 
@@ -152,8 +154,8 @@ public class Enemy_Boss : Enemy
 
     private void HealEnemy()
     {
-        speed = 0; //Í£Ö¹ÒÆ¶¯
-        Collider[] colliders = Physics.OverlapSphere(transform.position , healEnemy_Range); //»ñµÃ·¶Î§ÄÚËùÓĞÎïÌå
+        speed = 0; //åœæ­¢ç§»åŠ¨
+        Collider[] colliders = Physics.OverlapSphere(transform.position , healEnemy_Range); //è·å¾—èŒƒå›´å†…æ‰€æœ‰ç‰©ä½“
 
         foreach (Collider col in colliders)
         {
@@ -162,7 +164,7 @@ public class Enemy_Boss : Enemy
             if (_obj.CompareTag("Enemy"))
             {
                 _obj.GetComponent<Obj>().hp += healEnemy_amount; 
-                // »ØÑª
+                // å›è¡€
             }
 
 

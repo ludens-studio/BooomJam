@@ -179,6 +179,8 @@ public class Tower_Aoe : Tower
             target = null;
         }
 
+        // 播放受击特效.该特效位于子节点的最后一个，不要调整
+        target.transform.GetChild(target.transform.childCount-1).GetComponent<ParticleSystem>().Play();
         canAttack = false;
 
     }

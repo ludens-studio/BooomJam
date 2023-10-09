@@ -38,6 +38,8 @@ public class Bullet : MonoBehaviour
         if (other.gameObject.CompareTag("Enemy"))
         {
             bulletEffect(other); 
+            // 播放受击特效.该特效位于子节点的最后一个，不要调整
+            other.transform.GetChild(other.transform.childCount-1).GetComponent<ParticleSystem>().Play();
         }
         else
         {

@@ -136,11 +136,13 @@ public class Tower : Obj
         //anim.speed = attackSpeed;
         //anim.Play("attack");    // 对于防御塔来说，这个动画就是防守动画
 
-
+        print(target.name);
         // 目前就直接扣血了。没写其他的
         target.GetComponent<Obj>().Bleed(attack);
+        // 播放受击特效.该特效位于子节点的最后一个，不要调整
+        target.transform.GetChild(target.transform.childCount-1).GetComponent<ParticleSystem>().Play();
         canAttack = false;
-        // Debug.Log("攻击");
+        Debug.Log("攻击");
     }
 
     /// <summary>

@@ -17,6 +17,8 @@ public class Tower_Speed : Tower
         // 目前就直接扣血了。没写其他的
         target.GetComponent<Obj>().Bleed(attack);
         target.GetComponent<Obj>().AddBuff(addBuff);
+        // 播放受击特效.该特效位于子节点的最后一个，不要调整
+        target.transform.GetChild(target.transform.childCount-1).GetComponent<ParticleSystem>().Play();
         canAttack = false;
         Debug.Log("攻击");
     }

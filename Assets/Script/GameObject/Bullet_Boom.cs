@@ -31,6 +31,8 @@ public class Bullet_Boom : Bullet
             if (_obj.CompareTag("Enemy"))
             {
                 _obj.GetComponent<Obj>().Bleed(attack);
+                // 播放受击特效.该特效位于子节点的最后一个，不要调整
+                _obj.transform.GetChild(_obj.transform.childCount-1).GetComponent<ParticleSystem>().Play(true);
             }
             
 
