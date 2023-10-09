@@ -226,7 +226,7 @@ public class BattleView : MonoBehaviour
             int rdFace = FakeProbability(diceStateNum);    //0~5
             print("raFace is: " + rdFace);
             // random tower
-            int towerType = Random.Range(1, 5); //1~4
+            int towerType = Random.Range(1, 6); //1~5
             string filePath = "";
             
             // 播放冷却动画
