@@ -23,6 +23,15 @@ public class Bullet : MonoBehaviour
         direction = newDirection.normalized;
     }
 
+    /// <summary>
+    /// 初始化子弹数值
+    /// </summary>
+    /// <param name="other"></param>
+
+    public void InitBullet(float attack)
+    {
+        this.attack = attack;
+    }
 
     private void OnTriggerEnter(Collider other)
     {

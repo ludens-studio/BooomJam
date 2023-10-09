@@ -17,7 +17,7 @@ public class Tower : Obj
     [Header("Dark Type")]
     public bool isDark = false; // 是否是暗属性
     public float dark_debuff_Hp; // 如果是暗属性，一秒扣多少血
-    private float dark_debuff_Hp_Timer = 1.0f;
+    protected float dark_debuff_Hp_Timer = 1.0f;
 
     private void Update()
     {
@@ -85,7 +85,7 @@ public class Tower : Obj
     /// <summary>
     /// 检测攻击范围内是否有目标
     /// </summary>
-    public void checkTarget()
+    public virtual void checkTarget()
     {
         // ! 这部分塔的激光朝右打，怪的激光朝左打。如果有特殊需求再改
         //==================================================
@@ -145,6 +145,7 @@ public class Tower : Obj
         {
             o.gameObject.transform.position = firePoint.position;
             o.transform.parent = GameObject.Find("PoolBullet").transform;
+            o.gameObject.GetComponent<Bullet>().InitBullet(this.attack);  // 设置子弹的伤害为塔的伤害
         });
 
         canAttack = false; 

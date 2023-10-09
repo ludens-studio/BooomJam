@@ -148,7 +148,7 @@ MonoBehaviour:
   attackSpeedTimer: 0
   canAttack: 0
   target: {fileID: 0}
-  attackRange: 1
+  attackRange: 1.2
   state: 0
   anim: {fileID: 0}
   BuffTimer: 1

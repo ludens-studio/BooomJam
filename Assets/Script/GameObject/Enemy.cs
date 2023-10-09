@@ -97,6 +97,7 @@ public class Enemy : Obj
 
     private void FixedUpdate()
     {
+        // 需要精确时间计算/FixedDeltaTime 的放这里
         UseBuffTimer();
     }
 

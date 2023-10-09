@@ -288,10 +288,13 @@ MonoBehaviour:
   anim: {fileID: 0}
   BuffTimer: 1
   buffs: []
-  isBoom: 0
-  BoomTimer: 0
+  shootTower: 0
+  Bullet: {fileID: 1540398006885209217, guid: 4e22db5f841710d49863840068df436a, type: 3}
+  firePoint: {fileID: 5103338117573474017}
   isDark: 0
   dark_debuff_Hp: 0
+  isBoom: 0
+  BoomTimer: 0
 --- !u!212 &9200344285588643180
 SpriteRenderer:
   m_ObjectHideFlags: 0

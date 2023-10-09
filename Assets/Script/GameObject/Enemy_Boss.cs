@@ -80,6 +80,7 @@ public class Enemy_Boss : Enemy
             target = null;
         }
         //==============================
+        canAttack= false;
     }
 
     public override void Bleed(float harm)

@@ -4,16 +4,11 @@ using UnityEngine;
 using static UnityEditor.PlayerSettings;
 using static UnityEngine.GraphicsBuffer;
 
-public class Tower_Aoe : Obj
+public class Tower_Aoe : Tower
 {
     [Header("Boom")]
     public bool isBoom = false; //是否为炸弹
     public float BoomTimer; 
-
-    [Header("Dark Type")]
-    public bool isDark = false; // 是否是暗属性
-    public float dark_debuff_Hp; // 如果是暗属性，一秒扣多少血
-    private float dark_debuff_Hp_Timer = 1.0f;
 
     private void Update()
     {
@@ -27,7 +22,7 @@ public class Tower_Aoe : Obj
             }
             else
             {
-                Attack(); 
+                BoomAttack(); // 炸弹攻击
                 Death();
                 // 炸弹用完即销毁
             }
@@ -91,7 +86,7 @@ public class Tower_Aoe : Obj
     /// <summary>
     /// 检测攻击范围内是否有目标
     /// </summary>
-    public void checkTarget()
+    public override void checkTarget()
     {
         // ! 这部分塔的激光朝右打，怪的激光朝左打。如果有特殊需求再改
         //==================================================
@@ -121,14 +116,76 @@ public class Tower_Aoe : Obj
     /// </summary>
     protected override void Attack()
     {
-        //todo: 这个还没搞，但我先写了
-        //anim.speed = attackSpeed;
-        //anim.Play("attack");    // 对于防御塔来说，这个动画就是防守动画
+        // ! 这部分塔的激光朝右打，怪的激光朝左打。如果有特殊需求再改
+        //==================================================
+        int layerMask = 1 << LayerMask.NameToLayer("Enemy");
+
+        // ! 我这里直接写轮流三条射线检测了，可能有bug
+
+        Ray ray = new Ray(transform.position, transform.right);
 
 
-        // 目前就直接扣血了。没写其他的
+        RaycastHit hit;
+        if (Physics.Raycast(ray, out hit, attackRange))
+        {
+            Debug.DrawLine(ray.origin, hit.point, Color.blue);
+            if (hit.collider.CompareTag("Enemy"))
+            {
+                haveTarget = true;
+                target = hit.collider.gameObject;
+            }
+        }
+        else
+        {
+            Debug.DrawLine(ray.origin, ray.origin + ray.direction * attackRange, Color.blue);
+            haveTarget = false;
+            target = null;
+        }
 
-        Collider[] colliders = Physics.OverlapSphere(transform.position, attackRange); //获得范围内所有物体
+        // ==================
+        ray = new Ray(transform.position + new Vector3(0, 1, 0), transform.right);
+        if (Physics.Raycast(ray, out hit, attackRange))
+        {
+            Debug.DrawLine(ray.origin, hit.point, Color.blue);
+            if (hit.collider.CompareTag("Enemy"))
+            {
+                haveTarget = true;
+                target = hit.collider.gameObject;
+            }
+        }
+        else
+        {
+            Debug.DrawLine(ray.origin, ray.origin + ray.direction * attackRange, Color.blue);
+            haveTarget = false;
+            target = null;
+        }
+        //=======================
+
+        //=======================
+        ray = new Ray(transform.position + new Vector3(0, -1, 0), transform.right);
+        if (Physics.Raycast(ray, out hit, attackRange))
+        {
+            Debug.DrawLine(ray.origin, hit.point, Color.blue);
+            if (hit.collider.CompareTag("Enemy"))
+            {
+                haveTarget = true;
+                target = hit.collider.gameObject;
+            }
+        }
+        else
+        {
+            Debug.DrawLine(ray.origin, ray.origin + ray.direction * attackRange, Color.blue);
+            haveTarget = false;
+            target = null;
+        }
+
+        canAttack = false;
+
+    }
+
+    private void BoomAttack()
+    {
+        Collider[] colliders = Physics.OverlapSphere(this.transform.position, attack); //获得范围内所有物体
 
         foreach (Collider col in colliders)
         {
@@ -138,10 +195,8 @@ public class Tower_Aoe : Obj
             {
                 _obj.GetComponent<Obj>().Bleed(attack);
             }
+
         }
-
-        canAttack = false;
-
     }
 
     /// <summary>

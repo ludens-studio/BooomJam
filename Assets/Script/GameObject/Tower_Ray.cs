@@ -6,11 +6,8 @@ using UnityEngine;
 /// <summary>
 /// 我方单位
 /// </summary>
-public class Tower_Ray : Obj
+public class Tower_Ray : Tower
 {
-    [Header("Attack Type")]
-    public GameObject Bullet; // 生成的子弹
-    public Transform firePoint; // 生成子弹的位置
 
     private void Update()
     {
