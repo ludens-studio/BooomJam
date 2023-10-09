@@ -79,6 +79,7 @@ MonoBehaviour:
   anim: {fileID: 0}
   BuffTimer: 1
   buffs: []
+  buff_cache: []
   shootTower: 0
   isFlag: 0
   Bullet: {fileID: 0}
