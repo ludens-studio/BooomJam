@@ -66,6 +66,7 @@ Transform:
   - {fileID: 2358606248318522383}
   - {fileID: 7443462723109190593}
   - {fileID: 7146493551847749144}
+  - {fileID: 9185045554881221862}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -715,3 +716,98 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1001 &3965945218351983227
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 3245064749737579642}
+    m_Modifications:
+    - target: {fileID: 1018504420545732665, guid: 8e88e1f612b228c4891428b837d80d61,
+        type: 3}
+      propertyPath: m_Name
+      value: VFX_Blood_Cloud_Sphere_01
+      objectReference: {fileID: 0}
+    - target: {fileID: 1018504420545732665, guid: 8e88e1f612b228c4891428b837d80d61,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5223621883835891357, guid: 8e88e1f612b228c4891428b837d80d61,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5223621883835891357, guid: 8e88e1f612b228c4891428b837d80d61,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5223621883835891357, guid: 8e88e1f612b228c4891428b837d80d61,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.65
+      objectReference: {fileID: 0}
+    - target: {fileID: 5223621883835891357, guid: 8e88e1f612b228c4891428b837d80d61,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5223621883835891357, guid: 8e88e1f612b228c4891428b837d80d61,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 5223621883835891357, guid: 8e88e1f612b228c4891428b837d80d61,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 5223621883835891357, guid: 8e88e1f612b228c4891428b837d80d61,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5223621883835891357, guid: 8e88e1f612b228c4891428b837d80d61,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5223621883835891357, guid: 8e88e1f612b228c4891428b837d80d61,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 5223621883835891357, guid: 8e88e1f612b228c4891428b837d80d61,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5223621883835891357, guid: 8e88e1f612b228c4891428b837d80d61,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8602929796738749228, guid: 8e88e1f612b228c4891428b837d80d61,
+        type: 3}
+      propertyPath: looping
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8602929796738749228, guid: 8e88e1f612b228c4891428b837d80d61,
+        type: 3}
+      propertyPath: lengthInSec
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 8602929796738749228, guid: 8e88e1f612b228c4891428b837d80d61,
+        type: 3}
+      propertyPath: InitialModule.startSize.scalar
+      value: 0.6
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 8e88e1f612b228c4891428b837d80d61, type: 3}
+--- !u!4 &9185045554881221862 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5223621883835891357, guid: 8e88e1f612b228c4891428b837d80d61,
+    type: 3}
+  m_PrefabInstance: {fileID: 3965945218351983227}
+  m_PrefabAsset: {fileID: 0}
