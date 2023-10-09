@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 0}
   BuffName: Attack_Up
-  count: 1
+  count: 2
   amount: 5
   amount_real: 0

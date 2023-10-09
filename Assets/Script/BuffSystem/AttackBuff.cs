@@ -22,7 +22,7 @@ public class AttackBuff : Buff
     {
         //target.attack -= amount;
 
-        float tmp = 0;
+/*        float tmp = 0;
         tmp = target.attack - amount;
         if (tmp < 0)
         {
@@ -35,6 +35,15 @@ public class AttackBuff : Buff
             amount_real = amount;
         }
 
-        target.attack -= amount_real;
+        target.attack -= amount_real;*/
+
+        if(target.attack - amount <0)
+        {
+            target.attack = 1;
+        }
+        else
+        {
+            target.attack -= amount; 
+        }
     }
 }

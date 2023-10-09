@@ -16,28 +16,19 @@ public class Tower_flag : Tower
         foreach (Collider col in colliders)
         {
             GameObject _obj = col.gameObject;
-            if(_obj.name != this.gameObject.name)
+            if(_obj.name != this.gameObject.name && _obj.CompareTag("Tower"))
             {
                 Tower t = col.gameObject.GetComponent<Tower>();
-                towers.Add(t);
+                if (!towers.Contains(t))
+                {
+                    towers.Add(t);
+                }
                 t.AddBuff(addBuff);
+
+
             }
         }
 
         canAttack = false;
-    }
-
-    protected override void Death()
-    {
-        DelFromBattleMgr(); // 从对应的列表中删除该对象
-        gameObject.SetActive(false);
-
-        if (isFlag)
-        {
-            foreach(Tower t in towers)
-            {
-                t.RemoveBuff(addBuff);
-            }
-        }
     }
 }
