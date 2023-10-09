@@ -118,6 +118,7 @@ Transform:
   - {fileID: 1393196725998437518}
   - {fileID: 6045012910828859417}
   - {fileID: 8573162163386510434}
+  - {fileID: 5974391310333295436}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -178,6 +179,7 @@ MonoBehaviour:
   BuffTimer: 1
   buffs: []
   shootTower: 1
+  isFlag: 0
   Bullet: {fileID: 1540398006885209217, guid: 4e22db5f841710d49863840068df436a, type: 3}
   firePoint: {fileID: 1393196725998437518}
   isDark: 0
@@ -593,3 +595,78 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!1001 &6196043818119118452
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 1393196725541445916}
+    m_Modifications:
+    - target: {fileID: 510463908992386360, guid: 6c32eab40d4951948bf6de9c4f7d18fe,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 510463908992386360, guid: 6c32eab40d4951948bf6de9c4f7d18fe,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 510463908992386360, guid: 6c32eab40d4951948bf6de9c4f7d18fe,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.16
+      objectReference: {fileID: 0}
+    - target: {fileID: 510463908992386360, guid: 6c32eab40d4951948bf6de9c4f7d18fe,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.47
+      objectReference: {fileID: 0}
+    - target: {fileID: 510463908992386360, guid: 6c32eab40d4951948bf6de9c4f7d18fe,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 510463908992386360, guid: 6c32eab40d4951948bf6de9c4f7d18fe,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 510463908992386360, guid: 6c32eab40d4951948bf6de9c4f7d18fe,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 510463908992386360, guid: 6c32eab40d4951948bf6de9c4f7d18fe,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 510463908992386360, guid: 6c32eab40d4951948bf6de9c4f7d18fe,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 510463908992386360, guid: 6c32eab40d4951948bf6de9c4f7d18fe,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 510463908992386360, guid: 6c32eab40d4951948bf6de9c4f7d18fe,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5147576914524410852, guid: 6c32eab40d4951948bf6de9c4f7d18fe,
+        type: 3}
+      propertyPath: m_Name
+      value: VFX_Smoke_Loop_01
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 6c32eab40d4951948bf6de9c4f7d18fe, type: 3}
+--- !u!4 &5974391310333295436 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 510463908992386360, guid: 6c32eab40d4951948bf6de9c4f7d18fe,
+    type: 3}
+  m_PrefabInstance: {fileID: 6196043818119118452}
+  m_PrefabAsset: {fileID: 0}
