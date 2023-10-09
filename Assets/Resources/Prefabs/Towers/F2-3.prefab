@@ -161,11 +161,13 @@ MonoBehaviour:
   BuffTimer: 1
   buffs: []
   shootTower: 0
+  isFlag: 1
   Bullet: {fileID: 0}
   firePoint: {fileID: 0}
   isDark: 1
   dark_debuff_Hp: 5
   addBuff: {fileID: 11400000, guid: af2efcf9454b3b345a1f2dd8a4ed84d0, type: 2}
+  towers: []
 --- !u!1 &845431387505078756
 GameObject:
   m_ObjectHideFlags: 0

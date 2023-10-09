@@ -9,6 +9,7 @@ using UnityEngine;
 public class Tower : Obj
 {
     public bool shootTower = false; // 启用该项，tower会使用子弹攻击
+    public bool isFlag = false; 
 
     [Header("Attack Type")]
     public GameObject Bullet; // 生成的子弹
@@ -21,31 +22,46 @@ public class Tower : Obj
 
     private void Update()
     {
-        darkTimer(); // 暗属性扣血
-        UseBuffTimer(); 
-        checkTarget(); // 检测目标 !!! 目前只是使用激光+攻击距离检测
-        UpdateAttackSpeed();
-
         // 这一行有目标,Attack
-        if (haveTarget && canAttack)
+        if(isFlag)
         {
-            if(shootTower)
+            // 图腾时间到了就攻击
+            if(canAttack)
             {
-                Shoot();
+                Attack(); 
             }
-            else
-            {
-                Attack();
-            }
-            canAttack = false;
         }
         else
         {
-            // 否则Idle
-            Idle();
+            if (haveTarget && canAttack)
+            {
+                if (shootTower)
+                {
+                    Shoot();
+                }
+                else
+                {
+                    Attack();
+                }
+                canAttack = false;
+            }
+            else
+            {
+                // 否则Idle
+                Idle();
 
+            }
         }
+       
 
+    }
+
+    private void FixedUpdate()
+    {
+        darkTimer(); // 暗属性扣血
+        UseBuffTimer();
+        checkTarget(); // 检测目标 !!! 目前只是使用激光+攻击距离检测
+        UpdateAttackSpeed();
     }
 
     private void darkTimer()
@@ -153,4 +169,6 @@ public class Tower : Obj
          // _bullet.GetComponent<Bullet>().
 
     }
+
+
 }

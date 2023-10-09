@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class Tower_flag : Tower
 {
-    [Header("Buff设计")]
+    [Header("Buff相关")]
     public Buff addBuff;
+    public List<Tower> towers = new List<Tower>();
 
     protected override void Attack()
     {
@@ -15,13 +16,28 @@ public class Tower_flag : Tower
         foreach (Collider col in colliders)
         {
             GameObject _obj = col.gameObject;
-
-            if (_obj.CompareTag("Tower"))
+            if(_obj.name != this.gameObject.name)
             {
-                _obj.GetComponent<Obj>().AddBuff(addBuff);
+                Tower t = col.gameObject.GetComponent<Tower>();
+                towers.Add(t);
+                t.AddBuff(addBuff);
             }
         }
 
         canAttack = false;
+    }
+
+    protected override void Death()
+    {
+        DelFromBattleMgr(); // 从对应的列表中删除该对象
+        gameObject.SetActive(false);
+
+        if (isFlag)
+        {
+            foreach(Tower t in towers)
+            {
+                t.RemoveBuff(addBuff);
+            }
+        }
     }
 }

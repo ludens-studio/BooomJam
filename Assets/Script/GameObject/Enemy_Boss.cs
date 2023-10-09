@@ -107,22 +107,26 @@ public class Enemy_Boss : Enemy
 
     public override void SkillCheck()
     {
-        if(healEnemy_CD_Timer <= 0)
+        if (UpLevel)
         {
-            //放回血技能
-            HealEnemy(); 
-            healEnemy_CD_Timer = healEnemy_CD;  
-        }
-        else
-        {
-            healEnemy_CD_Timer -= Time.fixedDeltaTime; 
-            
+            if (healEnemy_CD_Timer <= 0)
+            {
+                //放回血技能
+                HealEnemy();
+                healEnemy_CD_Timer = healEnemy_CD;
+            }
+            else
+            {
+                healEnemy_CD_Timer -= Time.fixedDeltaTime;
+
+            }
+
+            if (healEnemy_CD_Timer <= healEnemy_CD - healEnemy_Time)
+            {
+                speed = newSpeed; // 恢复移动
+            }
         }
 
-        if(healEnemy_CD_Timer <= healEnemy_CD - healEnemy_Time)
-        {
-            speed = newSpeed; // 恢复移动
-        }
     }
 
     private void HealEnemy()
