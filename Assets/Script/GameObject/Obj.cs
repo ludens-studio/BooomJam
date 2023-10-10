@@ -53,6 +53,12 @@ public class Obj : MonoBehaviour
 
     [SerializeField]private List<Buff> buff_cache =  new List<Buff>();
 
+    // 数值紧急恢复===============
+    public float save_speed;
+    public float save_attack;
+    public float save_hp; 
+    // 
+
     public enum ObjState
     {
         Active,
@@ -65,7 +71,12 @@ public class Obj : MonoBehaviour
         state = ObjState.Active;
         defaultHP = hp;
         hpUI.maxValue = hp;
-        InitBuffDic(); 
+        InitBuffDic();
+
+        // 数据备份
+        save_speed = speed; 
+        save_hp = hp; 
+        save_attack = attack; 
     }
 
     public void UpdateAttackSpeed()

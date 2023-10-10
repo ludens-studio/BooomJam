@@ -6,7 +6,8 @@ using static UnityEngine.GraphicsBuffer;
 
 public class Tower_Aoe : Tower
 {
-    [Header("Boom")]
+    [Header("AOE塔设计以及Boom")]
+    public List<GameObject> targets = new List<GameObject>();
     public bool isBoom = false; //是否为炸弹
     public float BoomTimer; 
 
@@ -95,55 +96,30 @@ public class Tower_Aoe : Tower
         // ! 这部分塔的激光朝右打，怪的激光朝左打。如果有特殊需求再改
         //==================================================
         int layerMask = 1 << LayerMask.NameToLayer("Enemy");
+
+
         Ray ray = new Ray(transform.position, transform.right);
+
+
         RaycastHit hit;
-        if (Physics.Raycast(ray, out hit, attackRange , layerMask))
+        if (Physics.Raycast(ray, out hit, attackRange, layerMask))
         {
             Debug.DrawLine(ray.origin, hit.point, Color.blue);
             if (hit.collider.CompareTag("Enemy"))
             {
                 haveTarget = true;
                 target = hit.collider.gameObject;
+                targets.Add(target);
             }
         }
         else
         {
             Debug.DrawLine(ray.origin, ray.origin + ray.direction * attackRange, Color.blue);
-            haveTarget = false;
-            target = null;
-        }
-
-    }
-
-    /// <summary>
-    /// 攻击
-    /// </summary>
-    protected override void Attack()
-    {
-        // ! 这部分塔的激光朝右打，怪的激光朝左打。如果有特殊需求再改
-        //==================================================
-        int layerMask = 1 << LayerMask.NameToLayer("Enemy");
-
-        // ! 我这里直接写轮流三条射线检测了，可能有bug
-
-        Ray ray = new Ray(transform.position, transform.right);
-
-
-        RaycastHit hit;
-        if (Physics.Raycast(ray, out hit, attackRange,layerMask))
-        {
-            Debug.DrawLine(ray.origin, hit.point, Color.blue);
-            if (hit.collider.CompareTag("Enemy"))
+            if (!haveTarget)
             {
-                haveTarget = true;
-                target = hit.collider.gameObject;
+                haveTarget = false;
+                target = null;
             }
-        }
-        else
-        {
-            Debug.DrawLine(ray.origin, ray.origin + ray.direction * attackRange, Color.blue);
-            haveTarget = false;
-            target = null;
         }
 
         // ==================
@@ -155,13 +131,19 @@ public class Tower_Aoe : Tower
             {
                 haveTarget = true;
                 target = hit.collider.gameObject;
+                targets.Add(target);
+
             }
         }
         else
         {
             Debug.DrawLine(ray.origin, ray.origin + ray.direction * attackRange, Color.blue);
-            haveTarget = false;
-            target = null;
+            if (!haveTarget)
+            {
+                haveTarget = false;
+                target = null;
+            }
+
         }
         //=======================
 
@@ -174,20 +156,41 @@ public class Tower_Aoe : Tower
             {
                 haveTarget = true;
                 target = hit.collider.gameObject;
+                targets.Add(target);
+
             }
         }
         else
         {
             Debug.DrawLine(ray.origin, ray.origin + ray.direction * attackRange, Color.blue);
-            haveTarget = false;
-            target = null;
+            if (!haveTarget)
+            {
+                haveTarget = false;
+                target = null;
+            }
         }
 
-        if (!isBoom)
+        if(targets.Count > 0)
         {
-            // 播放受击特效.该特效位于子节点的最后一个，不要调整
-            target.transform.GetChild(target.transform.childCount - 1).GetComponent<ParticleSystem>().Play();
+            haveTarget= true;
         }
+
+    }
+
+    /// <summary>
+    /// 攻击
+    /// </summary>
+    protected override void Attack()
+    {
+            foreach(var _target in targets)
+            {
+                _target.GetComponent<Enemy>().Bleed(attack); 
+                _target.transform.GetChild(_target.transform.childCount - 1).GetComponent<ParticleSystem>().Play();
+                // 播放受击特效.该特效位于子节点的最后一个，不要调整
+
+            }
+
+        targets.Clear();
 
         canAttack = false;
 
@@ -195,7 +198,7 @@ public class Tower_Aoe : Tower
 
     private void BoomAttack()
     {
-        Collider[] colliders = Physics.OverlapSphere(this.transform.position, attack); //获得范围内所有物体
+        Collider[] colliders = Physics.OverlapSphere(this.transform.position, attackRange); //获得范围内所有物体
 
         foreach (Collider col in colliders)
         {

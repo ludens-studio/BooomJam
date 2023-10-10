@@ -9,22 +9,25 @@ using static UnityEngine.GraphicsBuffer;
 /// </summary>
 public class Enemy : Obj
 {
-
+    public bool hasLevelup = false;
     public Buff testBuff; 
 
     /// <summary>
     /// 检测是否因为击杀数而升级
     /// </summary>
-    public void checkLevelUp()
+    public void LevelUp(float _upAttack , float _upHp , int levelup)
     {
-        if(BattleMgr.GetInstance().hasReachKilled)
+
+        if (!hasLevelup)
         {
-            // 如果已经到达
-            float _upAttack = BattleMgr.GetInstance().enemyAttackUp; 
             hpUI.maxValue = hp;
-            attack = attack * (1 + _upAttack);
+            attack = attack * (1 + _upAttack * levelup);
+            hp = hp * (1 + _upHp * levelup);
+            hasLevelup= true;
         }
+        
     }
+
 
     /// <summary>
     /// 加入到Mgr中
@@ -162,7 +165,15 @@ public class Enemy : Obj
     {
         if (other.CompareTag("Finish"))
         {
-            BattleMgr.GetInstance().hp -= gameObject.name.Contains("0-") ? 3 : 1;
+            // BattleMgr.GetInstance().hp -= gameObject.name.Contains("0-") ? 3 : 1;
+            if (gameObject.name.Contains("0-"))
+            {
+                BattleMgr.GetInstance().PlayerDamage(3);
+            }
+            else
+            {
+                BattleMgr.GetInstance().PlayerDamage(1);
+            }
             DelFromBattleMgr();
         }
     }

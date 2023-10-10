@@ -45,6 +45,11 @@ public class BattleMgr : BaseMgr<BattleMgr>
     /// 骰子冷却时间
     /// </summary>
     public float diceTime;
+
+    /// <summary>
+    /// 加载时间
+    /// </summary>
+    public float loadTime { get; set; }
     
     [Header("Game Objects Management")]
     public List<GameObject> towers;
@@ -82,16 +87,17 @@ public class BattleMgr : BaseMgr<BattleMgr>
 
     [Header("游戏进程相关")]
     public int killedEnemy = 0; // 已经击杀的怪物数量    
-    public int nextLevelKilled; // 到达N之后解锁新剧情（有需求的话这里可以改成list）
-    public bool hasReachKilled = false; //是否已经到达指定数量n
+    public int nextLevelKilled; // 每击杀X个敌人提升一次数值
+  //  public bool hasReachKilled = false; //是否已经到达指定数量n
     public float enemyAttackUp; // 到达后新生成的敌人应增加的攻击力（这里写x%）
+    public float enemyHpUp; // 到达后新生成的敌人应增加的血量（这里写x%） 
 
 
     // Start is called before the first frame update
     void Start()
     {
         _barTime = 0;
-        StartCoroutine(StartLoadingBar());
+        StartCoroutine(StartLoadingBar(loadTime));
     }
 
 
@@ -127,7 +133,7 @@ public class BattleMgr : BaseMgr<BattleMgr>
                         o.transform.position = new Vector3(9, row, -1f);
                         o.transform.parent = GameObject.Find("PoolEnemy").transform;
                         o.GetComponent<Obj>().state = Obj.ObjState.Active;
-                        o.gameObject.GetComponent<Enemy>().checkLevelUp(); //检测是否加血
+                        o.gameObject.GetComponent<Enemy>().LevelUp(enemyAttackUp , enemyHpUp , killedEnemy/nextLevelKilled); //检测
 
                         enemies.Add(o);
                     });
@@ -174,10 +180,10 @@ public class BattleMgr : BaseMgr<BattleMgr>
     /// 用于关卡开始
     /// </summary>
     /// <returns></returns>
-    IEnumerator StartLoadingBar()
+    IEnumerator StartLoadingBar(float loadTime)
     {
-
-        yield return new WaitForSeconds(12.0f);
+        print(loadTime);
+        yield return new WaitForSeconds(loadTime);
         _barTime = 100;
         StartCoroutine(Timer());
         StartCoroutine(WaveSpawner());
@@ -194,7 +200,7 @@ public class BattleMgr : BaseMgr<BattleMgr>
             o.transform.position = new Vector3(9, row, -1f);
             o.transform.parent = GameObject.Find("PoolEnemy").transform;
             o.GetComponent<Obj>().state = Obj.ObjState.Active;
-            o.gameObject.GetComponent<Enemy>().checkLevelUp(); //检测是否加血
+            o.gameObject.GetComponent<Enemy>().LevelUp(enemyAttackUp, enemyHpUp, killedEnemy / nextLevelKilled); //随时间成长
 
             enemies.Add(o);
         });
@@ -246,7 +252,7 @@ public class BattleMgr : BaseMgr<BattleMgr>
             o.transform.position = new Vector3(x, -y, -1.1f);
             o.GetComponent<Obj>().state = Obj.ObjState.Active;
             MapMgr.GetInstance().SetTower(x, y, o);
-            if (name.Contains("F2"))
+            if (name.Contains("T2"))
             {
                 // 暗塔锁格子
                 MapMgr.GetInstance().LockGrid(x, y);
@@ -345,13 +351,6 @@ public class BattleMgr : BaseMgr<BattleMgr>
     public void enemyKilled()
     {
         killedEnemy++; 
-        if(!hasReachKilled)
-        {
-            if (killedEnemy >= nextLevelKilled)
-            {
-                hasReachKilled = true;
-            }
-        }
 
     }
 
@@ -359,4 +358,13 @@ public class BattleMgr : BaseMgr<BattleMgr>
     {
         return _barTime;
     }
+
+    // 减少玩家生命值
+    public void PlayerDamage(int _damage)
+    {
+        hp -= _damage;
+       // CameraMgr.GetInstance().ShakeCamera(); 
+       Camera.main.GetComponent<Animator>().Play("CameraShake",-1,0.0f);
+    }
+
 }

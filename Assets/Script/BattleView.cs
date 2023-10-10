@@ -22,7 +22,11 @@ public class BattleView : MonoBehaviour
 
     public TMP_Text timer;
 
+    public Button pause;
+
     public TMP_Text shopGuide;  // 商店引导面板
+
+    public GameObject[] dices;    // 骰子obj
 
     [Header("UI 面板")]
     public GameObject gameWindow;   // 游戏主面板
@@ -34,6 +38,8 @@ public class BattleView : MonoBehaviour
     public GameObject loadingWindow;    // 加载面板
 
     public GameObject logWindow;        // 商店对话面板
+    
+    public GameObject guideWindow;      // 手册面板
 
     /// <summary>
     /// 场景中生成的骰子（唯一
@@ -55,15 +61,30 @@ public class BattleView : MonoBehaviour
     /// 被选中的骰子
     /// </summary>
     private GameObject _choosenDice;
-    
-    
+
+    private void Awake()
+    {
+        if (PlayerPrefs.GetInt("firstPlay") == 1)   // 第一次播放loading画面
+        {
+            print(loadingWindow.transform.GetChild(0).name);
+            loadingWindow.transform.GetChild(0).gameObject.SetActive(true);
+            print("first");
+            gameWindow.SetActive(false);
+            BattleMgr.GetInstance().loadTime = 12.0f;
+            Invoke(nameof(CameraTransition),10f);
+        }
+        else
+        {
+            print("not first");
+            loadingWindow.transform.GetChild(0).gameObject.SetActive(false);
+            BattleMgr.GetInstance().loadTime = 0.1f;
+        }
+    }
+
     // Start is called before the first frame update
     void Start()
     {
         hp.maxValue = BattleMgr.GetInstance().hp;
-        loadingWindow.SetActive(true);
-        gameWindow.SetActive(false);
-        Invoke(nameof(CameraTransition),10f);
     }
 
     // Update is called once per frame
@@ -84,15 +105,15 @@ public class BattleView : MonoBehaviour
         // 血量为0，游戏结束
         if (BattleMgr.GetInstance().hp <= 0)
         {
-            if (BattleMgr.GetInstance().hasReachKilled)
+/*            if (BattleMgr.GetInstance().hasReachKilled)
             {
                 // todo: 特殊剧情(此处可以播动画，在动画末尾加上GameOver()事件即可)
                 GameOver();
             }
             else
-            {
+            {*/
                 GameOver();
-            }
+            //}
         }
         
         // 开始商店逻辑
@@ -238,7 +259,8 @@ public class BattleView : MonoBehaviour
             string filePath = "";
             
             // 播放冷却动画
-            o.GetComponent<Animator>().Play("CountDown");
+            // o.GetComponent<Animator>().Play("CountDown",-1,0.0f);
+            o.GetComponent<Animation>().Play("CountDown");
             GameObject.FindWithTag("Dice").GetComponent<Animator>().Play((rdFace+1).ToString(), -1, 0f);
 
             switch (stateList[rdFace])
@@ -404,7 +426,7 @@ public class BattleView : MonoBehaviour
         // 至少有两个塔才允许进行交易
         if (BattleMgr.GetInstance().towers.Count >= 2)
         {
-            PauseGame();
+            Time.timeScale = 0;
             // 引导
             shopGuide.text = "Choose Two Towers or Soldiers in the map";
             _beginSelect = true;
@@ -418,13 +440,35 @@ public class BattleView : MonoBehaviour
 
     /// <summary>
     /// 暂停游戏
+    /// 替换按钮贴图
+    /// </summary>
+    public void PauseGame(GameObject o)
+    {
+        if (Time.timeScale == 1)
+        {
+            Time.timeScale = 0;
+            o.GetComponent<Image>().sprite = ResMgr.GetInstance().Load<Sprite>("UIElements/StartUI");
+        }
+        else
+        {
+            Time.timeScale = 1;
+            o.GetComponent<Image>().sprite = ResMgr.GetInstance().Load<Sprite>("UIElements/StopUI");
+        }
+    }
+    
+    /// <summary>
+    /// 暂停游戏(纯享版)
     /// </summary>
     public void PauseGame()
     {
         if (Time.timeScale == 1)
+        {
             Time.timeScale = 0;
+        }
         else
+        {
             Time.timeScale = 1;
+        }
     }
 
     /// <summary>
@@ -432,6 +476,7 @@ public class BattleView : MonoBehaviour
     /// </summary>
     public void RetryGame()
     {
+        PlayerPrefs.SetInt("firstPlay", 0);
         SceneManager.LoadScene(SceneManager.GetActiveScene().name,LoadSceneMode.Single);
     }
 
@@ -470,6 +515,22 @@ public class BattleView : MonoBehaviour
     }
 
     /// <summary>
+    /// 打开图鉴
+    /// </summary>
+    public void ShowGuide()
+    {
+        guideWindow.SetActive(true);
+    }
+
+    /// <summary>
+    /// 关闭图鉴
+    /// </summary>
+    public void CloseGuide()
+    {
+        guideWindow.SetActive(false);
+    }
+
+    /// <summary>
     /// 完成商店逻辑
     /// </summary>
     public void ShopComplete()
@@ -482,13 +543,18 @@ public class BattleView : MonoBehaviour
             _choosenDice.transform.GetChild(i).GetComponent<Image>().sprite =
                 Resources.Load<Sprite>(filePath);
         // 回收选中的塔
+        // 关闭选中的描边效果
         foreach (var tower in _towers)
+        {
+            tower.transform.Find("Board").gameObject.SetActive(false);
             tower.state = Obj.ObjState.Death;
-        
+        }
+
         _towers.Clear();
         _beginSelect = false;
         shopGuide.text = "";
-        PauseGame();
+        pause.GetComponent<Image>().sprite = ResMgr.GetInstance().Load<Sprite>("UIElements/StopUI");
+        Time.timeScale = 1;
     }
 
 }

@@ -115,7 +115,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attack: 20
   haveTarget: 0
-  hp: 40
+  hp: 100
   hpUI: {fileID: 7149793309769236837}
   speed: 0
   attackSpeed: 2.3
