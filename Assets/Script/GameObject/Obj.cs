@@ -126,7 +126,6 @@ public class Obj : MonoBehaviour
         speed = defaultSpeed;
         attack = defaultAttack;
         HasLevelup = false;
-
     }
 
 

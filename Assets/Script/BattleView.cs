@@ -64,18 +64,18 @@ public class BattleView : MonoBehaviour
 
     private void Awake()
     {
-        if (PlayerPrefs.GetInt("firstPlay") == 1)   // 第一次播放loading画面
+        if (PlayerPrefs.GetInt("firstPlay",1) == 1)   // 第一次播放loading画面
         {
+            PlayerPrefs.SetInt("firstPlay", 0);
             print(loadingWindow.transform.GetChild(0).name);
             loadingWindow.transform.GetChild(0).gameObject.SetActive(true);
-            print("first");
+            loadingWindow.GetComponent<Animator>().Play("EyeLoading",-1,0.0f);
             gameWindow.SetActive(false);
             BattleMgr.GetInstance().loadTime = 12.0f;
             Invoke(nameof(CameraTransition),10f);
         }
         else
         {
-            print("not first");
             loadingWindow.transform.GetChild(0).gameObject.SetActive(false);
             BattleMgr.GetInstance().loadTime = 0.1f;
         }
@@ -117,11 +117,11 @@ public class BattleView : MonoBehaviour
         }
         
         // 开始商店逻辑
+        // 点击场上的两个塔
+        // 点击需要净化的骰子，弹出确定
+        // 净化可以直接用ChangeDiceState的第三种类型
         if (_beginSelect)
         {
-            // 点击场上的两个塔
-            // 点击需要净化的骰子，弹出确定
-            // 净化可以直接用ChangeDiceState的第三种类型
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
 
@@ -140,13 +140,25 @@ public class BattleView : MonoBehaviour
                         }
                         else
                         {
-                            // hit.collider.transform.GetChild(hit.collider.transform.childCount - 1).gameObject.SetActive(false);
                             hit.collider.transform.Find("Board").gameObject.SetActive(false);
                             _towers.Remove(hit.collider.gameObject.GetComponent<Obj>());
                         }
                     }
+                    if(Input.GetMouseButtonDown(0) && _towers.Count > 2)
+                    {
+                        if (_towers.Contains(hit.collider.gameObject.GetComponent<Obj>()))
+                        {
+                            hit.collider.transform.Find("Board").gameObject.SetActive(false);
+                            _towers.Remove(hit.collider.gameObject.GetComponent<Obj>());
+                        }
+                    }
+
                     if(_towers.Count == 2)
+                    {
+                        
                         shopGuide.text = "Choose the Dice";
+                    }
+                    
                 }
                 
             }
@@ -446,7 +458,7 @@ public class BattleView : MonoBehaviour
         }
         else
         {
-            // 播放一个无法交易的动画？
+            // todo:播放一个无法交易的动画？
         }
     }
 

@@ -132,6 +132,11 @@ public class BattleMgr : BaseMgr<BattleMgr>
 
                         o.transform.position = new Vector3(9, row, -1f);
                         o.transform.parent = GameObject.Find("PoolEnemy").transform;
+                        // 有的时候会触发一生成就死了的谜之问题
+                        if (o.GetComponent<Obj>().hp == 0)
+                        {
+                            o.GetComponent<Obj>().SetDefault();
+                        }
                         o.GetComponent<Obj>().state = Obj.ObjState.Active;
                         o.gameObject.GetComponent<Enemy>().LevelUp(enemyAttackUp, enemyHpUp, killedEnemy/nextLevelKilled); //检测
 
@@ -226,6 +231,11 @@ public class BattleMgr : BaseMgr<BattleMgr>
             print("生成：" + name + towerType);
             o.transform.parent = GameObject.Find("PoolTower").transform;
             o.transform.position = new Vector3(x, -y, -1.1f);
+            // 有的时候会触发一生成就死了的谜之问题
+            if (o.GetComponent<Obj>().hp == 0)
+            {
+                o.GetComponent<Obj>().SetDefault();
+            }
             o.GetComponent<Obj>().state = Obj.ObjState.Active;
             MapMgr.GetInstance().SetTower(x, y, o);
             towers.Add(o);
@@ -251,6 +261,11 @@ public class BattleMgr : BaseMgr<BattleMgr>
         {
             o.transform.parent = GameObject.Find("PoolTower").transform;
             o.transform.position = new Vector3(x, -y, -1.1f);
+            // 有的时候会触发一生成就死了的谜之问题
+            if (o.GetComponent<Obj>().hp == 0)
+            {
+                o.GetComponent<Obj>().SetDefault();
+            }
             o.GetComponent<Obj>().state = Obj.ObjState.Active;
             MapMgr.GetInstance().SetTower(x, y, o);
             if (name.Contains("T2"))

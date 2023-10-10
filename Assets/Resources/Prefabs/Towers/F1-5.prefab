@@ -78,12 +78,12 @@ MonoBehaviour:
   attackRange: 1
   state: 0
   anim: {fileID: 0}
+  defaultSpeed: 0
+  HasLevelup: 0
   BuffTimer: 1
   buffs: []
-  buff_cache: []
-  save_speed: 0
-  save_attack: 0
-  save_hp: 0
+  buff_cache_add: []
+  buff_cache_del: []
   shootTower: 0
   isFlag: 0
   Bullet: {fileID: 0}
