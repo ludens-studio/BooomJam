@@ -59,13 +59,8 @@ public class MapMgr : BaseMgr<MapMgr>
     {
         if (!IsValidGrid(x, y)) // 非法
             return false;
-        
 
-        if (_gridList[x, y].tower == null && !_gridList[x,y].lockGrid)// 空的且未被锁住格子
-            return true;
-        else
-            return false;
-        
+        return _gridList[x, y].tower == null && !_gridList[x,y].lockGrid; // 空的且未被锁住格子
     }
 
     /// <summary>
