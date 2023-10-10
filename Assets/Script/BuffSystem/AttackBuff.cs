@@ -6,30 +6,21 @@ using UnityEngine;
 public class AttackBuff : Buff
 {
     public float amount;
-    [SerializeField] private float amount_real; //实际的调整数值
 
     public override void EnterBuff()
     {
-        target.attack += amount;
     }
 
     public override void UseBuff()
     {
+        int n = target.CheckBuffCount("Attack_Up"); 
+        target.addAttack(amount * n);
+        Debug.Log(target.name + "||Atk:  " + n+"|||"+target.attack);
         count--;
     }
 
     public override void ExitBuff()
     {
 
-        target.attack -= amount_real;
-
-        if(target.attack - amount <0)
-        {
-            target.attack = 1;
-        }
-        else
-        {
-            target.attack -= amount; 
-        }
     }
 }

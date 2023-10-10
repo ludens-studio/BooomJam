@@ -5,6 +5,7 @@ using UnityEngine;
 using static UnityEngine.RuleTile.TilingRuleOutput;
 using UnityEngine.Experimental.GlobalIllumination;
 using UnityEngine.UI;
+using System.Runtime.CompilerServices;
 
 /// <summary>
 /// 对象总类
@@ -54,7 +55,8 @@ public class Obj : MonoBehaviour
     public List<Buff> buffs= new List<Buff>();
     public Dictionary<String , int> buffs_Dic = new Dictionary<String , int>(); // 拥有的buff
 
-    [SerializeField]private List<Buff> buff_cache =  new List<Buff>();
+    [SerializeField]private List<Buff> buff_cache_add =  new List<Buff>();
+    [SerializeField] private List<Buff> buff_cache_del =  new List<Buff>();
 
     // 
 
@@ -179,7 +181,7 @@ public class Obj : MonoBehaviour
 
     public void UseBuffTimer()
     {
-
+        RemoveBuff_Real(); 
         if (BuffTimer <= 0.0f)
         {
             BuffTimer = 1.0f;
@@ -196,7 +198,7 @@ public class Obj : MonoBehaviour
 
     public void AddBuff(Buff buff)
     {
-        buff_cache.Add(buff);
+        buff_cache_add.Add(buff);
     }
 
     /// <summary>
@@ -204,14 +206,15 @@ public class Obj : MonoBehaviour
     /// </summary>
     private void AddBuff_Real()
     {
-        if(buff_cache.Count> 0)
+        if(buff_cache_add.Count> 0)
         {
-            foreach (Buff buff in buff_cache)
+            foreach (Buff buff in buff_cache_add)
             {
                 buff.SetBuffTarget(this);
                 if (buffs_Dic.ContainsKey(buff.BuffName))
                 {
                     buffs_Dic[buff.BuffName]++;
+                    Debug.Log("For" +gameObject.name+ buff.name +":"+ buffs_Dic[buff.BuffName]); 
                 }
                 else
                 {
@@ -222,7 +225,7 @@ public class Obj : MonoBehaviour
             }
         }
 
-        buff_cache.Clear(); // 清空Buff栏
+        buff_cache_add.Clear(); // 清空Buff栏
 
     }
 
@@ -230,7 +233,6 @@ public class Obj : MonoBehaviour
     {
         if(buffs.Count > 0)
         {
-
             for(int i =  0;  i< buffs.Count; i++)
             {
                 Buff _buff = buffs[i];
@@ -243,6 +245,8 @@ public class Obj : MonoBehaviour
                 else
                 {
                     _buff.UseBuff();
+                    Debug.Log(gameObject.name + "USE!!!!!!!!!!:  " + _buff.name);
+
                 }
             }
         }
@@ -251,20 +255,40 @@ public class Obj : MonoBehaviour
 
     public void RemoveBuff(Buff buff)
     {
-        buff.ExitBuff();
-        if (buffs_Dic.ContainsKey(buff.BuffName))
+        buff_cache_del.Add(buff);
+    }
+
+    /// <summary>
+    /// 实际删除的部分
+    /// </summary>
+    public void RemoveBuff_Real()
+    {
+        if(buff_cache_del.Count > 0)
         {
-            buffs_Dic[buff.BuffName]--;
-            if(buffs_Dic[buff.BuffName] < 0)
+            foreach (Buff buff in buff_cache_del)
             {
-                Debug.Log("Buff Count Error");
+                buff.ExitBuff();
+                if (buffs_Dic.ContainsKey(buff.BuffName))
+                {
+                    buffs_Dic[buff.BuffName]--;
+                    if (buffs_Dic[buff.BuffName] < 0)
+                    {
+                        Debug.Log("Buff Count Error");
+                    }
+                }
+                else
+                {
+                    Debug.Log("Buff有误");
+                }
+                buffs.Remove(buff);
             }
+
+
         }
-        else
-        {
-            Debug.Log("Buff有误");
-        }
-        buffs.Remove(buff);
+
+        buff_cache_del.Clear();
+
+
     }
 
 
@@ -331,6 +355,21 @@ public class Obj : MonoBehaviour
         return list ; 
 
     }
+
+    public void addAttack(float amount)
+    {
+        attack = defaultAttack + amount; 
+    }
+
+    public void addSpeed(float amount)
+    {
+        speed = defaultSpeed + amount;
+        if(speed <= 0)
+        {
+            speed = 0.05f; //最低速度
+        }
+    }
+
 
     // 测试用=================
     void OnDrawGizmos()

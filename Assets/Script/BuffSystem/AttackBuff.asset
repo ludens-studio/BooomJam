@@ -16,4 +16,3 @@ MonoBehaviour:
   BuffName: Attack_Up
   count: 1
   amount: 5
-  amount_real: 0

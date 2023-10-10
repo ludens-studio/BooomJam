@@ -7811,7 +7811,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc3162c7eeb83ac4d8c778d9c1d812cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  guideWindow: {fileID: 1813501218}
+  guideWindow: {fileID: 0}
   isShake: 0
   shakeTime: 0.1
   shakeStrength: 0.5
@@ -8568,7 +8568,7 @@ MonoBehaviour:
   - state: 000000000000000000000000000000000000000002000000
     freeze: 0
     type: 1
-  diceTime: 7
+  diceTime: 1
   towers: []
   enemies: []
   killedEnemy: 0
@@ -8959,7 +8959,7 @@ MonoBehaviour:
   settingWindow: {fileID: 1683987650}
   loadingWindow: {fileID: 1190898758}
   logWindow: {fileID: 572506477}
-  handbookWindow: {fileID: 1837443985}
+  handbookWindow: {fileID: 0}
   guideWindow: {fileID: 1813501218}
 --- !u!1 &1403962771
 GameObject:

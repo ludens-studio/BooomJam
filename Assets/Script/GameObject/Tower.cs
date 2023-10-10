@@ -154,9 +154,6 @@ public class Tower : Obj
     /// </summary>
     public void Shoot()
     {
-        Debug.Log(target.name);
-        Debug.Log("dadada" + haveTarget);
-
         PoolMgr.GetInstance().GetObj("Prefabs/Bullets/" + Bullet.name, o =>
         {
             o.gameObject.GetComponent<Bullet>().InitBullet(attack);  // 设置子弹的伤害为塔的伤害
