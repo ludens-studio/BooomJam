@@ -9,7 +9,7 @@ using static UnityEngine.GraphicsBuffer;
 /// </summary>
 public class Enemy : Obj
 {
-
+    public bool hasLevelup = false;
     public Buff testBuff; 
 
     /// <summary>
@@ -17,12 +17,15 @@ public class Enemy : Obj
     /// </summary>
     public void LevelUp(float _upAttack , float _upHp , int levelup)
     {
-        if(BattleMgr.GetInstance().hasReachKilled)
+
+        if (!hasLevelup)
         {
             hpUI.maxValue = hp;
             attack = attack * (1 + _upAttack * levelup);
             hp = hp * (1 + _upHp * levelup);
+            hasLevelup= true;
         }
+        
     }
 
 
