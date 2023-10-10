@@ -45,6 +45,11 @@ public class BattleMgr : BaseMgr<BattleMgr>
     /// 骰子冷却时间
     /// </summary>
     public float diceTime;
+
+    /// <summary>
+    /// 加载时间
+    /// </summary>
+    public float loadTime { get; set; }
     
     [Header("Game Objects Management")]
     public List<GameObject> towers;
@@ -91,7 +96,7 @@ public class BattleMgr : BaseMgr<BattleMgr>
     void Start()
     {
         _barTime = 0;
-        StartCoroutine(StartLoadingBar());
+        StartCoroutine(StartLoadingBar(loadTime));
     }
 
 
@@ -174,10 +179,10 @@ public class BattleMgr : BaseMgr<BattleMgr>
     /// 用于关卡开始
     /// </summary>
     /// <returns></returns>
-    IEnumerator StartLoadingBar()
+    IEnumerator StartLoadingBar(float loadTime)
     {
-
-        yield return new WaitForSeconds(12.0f);
+        print(loadTime);
+        yield return new WaitForSeconds(loadTime);
         _barTime = 100;
         StartCoroutine(Timer());
         StartCoroutine(WaveSpawner());

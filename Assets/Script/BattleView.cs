@@ -55,15 +55,30 @@ public class BattleView : MonoBehaviour
     /// 被选中的骰子
     /// </summary>
     private GameObject _choosenDice;
-    
-    
+
+    private void Awake()
+    {
+        if (PlayerPrefs.GetInt("firstPlay") == 1)   // 第一次播放loading画面
+        {
+            print(loadingWindow.transform.GetChild(0).name);
+            loadingWindow.transform.GetChild(0).gameObject.SetActive(true);
+            print("first");
+            gameWindow.SetActive(false);
+            BattleMgr.GetInstance().loadTime = 12.0f;
+            Invoke(nameof(CameraTransition),10f);
+        }
+        else
+        {
+            print("not first");
+            loadingWindow.transform.GetChild(0).gameObject.SetActive(false);
+            BattleMgr.GetInstance().loadTime = 0.1f;
+        }
+    }
+
     // Start is called before the first frame update
     void Start()
     {
         hp.maxValue = BattleMgr.GetInstance().hp;
-        loadingWindow.SetActive(true);
-        gameWindow.SetActive(false);
-        Invoke(nameof(CameraTransition),10f);
     }
 
     // Update is called once per frame
@@ -432,6 +447,7 @@ public class BattleView : MonoBehaviour
     /// </summary>
     public void RetryGame()
     {
+        PlayerPrefs.SetInt("firstPlay", 0);
         SceneManager.LoadScene(SceneManager.GetActiveScene().name,LoadSceneMode.Single);
     }
 
