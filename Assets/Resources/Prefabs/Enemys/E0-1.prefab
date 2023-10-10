@@ -413,8 +413,8 @@ MonoBehaviour:
   haveTarget: 0
   hp: 1000
   hpUI: {fileID: 4244533606917404674}
-  speed: 0.3
-  attackSpeed: 1
+  speed: 0.8
+  attackSpeed: 0.5
   attackSpeed_true: 0
   attackSpeedTimer: 0
   canAttack: 0
@@ -424,7 +424,6 @@ MonoBehaviour:
   anim: {fileID: 0}
   BuffTimer: 1
   buffs: []
-  buff_cache: []
   testBuff: {fileID: 0}
   targets: []
   ToNextLevelHp: 250

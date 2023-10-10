@@ -171,9 +171,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81fe6257169a4ba47a6bb6902e274b5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attack: 10
+  attack: 4
   haveTarget: 0
-  hp: 100
+  hp: 40
   hpUI: {fileID: 8115949798721701683}
   speed: 0
   attackSpeed: 1.5
@@ -186,7 +186,6 @@ MonoBehaviour:
   anim: {fileID: 0}
   BuffTimer: 1
   buffs: []
-  buff_cache: []
   shootTower: 0
   isFlag: 0
   Bullet: {fileID: 0}
