@@ -20,7 +20,7 @@ public class SpeedBuff : Buff
             if (tmp < 0)
             {
                 // 超出最低速度
-                amount_real = target.speed - 0; //存储最大能够修改的数值
+                amount_real = 0 - target.speed; //存储最大能够修改的数值
             }
             else
             {
@@ -49,10 +49,6 @@ public class SpeedBuff : Buff
         if (isUse)
         {
             target.speed -= amount_real;
-            if (target.speed < 0 || target.speed > save_speed)
-            {
-                target.speed = target.save_speed;
-            }
         }
 
     }

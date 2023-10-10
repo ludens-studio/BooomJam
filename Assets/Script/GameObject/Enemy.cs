@@ -9,7 +9,6 @@ using static UnityEngine.GraphicsBuffer;
 /// </summary>
 public class Enemy : Obj
 {
-    public bool hasLevelup = false;
     public Buff testBuff; 
 
     /// <summary>
@@ -18,14 +17,19 @@ public class Enemy : Obj
     public void LevelUp(float _upAttack , float _upHp , int levelup)
     {
 
-        if (!hasLevelup)
+        if (!HasLevelup)
         {
             hpUI.maxValue = hp;
-            attack = attack * (1 + _upAttack * levelup);
-            hp = hp * (1 + _upHp * levelup);
-            hasLevelup= true;
+            attack = attack * (1 + _upAttack * levelup *0.01f);
+            hp = hp * (1 + _upHp * levelup * 0.01f);
+            HasLevelup = true;
         }
-        
+
+        /*        hpUI.maxValue = hp;
+                attack = attack * (1 + _upAttack * levelup);
+                hp = hp * (1 + _upHp * levelup);
+                hasLevelup = true;*/
+
     }
     
     
@@ -37,7 +41,7 @@ public class Enemy : Obj
     {
         BattleMgr.GetInstance().enemies.Remove(gameObject);
         BattleMgr.GetInstance().enemyKilled(); 
-        SetDefaultHP();
+        SetDefault();
         string name = "Prefabs/Enemys/" + gameObject.name.Substring(0, gameObject.name.Length - 7);    // 去掉(Clone)
         PoolMgr.GetInstance().PushObj(name, gameObject);
     }

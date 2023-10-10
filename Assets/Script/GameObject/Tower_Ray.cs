@@ -38,7 +38,7 @@ public class Tower_Ray : Tower
         BattleMgr.GetInstance().towers.Remove(gameObject);
         MapMgr.GetInstance().RemoveTower((int)pos.x, (int)-pos.y);
         MapMgr.GetInstance().ReleaseGrid((int)pos.x, (int)-pos.y);
-        SetDefaultHP();
+        SetDefault();
         string name = "Prefabs/Towers/" + gameObject.name.Substring(0, gameObject.name.Length - 7);    // È¥µô(Clone)
         PoolMgr.GetInstance().PushObj(name, gameObject);
     }

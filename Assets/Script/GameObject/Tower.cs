@@ -88,7 +88,7 @@ public class Tower : Obj
         BattleMgr.GetInstance().towers.Remove(gameObject);
         MapMgr.GetInstance().RemoveTower((int)pos.x, (int)-pos.y);
         MapMgr.GetInstance().ReleaseGrid((int)pos.x, (int)-pos.y);
-        SetDefaultHP();
+        SetDefault();
         string name = "Prefabs/Towers/" + gameObject.name.Substring(0, gameObject.name.Length - 7);    // 去掉(Clone)
         PoolMgr.GetInstance().PushObj(name, gameObject);
     }
@@ -154,6 +154,9 @@ public class Tower : Obj
     /// </summary>
     public void Shoot()
     {
+        Debug.Log(target.name);
+        Debug.Log("dadada" + haveTarget);
+
         PoolMgr.GetInstance().GetObj("Prefabs/Bullets/" + Bullet.name, o =>
         {
             o.gameObject.GetComponent<Bullet>().InitBullet(attack);  // 设置子弹的伤害为塔的伤害

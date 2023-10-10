@@ -45,6 +45,9 @@ public class Obj : MonoBehaviour
 
     // 原始血量
     private float defaultHP;
+    [SerializeField]private float defaultSpeed;
+    private float defaultAttack;
+    [SerializeField]protected bool HasLevelup = false; // 是否已经被升级过了
 
     // Buff
     [SerializeField] private float BuffTimer = 1.0f; 
@@ -53,10 +56,6 @@ public class Obj : MonoBehaviour
 
     [SerializeField]private List<Buff> buff_cache =  new List<Buff>();
 
-    // 数值紧急恢复===============
-    public float save_speed;
-    public float save_attack;
-    public float save_hp; 
     // 
 
     public enum ObjState
@@ -70,13 +69,12 @@ public class Obj : MonoBehaviour
     {
         state = ObjState.Active;
         defaultHP = hp;
+        defaultSpeed = speed;
+        defaultAttack = attack;
+        HasLevelup = false; 
         hpUI.maxValue = hp;
         InitBuffDic();
 
-        // 数据备份
-        save_speed = speed; 
-        save_hp = hp; 
-        save_attack = attack; 
     }
 
     public void UpdateAttackSpeed()
@@ -120,9 +118,13 @@ public class Obj : MonoBehaviour
     /// <summary>
     /// 回对象池之后需要把hp设回初始值
     /// </summary>
-    public void SetDefaultHP()
+    public void SetDefault()
     {
         hp = defaultHP;
+        speed = defaultSpeed;
+        attack = defaultAttack;
+        HasLevelup = false;
+
     }
 
 

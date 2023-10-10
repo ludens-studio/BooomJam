@@ -20,22 +20,8 @@ public class AttackBuff : Buff
 
     public override void ExitBuff()
     {
-        //target.attack -= amount;
 
-/*        float tmp = 0;
-        tmp = target.attack - amount;
-        if (tmp < 0)
-        {
-            // 超出最低速度
-            amount_real = target.attack - 0; //存储最大能够修改的数值
-        }
-        else
-        {
-            // 没有超出最低速度的话，amount_real就是amount
-            amount_real = amount;
-        }
-
-        target.attack -= amount_real;*/
+        target.attack -= amount_real;
 
         if(target.attack - amount <0)
         {
