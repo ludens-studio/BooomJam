@@ -223,6 +223,7 @@ public class BattleMgr : BaseMgr<BattleMgr>
         
         PoolMgr.GetInstance().GetObj(name + towerType,o=>
         {
+            print("生成：" + name + towerType);
             o.transform.parent = GameObject.Find("PoolTower").transform;
             o.transform.position = new Vector3(x, -y, -1.1f);
             o.GetComponent<Obj>().state = Obj.ObjState.Active;
@@ -364,6 +365,7 @@ public class BattleMgr : BaseMgr<BattleMgr>
     {
         hp -= _damage;
        // CameraMgr.GetInstance().ShakeCamera(); 
+       Camera.main.transform.Find("PanelLoading").gameObject.SetActive(false);
        Camera.main.GetComponent<Animator>().Play("CameraShake",-1,0.0f);
     }
 
