@@ -26,6 +26,8 @@ public class BattleView : MonoBehaviour
 
     public TMP_Text shopGuide;  // 商店引导面板
 
+    public GameObject[] dices;    // 骰子obj
+
     [Header("UI 面板")]
     public GameObject gameWindow;   // 游戏主面板
     
@@ -257,7 +259,8 @@ public class BattleView : MonoBehaviour
             string filePath = "";
             
             // 播放冷却动画
-            o.GetComponent<Animator>().Play("CountDown",-1,0.0f);
+            // o.GetComponent<Animator>().Play("CountDown",-1,0.0f);
+            o.GetComponent<Animation>().Play("CountDown");
             GameObject.FindWithTag("Dice").GetComponent<Animator>().Play((rdFace+1).ToString(), -1, 0f);
 
             switch (stateList[rdFace])
@@ -540,9 +543,13 @@ public class BattleView : MonoBehaviour
             _choosenDice.transform.GetChild(i).GetComponent<Image>().sprite =
                 Resources.Load<Sprite>(filePath);
         // 回收选中的塔
+        // 关闭选中的描边效果
         foreach (var tower in _towers)
+        {
+            tower.transform.Find("Board").gameObject.SetActive(false);
             tower.state = Obj.ObjState.Death;
-        
+        }
+
         _towers.Clear();
         _beginSelect = false;
         shopGuide.text = "";

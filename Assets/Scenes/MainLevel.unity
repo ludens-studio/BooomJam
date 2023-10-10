@@ -422,6 +422,7 @@ GameObject:
   - component: {fileID: 73306509}
   - component: {fileID: 73306512}
   - component: {fileID: 73306511}
+  - component: {fileID: 73306513}
   m_Layer: 5
   m_Name: Dice2
   m_TagString: Untagged
@@ -609,6 +610,22 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+--- !u!111 &73306513
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 73306507}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 7400000, guid: e2f1b4de43a09434aa07635eb0eb72e3, type: 2}
+  m_Animations:
+  - {fileID: 7400000, guid: e2f1b4de43a09434aa07635eb0eb72e3, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 0
+  m_AnimatePhysics: 0
+  m_CullingType: 0
 --- !u!1 &73416617
 GameObject:
   m_ObjectHideFlags: 0
@@ -1958,6 +1975,7 @@ GameObject:
   - component: {fileID: 295486927}
   - component: {fileID: 295486930}
   - component: {fileID: 295486929}
+  - component: {fileID: 295486931}
   m_Layer: 5
   m_Name: Dice3
   m_TagString: Untagged
@@ -2145,6 +2163,22 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+--- !u!111 &295486931
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 295486925}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 7400000, guid: e2f1b4de43a09434aa07635eb0eb72e3, type: 2}
+  m_Animations:
+  - {fileID: 7400000, guid: e2f1b4de43a09434aa07635eb0eb72e3, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 0
+  m_AnimatePhysics: 0
+  m_CullingType: 0
 --- !u!1 &299162718
 GameObject:
   m_ObjectHideFlags: 0
@@ -8531,7 +8565,7 @@ MonoBehaviour:
   - state: 000000000000000000000000000000000000000002000000
     freeze: 0
     type: 1
-  diceTime: 8
+  diceTime: 7
   towers: []
   enemies: []
   killedEnemy: 0
@@ -8915,13 +8949,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hp: {fileID: 107628534}
   timer: {fileID: 438170265}
+  pause: {fileID: 1390038748}
   shopGuide: {fileID: 177808650}
+  dices:
+  - {fileID: 1509804477}
   gameWindow: {fileID: 1229467511}
   retryWindow: {fileID: 418048035}
   settingWindow: {fileID: 1683987650}
   loadingWindow: {fileID: 1190898758}
   logWindow: {fileID: 572506477}
-  guideWindow: {fileID: 0}
+  guideWindow: {fileID: 1837443985}
 --- !u!1 &1432717427
 GameObject:
   m_ObjectHideFlags: 0
@@ -9471,6 +9508,7 @@ GameObject:
   - component: {fileID: 1509804479}
   - component: {fileID: 1509804481}
   - component: {fileID: 1509804482}
+  - component: {fileID: 1509804483}
   m_Layer: 5
   m_Name: Dice1
   m_TagString: Untagged
@@ -9658,6 +9696,22 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!111 &1509804483
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1509804477}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 7400000, guid: e2f1b4de43a09434aa07635eb0eb72e3, type: 2}
+  m_Animations:
+  - {fileID: 7400000, guid: e2f1b4de43a09434aa07635eb0eb72e3, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 0
+  m_AnimatePhysics: 0
+  m_CullingType: 0
 --- !u!1 &1548079336
 GameObject:
   m_ObjectHideFlags: 0
