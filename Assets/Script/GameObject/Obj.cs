@@ -51,6 +51,8 @@ public class Obj : MonoBehaviour
     public List<Buff> buffs= new List<Buff>();
     public Dictionary<String , int> buffs_Dic = new Dictionary<String , int>(); // 拥有的buff
 
+    [SerializeField]private List<Buff> buff_cache =  new List<Buff>();
+
     public enum ObjState
     {
         Active,
@@ -169,34 +171,51 @@ public class Obj : MonoBehaviour
 
     public void UseBuffTimer()
     {
-        if(buffs.Count> 0)
+
+        if (BuffTimer <= 0.0f)
         {
-            if (BuffTimer <= 0.0f)
-            {
-                BuffTimer = 1.0f;
-                UseBuffs();
-            }
-            else
-            {
-                BuffTimer -= Time.fixedDeltaTime;
-            }
+            BuffTimer = 1.0f;
+            UseBuffs();
         }
+        else
+        {
+            BuffTimer -= Time.fixedDeltaTime;
+        }
+
+        AddBuff_Real(); 
 
     }
 
     public void AddBuff(Buff buff)
     {
-        buff.SetBuffTarget(this); 
-        if(buffs_Dic.ContainsKey(buff.BuffName))
+        buff_cache.Add(buff);
+    }
+
+    /// <summary>
+    /// 实际上加入Buff的函数
+    /// </summary>
+    private void AddBuff_Real()
+    {
+        if(buff_cache.Count> 0)
         {
-            buffs_Dic[buff.BuffName]++;
+            foreach (Buff buff in buff_cache)
+            {
+                buff.SetBuffTarget(this);
+                if (buffs_Dic.ContainsKey(buff.BuffName))
+                {
+                    buffs_Dic[buff.BuffName]++;
+                }
+                else
+                {
+                    Debug.Log("Buff有误");
+                }
+                buffs.Add(buff);
+                buff.EnterBuff();
+            }
         }
-        else
-        {
-            Debug.Log("Buff有误"); 
-        }
-        buffs.Add(buff);
-        buff.EnterBuff();
+
+        buff_cache.Clear(); // 清空Buff栏
+
     }
 
     public void UseBuffs()
@@ -210,7 +229,7 @@ public class Obj : MonoBehaviour
 
                 if (_buff.count <= 0)
                 {
-                    Debug.Log(gameObject.name + ":  " + _buff.name); 
+                    Debug.Log(gameObject.name + "REOMOVE:  " + _buff.name); 
                     RemoveBuff(_buff);
                 }
                 else

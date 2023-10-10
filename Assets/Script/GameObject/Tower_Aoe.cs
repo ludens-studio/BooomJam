@@ -12,23 +12,7 @@ public class Tower_Aoe : Tower
 
     private void Update()
     {
-        darkTimer(); // 暗属性扣血
-
-        if (isBoom)
-        {
-            if(BoomTimer> 0)
-            {
-                BoomTimer -= Time.fixedDeltaTime;
-            }
-            else
-            {
-                BoomAttack(); // 炸弹攻击
-                Death();
-                // 炸弹用完即销毁
-            }
-        }
-        else
-        {
+        if(!isBoom){
             checkTarget(); // 检测目标 !!! 目前只是使用激光+攻击距离检测
             UpdateAttackSpeed();
 
@@ -47,6 +31,26 @@ public class Tower_Aoe : Tower
 
         
 
+    }
+
+    private void FixedUpdate()
+    {
+        darkTimer(); // 暗属性扣血
+
+
+        if (isBoom)
+        {
+            if (BoomTimer > 0)
+            {
+                BoomTimer -= Time.fixedDeltaTime;
+            }
+            else
+            {
+                BoomAttack(); // 炸弹攻击
+                Death();
+                // 炸弹用完即销毁
+            }
+        }
     }
 
     private void darkTimer()
@@ -177,6 +181,12 @@ public class Tower_Aoe : Tower
             Debug.DrawLine(ray.origin, ray.origin + ray.direction * attackRange, Color.blue);
             haveTarget = false;
             target = null;
+        }
+
+        if (!isBoom)
+        {
+            // 播放受击特效.该特效位于子节点的最后一个，不要调整
+            target.transform.GetChild(target.transform.childCount - 1).GetComponent<ParticleSystem>().Play();
         }
 
         canAttack = false;

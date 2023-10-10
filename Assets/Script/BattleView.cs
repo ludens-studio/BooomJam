@@ -112,11 +112,17 @@ public class BattleView : MonoBehaviour
                     if (Input.GetMouseButtonDown(0) && _towers.Count <= 2)
                     {
                         // 不重复地添加塔
-                        if(!_towers.Contains(hit.collider.gameObject.GetComponent<Obj>()))
+                        if (!_towers.Contains(hit.collider.gameObject.GetComponent<Obj>()))
+                        {
+                            hit.collider.transform.Find("Board").gameObject.SetActive(true);
                             _towers.Add(hit.collider.gameObject.GetComponent<Obj>());
+                        }
                         else
+                        {
+                            // hit.collider.transform.GetChild(hit.collider.transform.childCount - 1).gameObject.SetActive(false);
+                            hit.collider.transform.Find("Board").gameObject.SetActive(false);
                             _towers.Remove(hit.collider.gameObject.GetComponent<Obj>());
-                        
+                        }
                     }
                     if(_towers.Count == 2)
                         shopGuide.text = "Choose the Dice";
