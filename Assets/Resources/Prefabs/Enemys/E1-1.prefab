@@ -64,7 +64,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2799053471747466090}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0.436}
+  m_LocalPosition: {x: 0, y: 0, z: 0.1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -536,6 +536,10 @@ MonoBehaviour:
   BuffTimer: 1
   buffs: []
   buff_cache: []
+  save_speed: 0
+  save_attack: 0
+  save_hp: 0
+  hasLevelup: 0
   testBuff: {fileID: 11400000, guid: 7ccb64224779a6a44be921150394bb6a, type: 2}
 --- !u!54 &2203626454115496001
 Rigidbody:

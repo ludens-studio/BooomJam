@@ -425,6 +425,10 @@ MonoBehaviour:
   BuffTimer: 1
   buffs: []
   buff_cache: []
+  save_speed: 0
+  save_attack: 0
+  save_hp: 0
+  hasLevelup: 0
   testBuff: {fileID: 0}
   targets: []
   ToNextLevelHp: 250
@@ -545,7 +549,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5722159223968368538}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0.436}
+  m_LocalPosition: {x: 0, y: 0, z: 0.1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
