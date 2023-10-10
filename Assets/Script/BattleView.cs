@@ -421,7 +421,7 @@ public class BattleView : MonoBehaviour
         // 至少有两个塔才允许进行交易
         if (BattleMgr.GetInstance().towers.Count >= 2)
         {
-            PauseGame();
+            Time.timeScale = 0;
             // 引导
             shopGuide.text = "Choose Two Towers or Soldiers in the map";
             _beginSelect = true;
@@ -435,13 +435,35 @@ public class BattleView : MonoBehaviour
 
     /// <summary>
     /// 暂停游戏
+    /// 替换按钮贴图
+    /// </summary>
+    public void PauseGame(GameObject o)
+    {
+        if (Time.timeScale == 1)
+        {
+            Time.timeScale = 0;
+            o.GetComponent<Image>().sprite = ResMgr.GetInstance().Load<Sprite>("UIElements/StartUI");
+        }
+        else
+        {
+            Time.timeScale = 1;
+            o.GetComponent<Image>().sprite = ResMgr.GetInstance().Load<Sprite>("UIElements/StopUI");
+        }
+    }
+    
+    /// <summary>
+    /// 暂停游戏(纯享版)
     /// </summary>
     public void PauseGame()
     {
         if (Time.timeScale == 1)
+        {
             Time.timeScale = 0;
+        }
         else
+        {
             Time.timeScale = 1;
+        }
     }
 
     /// <summary>
@@ -522,7 +544,7 @@ public class BattleView : MonoBehaviour
         _towers.Clear();
         _beginSelect = false;
         shopGuide.text = "";
-        PauseGame();
+        Time.timeScale = 1;
     }
 
 }
