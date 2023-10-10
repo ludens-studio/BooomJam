@@ -24,6 +24,8 @@ public class BattleView : MonoBehaviour
 
     public Button pause;
 
+    public GameObject shopGirl;
+
     public TMP_Text shopGuide;  // 商店引导面板
 
     [Header("UI 面板")]
@@ -455,10 +457,12 @@ public class BattleView : MonoBehaviour
             // 引导
             shopGuide.text = "Choose Two Towers or Soldiers in the map";
             _beginSelect = true;
+            shopGirl.GetComponent<Animator>().Play("BeginShop",-1,0.0f);
         }
         else
         {
-            // todo:播放一个无法交易的动画？
+            // 播放无法交易的动画
+            shopGirl.GetComponent<Animator>().Play("CantShop",-1,0.0f);
         }
     }
 
