@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class TitleView : MonoBehaviour
 {
+
+    public GameObject storyBoard;
     // Start is called before the first frame update
     void Start()
     {
@@ -29,9 +31,18 @@ public class TitleView : MonoBehaviour
     }
 
     /// <summary>
-    /// 开始游戏
+    /// 开始游戏,播放剧情故事
     /// </summary>
     public void StartGame()
+    {
+        storyBoard.gameObject.SetActive(true);
+        gameObject.GetComponent<Animator>().Play("Story");
+    }
+
+    /// <summary>
+    /// 加载下一关
+    /// </summary>
+    public void LoadNextLevel()
     {
         SceneManager.LoadScene(1,LoadSceneMode.Single);
     }
