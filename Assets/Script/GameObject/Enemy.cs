@@ -15,16 +15,16 @@ public class Enemy : Obj
     /// <summary>
     /// 检测是否因为击杀数而升级
     /// </summary>
-    public void checkLevelUp()
+    public void LevelUp(float _upAttack , float _upHp , int levelup)
     {
         if(BattleMgr.GetInstance().hasReachKilled)
         {
-            // 如果已经到达
-            float _upAttack = BattleMgr.GetInstance().enemyAttackUp; 
             hpUI.maxValue = hp;
-            attack = attack * (1 + _upAttack);
+            attack = attack * (1 + _upAttack * levelup);
+            hp = hp * (1 + _upHp * levelup);
         }
     }
+
 
     /// <summary>
     /// 加入到Mgr中
