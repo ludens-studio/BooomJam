@@ -22,6 +22,8 @@ public class BattleView : MonoBehaviour
 
     public TMP_Text timer;
 
+    public Button pause;
+
     public TMP_Text shopGuide;  // 商店引导面板
 
     [Header("UI 面板")]
@@ -544,6 +546,7 @@ public class BattleView : MonoBehaviour
         _towers.Clear();
         _beginSelect = false;
         shopGuide.text = "";
+        pause.GetComponent<Image>().sprite = ResMgr.GetInstance().Load<Sprite>("UIElements/StopUI");
         Time.timeScale = 1;
     }
 
