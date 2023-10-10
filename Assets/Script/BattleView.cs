@@ -26,8 +26,6 @@ public class BattleView : MonoBehaviour
 
     public TMP_Text shopGuide;  // 商店引导面板
 
-    public GameObject[] dices;    // 骰子obj
-
     [Header("UI 面板")]
     public GameObject gameWindow;   // 游戏主面板
     
@@ -410,10 +408,24 @@ public class BattleView : MonoBehaviour
 
     /// <summary>
     /// 游戏结束，打开面板
+    /// 更新最高记录(如果打破了)
     /// </summary>
     public void GameOver()
     {
         retryWindow.SetActive(true);
+        int record = PlayerPrefs.GetInt("Record",0);
+        int mark = BattleMgr.GetInstance().timer;
+        if (mark > record)
+        {
+            retryWindow.transform.Find("Record").GetComponent<TMP_Text>().text =
+                "Best Record: " + mark;
+            PlayerPrefs.SetInt("Record", mark);
+        }
+        else
+        {
+            retryWindow.transform.Find("Record").GetComponent<TMP_Text>().text =
+                "Best Record: " + record;
+        }
     }
     
     /// <summary>
