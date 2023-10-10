@@ -239,7 +239,8 @@ public class Obj : MonoBehaviour
 
                 if (_buff.count <= 0)
                 {
-                    Debug.Log(gameObject.name + "REOMOVE:  " + _buff.name); 
+                    Debug.Log(gameObject.name + "REOMOVE:  " + _buff.name);
+                    _buff.count = _buff.count_Set; 
                     RemoveBuff(_buff);
                 }
                 else
@@ -267,7 +268,8 @@ public class Obj : MonoBehaviour
         {
             foreach (Buff buff in buff_cache_del)
             {
-                buff.ExitBuff();
+                buffs.Remove(buff);
+                //buff.ExitBuff();
                 if (buffs_Dic.ContainsKey(buff.BuffName))
                 {
                     buffs_Dic[buff.BuffName]--;
@@ -280,7 +282,9 @@ public class Obj : MonoBehaviour
                 {
                     Debug.Log("Buff有误");
                 }
-                buffs.Remove(buff);
+                //buffs.Remove(buff);
+                buff.ExitBuff();
+
             }
 
 

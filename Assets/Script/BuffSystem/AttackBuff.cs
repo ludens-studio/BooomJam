@@ -9,6 +9,11 @@ public class AttackBuff : Buff
 
     public override void EnterBuff()
     {
+        //¡Ÿ ±≤πæ»
+        if(isFirst) {
+            count_Set = count; 
+            isFirst= false;
+        }
     }
 
     public override void UseBuff()
@@ -21,6 +26,7 @@ public class AttackBuff : Buff
 
     public override void ExitBuff()
     {
-
+        int n = target.CheckBuffCount("Attack_Up");
+        target.addAttack(amount * n);
     }
 }
