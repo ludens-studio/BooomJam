@@ -150,7 +150,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attack: 0
   haveTarget: 0
-  hp: 100
+  hp: 200
   hpUI: {fileID: 7892909224539648231}
   speed: 0
   attackSpeed: 1
@@ -163,6 +163,7 @@ MonoBehaviour:
   anim: {fileID: 0}
   BuffTimer: 1
   buffs: []
+  buff_cache: []
   shootTower: 0
   isFlag: 1
   Bullet: {fileID: 0}
