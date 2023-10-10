@@ -198,7 +198,7 @@ public class Tower_Aoe : Tower
 
     private void BoomAttack()
     {
-        Collider[] colliders = Physics.OverlapSphere(this.transform.position, attack); //获得范围内所有物体
+        Collider[] colliders = Physics.OverlapSphere(this.transform.position, attackRange); //获得范围内所有物体
 
         foreach (Collider col in colliders)
         {
