@@ -347,12 +347,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47bb8e21e63b4df1810598436fed9c2c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attack: 20
+  attack: 40
   haveTarget: 0
   hp: 100
   hpUI: {fileID: 9202536379115784431}
   speed: 0
-  attackSpeed: 1.5
+  attackSpeed: 1.8
   attackSpeed_true: 0
   attackSpeedTimer: 0
   canAttack: 0
@@ -864,6 +864,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8496940859700404879, guid: 98665daa70a90864c802e6ef9ce646ec,
+        type: 3}
+      propertyPath: m_audioClip
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 8912945596255868560, guid: 98665daa70a90864c802e6ef9ce646ec,
         type: 3}

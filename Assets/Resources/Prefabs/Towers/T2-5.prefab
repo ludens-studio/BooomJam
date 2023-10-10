@@ -118,12 +118,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f59d8cbb4b58f9640aa82e65e71c958f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attack: 10
+  attack: 20
   haveTarget: 0
   hp: 100
   hpUI: {fileID: 593445367154397629}
   speed: 0
-  attackSpeed: 1.5
+  attackSpeed: 1.8
   attackSpeed_true: 0
   attackSpeedTimer: 0
   canAttack: 0
@@ -133,6 +133,7 @@ MonoBehaviour:
   anim: {fileID: 0}
   BuffTimer: 1
   buffs: []
+  buff_cache: []
   shootTower: 0
   isFlag: 0
   Bullet: {fileID: 0}
@@ -900,6 +901,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8496940859700404879, guid: 98665daa70a90864c802e6ef9ce646ec,
+        type: 3}
+      propertyPath: m_audioClip
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 8912945596255868560, guid: 98665daa70a90864c802e6ef9ce646ec,
         type: 3}
