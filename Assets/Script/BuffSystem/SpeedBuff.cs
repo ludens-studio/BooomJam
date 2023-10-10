@@ -7,8 +7,11 @@ public class SpeedBuff : Buff
 {
     public float amount;
     [SerializeField] private float amount_real; //实际的调整数值
+    private float save_speed; 
     public override void EnterBuff()
     {
+        save_speed = target.GetComponent<Obj>().speed; 
+
         float tmp = 0; 
         tmp = target.speed + amount;
         if(tmp < 0)
@@ -33,6 +36,9 @@ public class SpeedBuff : Buff
     public override void ExitBuff()
     {
         target.speed -= amount_real;
+        if(target.speed < 0 || target.speed > save_speed) {
+            target.speed = target.save_speed; 
+        }
     }
 
 
