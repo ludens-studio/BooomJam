@@ -87,9 +87,10 @@ public class BattleMgr : BaseMgr<BattleMgr>
 
     [Header("游戏进程相关")]
     public int killedEnemy = 0; // 已经击杀的怪物数量    
-    public int nextLevelKilled; // 到达N之后解锁新剧情（有需求的话这里可以改成list）
+    public int nextLevelKilled; // 每击杀X个敌人提升一次数值
     public bool hasReachKilled = false; //是否已经到达指定数量n
     public float enemyAttackUp; // 到达后新生成的敌人应增加的攻击力（这里写x%）
+    public float enemyHpUp; // 到达后新生成的敌人应增加的血量（这里写x%） 
 
 
     // Start is called before the first frame update
@@ -132,7 +133,7 @@ public class BattleMgr : BaseMgr<BattleMgr>
                         o.transform.position = new Vector3(9, row, -1f);
                         o.transform.parent = GameObject.Find("PoolEnemy").transform;
                         o.GetComponent<Obj>().state = Obj.ObjState.Active;
-                        o.gameObject.GetComponent<Enemy>().checkLevelUp(); //检测是否加血
+                        o.gameObject.GetComponent<Enemy>().LevelUp(enemyAttackUp , enemyHpUp , killedEnemy/nextLevelKilled); //检测升级
 
                         enemies.Add(o);
                     });
