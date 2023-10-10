@@ -253,7 +253,7 @@ public class BattleView : MonoBehaviour
             string filePath = "";
             
             // 播放冷却动画
-            o.GetComponent<Animator>().Play("CountDown");
+            o.GetComponent<Animator>().Play("CountDown",-1,0.0f);
             GameObject.FindWithTag("Dice").GetComponent<Animator>().Play((rdFace+1).ToString(), -1, 0f);
 
             switch (stateList[rdFace])

@@ -6662,7 +6662,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1101141235
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7450,7 +7450,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1229467512
 RectTransform:
   m_ObjectHideFlags: 0
@@ -8076,7 +8076,6 @@ MonoBehaviour:
   enemies: []
   killedEnemy: 0
   nextLevelKilled: 3
-  hasReachKilled: 0
   enemyAttackUp: 1
   enemyHpUp: 0
 --- !u!4 &1361096408
@@ -10919,7 +10918,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: -5, y: 0}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
