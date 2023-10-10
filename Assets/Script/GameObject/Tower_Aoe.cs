@@ -6,7 +6,8 @@ using static UnityEngine.GraphicsBuffer;
 
 public class Tower_Aoe : Tower
 {
-    [Header("Boom")]
+    [Header("AOE塔设计以及Boom")]
+    public List<GameObject> targets = new List<GameObject>();
     public bool isBoom = false; //是否为炸弹
     public float BoomTimer; 
 
@@ -137,6 +138,7 @@ public class Tower_Aoe : Tower
             {
                 haveTarget = true;
                 target = hit.collider.gameObject;
+                targets.Add(target); 
             }
         }
         else
@@ -155,6 +157,8 @@ public class Tower_Aoe : Tower
             {
                 haveTarget = true;
                 target = hit.collider.gameObject;
+                targets.Add(target);
+
             }
         }
         else
@@ -162,6 +166,7 @@ public class Tower_Aoe : Tower
             Debug.DrawLine(ray.origin, ray.origin + ray.direction * attackRange, Color.blue);
             haveTarget = false;
             target = null;
+
         }
         //=======================
 
@@ -174,6 +179,8 @@ public class Tower_Aoe : Tower
             {
                 haveTarget = true;
                 target = hit.collider.gameObject;
+                targets.Add(target);
+
             }
         }
         else
@@ -183,11 +190,17 @@ public class Tower_Aoe : Tower
             target = null;
         }
 
-        if (!isBoom)
+        if (targets.Count > 0)
         {
-            // 播放受击特效.该特效位于子节点的最后一个，不要调整
-            target.transform.GetChild(target.transform.childCount - 1).GetComponent<ParticleSystem>().Play();
+            foreach(var _target in targets)
+            {
+                _target.transform.GetChild(target.transform.childCount - 1).GetComponent<ParticleSystem>().Play();
+                // 播放受击特效.该特效位于子节点的最后一个，不要调整
+
+            }
+
         }
+        targets.Clear();
 
         canAttack = false;
 
