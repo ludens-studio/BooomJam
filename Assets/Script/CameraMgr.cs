@@ -6,7 +6,7 @@ public class CameraMgr : BaseMgr<CameraMgr>
 {
 
 
-    public bool isShake; //Ã»±ØÒªÍ¬Ê±·¢Éú¶à¸öÕğ¶¯
+    public bool isShake; //æ²¡å¿…è¦åŒæ—¶å‘ç”Ÿå¤šä¸ªéœ‡åŠ¨
     public float shakeTime;
     public float shakeStrength;
 

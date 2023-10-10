@@ -364,6 +364,7 @@ public class BattleMgr : BaseMgr<BattleMgr>
     {
         hp -= _damage;
        // CameraMgr.GetInstance().ShakeCamera(); 
+       Camera.main.GetComponent<Animator>().Play("CameraShake",-1,0.0f);
     }
 
 }
