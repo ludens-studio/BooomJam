@@ -99,15 +99,15 @@ public class BattleView : MonoBehaviour
         // 血量为0，游戏结束
         if (BattleMgr.GetInstance().hp <= 0)
         {
-            if (BattleMgr.GetInstance().hasReachKilled)
+/*            if (BattleMgr.GetInstance().hasReachKilled)
             {
                 // todo: 特殊剧情(此处可以播动画，在动画末尾加上GameOver()事件即可)
                 GameOver();
             }
             else
-            {
+            {*/
                 GameOver();
-            }
+            //}
         }
         
         // 开始商店逻辑
