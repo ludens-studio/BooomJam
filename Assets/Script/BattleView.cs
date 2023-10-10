@@ -34,6 +34,8 @@ public class BattleView : MonoBehaviour
     public GameObject loadingWindow;    // 加载面板
 
     public GameObject logWindow;        // 商店对话面板
+    
+    public GameObject guideWindow;      // 手册面板
 
     /// <summary>
     /// 场景中生成的骰子（唯一
@@ -483,6 +485,22 @@ public class BattleView : MonoBehaviour
     public void CloseLog()
     {
         logWindow.SetActive(false);
+    }
+
+    /// <summary>
+    /// 打开图鉴
+    /// </summary>
+    public void ShowGuide()
+    {
+        guideWindow.SetActive(true);
+    }
+
+    /// <summary>
+    /// 关闭图鉴
+    /// </summary>
+    public void CloseGuide()
+    {
+        guideWindow.SetActive(false);
     }
 
     /// <summary>
