@@ -37,7 +37,9 @@ public class BattleView : MonoBehaviour
 
     public GameObject logWindow;        // 商店对话面板
     
-    public GameObject guideWindow;      // 手册面板
+    public GameObject handbookWindow;   // 手册面板
+
+    public GameObject guideWindow;      // 新手引导面板
 
     /// <summary>
     /// 场景中生成的骰子（唯一
@@ -160,7 +162,6 @@ public class BattleView : MonoBehaviour
     {
         Camera.main.GetComponent<Animator>().Play("CameraTransition");
     }
-    
 
     /// <summary>
     /// 显示所有子节点
@@ -447,7 +448,6 @@ public class BattleView : MonoBehaviour
         {
             // 播放一个无法交易的动画？
         }
-
     }
 
     /// <summary>
@@ -465,21 +465,6 @@ public class BattleView : MonoBehaviour
         {
             Time.timeScale = 1;
             o.GetComponent<Image>().sprite = ResMgr.GetInstance().Load<Sprite>("UIElements/StopUI");
-        }
-    }
-    
-    /// <summary>
-    /// 暂停游戏(纯享版)
-    /// </summary>
-    public void PauseGame()
-    {
-        if (Time.timeScale == 1)
-        {
-            Time.timeScale = 0;
-        }
-        else
-        {
-            Time.timeScale = 1;
         }
     }
 
@@ -529,18 +514,29 @@ public class BattleView : MonoBehaviour
     /// <summary>
     /// 打开图鉴
     /// </summary>
-    public void ShowGuide()
+    public void ShowHandbook()
     {
-        guideWindow.SetActive(true);
+        handbookWindow.SetActive(true);
     }
 
     /// <summary>
     /// 关闭图鉴
     /// </summary>
+    public void CloseHandbook()
+    {
+        handbookWindow.SetActive(false);
+    }
+
+    /// <summary>
+    /// 关闭新手引导
+    /// </summary>
     public void CloseGuide()
     {
         guideWindow.SetActive(false);
+        Time.timeScale = 1;
     }
+    
+    
 
     /// <summary>
     /// 完成商店逻辑

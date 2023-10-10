@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CameraMgr : BaseMgr<CameraMgr>
 {
-
+    public GameObject guideWindow;
 
     public bool isShake; //没必要同时发生多个震动
     public float shakeTime;
@@ -12,6 +12,12 @@ public class CameraMgr : BaseMgr<CameraMgr>
 
     public float defaultDuration;
     public float defaultStrength;
+
+    public void PauseGame()
+    {
+        guideWindow.SetActive(true);
+        Time.timeScale = 0;
+    }
 
 
     public void ShakeCamera()
