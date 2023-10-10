@@ -7633,6 +7633,7 @@ GameObject:
   - component: {fileID: 1190898759}
   - component: {fileID: 1190898762}
   - component: {fileID: 1190898763}
+  - component: {fileID: 1190898764}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -7762,6 +7763,23 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1190898764
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1190898758}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc3162c7eeb83ac4d8c778d9c1d812cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isShake: 0
+  shakeTime: 0.1
+  shakeStrength: 0.5
+  defaultDuration: 0.5
+  defaultStrength: 0.5
 --- !u!1 &1212043817
 GameObject:
   m_ObjectHideFlags: 0
@@ -8903,7 +8921,7 @@ MonoBehaviour:
   settingWindow: {fileID: 1683987650}
   loadingWindow: {fileID: 1190898758}
   logWindow: {fileID: 572506477}
-  guideWindow: {fileID: 1837443985}
+  guideWindow: {fileID: 0}
 --- !u!1 &1432717427
 GameObject:
   m_ObjectHideFlags: 0

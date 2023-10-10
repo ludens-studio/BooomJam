@@ -358,4 +358,12 @@ public class BattleMgr : BaseMgr<BattleMgr>
     {
         return _barTime;
     }
+
+    // 减少玩家生命值
+    public void PlayerDamage(int _damage)
+    {
+        hp -= _damage;
+       // CameraMgr.GetInstance().ShakeCamera(); 
+    }
+
 }
