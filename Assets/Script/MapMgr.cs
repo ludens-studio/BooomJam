@@ -32,9 +32,6 @@ public class MapMgr : BaseMgr<MapMgr>
     public void SetTower(int x, int y, GameObject tower)
     {
         _gridList[x, y].tower = tower;
-
-        // 在battleeMgr中注册塔
-        tower.GetComponent<Obj>().AddToBattleMgr();
     }
 
     /// <summary>
@@ -46,7 +43,6 @@ public class MapMgr : BaseMgr<MapMgr>
     public void RemoveTower(int x, int y)
     {
         _gridList[x, y].tower = null;
-
     }
     
     /// <summary>

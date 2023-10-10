@@ -28,13 +28,7 @@ public class Tower_Ray : Tower
 
     }
 
-    /// 
-    /// 加入到Mgr中
-    ///
-    public override void AddToBattleMgr()
-    {
-        BattleMgr.GetInstance().towers.Add(gameObject);
-    }
+
     /// <summary>
     /// 从Mgr中删除
     /// </summary>

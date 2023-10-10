@@ -133,7 +133,7 @@ public class BattleMgr : BaseMgr<BattleMgr>
                         o.transform.position = new Vector3(9, row, -1f);
                         o.transform.parent = GameObject.Find("PoolEnemy").transform;
                         o.GetComponent<Obj>().state = Obj.ObjState.Active;
-                        o.gameObject.GetComponent<Enemy>().LevelUp(enemyAttackUp , enemyHpUp , killedEnemy/nextLevelKilled); //检测
+                        o.gameObject.GetComponent<Enemy>().LevelUp(enemyAttackUp, enemyHpUp, killedEnemy/nextLevelKilled); //检测
 
                         enemies.Add(o);
                     });
@@ -190,7 +190,7 @@ public class BattleMgr : BaseMgr<BattleMgr>
     }
     
     /// <summary>
-    /// 实例化塔并放置在地图上
+    /// 实例化Boss并放置在地图上
     /// </summary>
     public void InitBoss()
     {

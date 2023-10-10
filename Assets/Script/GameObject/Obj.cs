@@ -112,11 +112,6 @@ public class Obj : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    public virtual void AddToBattleMgr()
-    {
-        // 
-    }
-
     public virtual void DelFromBattleMgr()
     {
         // 

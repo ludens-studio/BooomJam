@@ -27,15 +27,7 @@ public class Enemy : Obj
         }
         
     }
-
-
-    /// <summary>
-    /// 加入到Mgr中
-    /// </summary>
-    public override void AddToBattleMgr()
-    {
-        BattleMgr.GetInstance().enemies.Add(gameObject); 
-    }
+    
     
     /// <summary>
     /// 从Mgr中删除
