@@ -252,7 +252,7 @@ public class BattleMgr : BaseMgr<BattleMgr>
             o.transform.position = new Vector3(x, -y, -1.1f);
             o.GetComponent<Obj>().state = Obj.ObjState.Active;
             MapMgr.GetInstance().SetTower(x, y, o);
-            if (name.Contains("F2"))
+            if (name.Contains("T2"))
             {
                 // 暗塔锁格子
                 MapMgr.GetInstance().LockGrid(x, y);
