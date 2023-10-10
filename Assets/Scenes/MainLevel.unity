@@ -8040,6 +8040,24 @@ MonoBehaviour:
     - {fileID: 587069962221228619, guid: 534bae9b127c0ab48a7b9b4d615541ba, type: 3}
     - {fileID: 587069962221228619, guid: 534bae9b127c0ab48a7b9b4d615541ba, type: 3}
     - {fileID: 587069962221228619, guid: 534bae9b127c0ab48a7b9b4d615541ba, type: 3}
+  - waveRate: 4
+    rate: 2.5
+    enemyObj:
+    - {fileID: 587069962221228619, guid: 534bae9b127c0ab48a7b9b4d615541ba, type: 3}
+    - {fileID: 587069962221228619, guid: 534bae9b127c0ab48a7b9b4d615541ba, type: 3}
+    - {fileID: 587069962221228619, guid: 534bae9b127c0ab48a7b9b4d615541ba, type: 3}
+  - waveRate: 4
+    rate: 2.5
+    enemyObj:
+    - {fileID: 587069962221228619, guid: 534bae9b127c0ab48a7b9b4d615541ba, type: 3}
+    - {fileID: 587069962221228619, guid: 534bae9b127c0ab48a7b9b4d615541ba, type: 3}
+    - {fileID: 587069962221228619, guid: 534bae9b127c0ab48a7b9b4d615541ba, type: 3}
+  - waveRate: 4
+    rate: 2.5
+    enemyObj:
+    - {fileID: 587069962221228619, guid: 534bae9b127c0ab48a7b9b4d615541ba, type: 3}
+    - {fileID: 587069962221228619, guid: 534bae9b127c0ab48a7b9b4d615541ba, type: 3}
+    - {fileID: 587069962221228619, guid: 534bae9b127c0ab48a7b9b4d615541ba, type: 3}
   beforeWaveStartTime: 3
   hp: 20
   timer: 0
@@ -8053,7 +8071,7 @@ MonoBehaviour:
   - state: 000000000000000000000000000000000000000002000000
     freeze: 0
     type: 1
-  diceTime: 3
+  diceTime: 10
   towers: []
   enemies: []
   killedEnemy: 0

@@ -275,9 +275,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attack: 25
   haveTarget: 0
-  hp: 200
+  hp: 400
   hpUI: {fileID: 7766411875856296934}
-  speed: 0.3
+  speed: 0.25
   attackSpeed: 1
   attackSpeed_true: 0
   attackSpeedTimer: 0
@@ -288,6 +288,7 @@ MonoBehaviour:
   anim: {fileID: 0}
   BuffTimer: 1
   buffs: []
+  buff_cache: []
   testBuff: {fileID: 11400000, guid: 7ccb64224779a6a44be921150394bb6a, type: 2}
 --- !u!54 &4001205368177196343
 Rigidbody:
