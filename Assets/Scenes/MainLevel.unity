@@ -6662,7 +6662,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1101141235
 RectTransform:
   m_ObjectHideFlags: 0
@@ -8071,13 +8071,14 @@ MonoBehaviour:
   - state: 000000000000000000000000000000000000000002000000
     freeze: 0
     type: 1
-  diceTime: 10
+  diceTime: 8
   towers: []
   enemies: []
   killedEnemy: 0
   nextLevelKilled: 3
   hasReachKilled: 0
   enemyAttackUp: 1
+  enemyHpUp: 0
 --- !u!4 &1361096408
 Transform:
   m_ObjectHideFlags: 0

@@ -200,7 +200,7 @@ public class BattleMgr : BaseMgr<BattleMgr>
             o.transform.position = new Vector3(9, row, -1f);
             o.transform.parent = GameObject.Find("PoolEnemy").transform;
             o.GetComponent<Obj>().state = Obj.ObjState.Active;
-            o.gameObject.GetComponent<Enemy>().checkLevelUp(); //检测是否加血
+            o.gameObject.GetComponent<Enemy>().LevelUp(enemyAttackUp , enemyHpUp , killedEnemy/nextLevelKilled); //检测升级
 
             enemies.Add(o);
         });
