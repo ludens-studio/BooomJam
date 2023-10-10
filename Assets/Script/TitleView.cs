@@ -12,7 +12,6 @@ public class TitleView : MonoBehaviour
     {
         // 第一次打开游戏
         PlayerPrefs.SetInt("firstPlay", 1);
-        print(PlayerPrefs.GetInt("firstPlay"));
     }
 
     // Update is called once per frame
@@ -35,8 +34,15 @@ public class TitleView : MonoBehaviour
     /// </summary>
     public void StartGame()
     {
-        storyBoard.gameObject.SetActive(true);
-        gameObject.GetComponent<Animator>().Play("Story");
+        if (PlayerPrefs.GetInt("firstPlay") == 1)
+        {
+            storyBoard.gameObject.SetActive(true);
+            gameObject.GetComponent<Animator>().Play("Story");
+        }
+        else
+        {
+            LoadNextLevel();
+        }
     }
 
     /// <summary>
