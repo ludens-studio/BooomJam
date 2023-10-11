@@ -33,7 +33,6 @@ public class Tower_Aoe : Tower
             {
                 // ∑Ò‘ÚIdle
                 Idle();
-
             }
         }
 

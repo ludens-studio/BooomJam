@@ -187,11 +187,12 @@ public class BattleMgr : BaseMgr<BattleMgr>
     /// <returns></returns>
     IEnumerator StartLoadingBar(float loadTime)
     {
-        print(loadTime);
         yield return new WaitForSeconds(loadTime);
-        _barTime = 100;
+        AudioMgr.GetInstance().ChangeBKMusic("Audios/fightbgm");
+        AudioMgr.GetInstance().PlayBkMusic();
         StartCoroutine(Timer());
         StartCoroutine(WaveSpawner());
+        _barTime = 100;
     }
     
     /// <summary>
@@ -259,6 +260,7 @@ public class BattleMgr : BaseMgr<BattleMgr>
         
         PoolMgr.GetInstance().GetObj(name + type,o=>
         {
+            print("生成：" + name + type);
             o.transform.parent = GameObject.Find("PoolTower").transform;
             o.transform.position = new Vector3(x, -y, -1.1f);
             // 有的时候会触发一生成就死了的谜之问题

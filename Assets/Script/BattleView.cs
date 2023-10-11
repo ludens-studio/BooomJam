@@ -6,7 +6,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
-using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
 /// <summary>
@@ -41,7 +40,7 @@ public class BattleView : MonoBehaviour
     
     public GameObject handbookWindow;   // 手册面板
 
-    public GameObject guideWindow;      // 新手引导面板
+    public GameObject[] guideWindow;      // 新手引导面板
 
     /// <summary>
     /// 场景中生成的骰子（唯一
@@ -68,8 +67,9 @@ public class BattleView : MonoBehaviour
     {
         if (PlayerPrefs.GetInt("firstPlay",1) == 1)   // 第一次播放loading画面
         {
-            PlayerPrefs.SetInt("firstPlay", 0);
-            print(loadingWindow.transform.GetChild(0).name);
+            PlayerPrefs.SetInt("firstPlay", 0);     // 不是第一次进行游戏了
+            AudioMgr.GetInstance().ChangeBKMusic("Audios/loading2");
+            AudioMgr.GetInstance().PlayBkMusic();
             loadingWindow.transform.GetChild(0).gameObject.SetActive(true);
             loadingWindow.GetComponent<Animator>().Play("EyeLoading",-1,0.0f);
             gameWindow.SetActive(false);
@@ -79,7 +79,7 @@ public class BattleView : MonoBehaviour
         else
         {
             loadingWindow.transform.GetChild(0).gameObject.SetActive(false);
-            BattleMgr.GetInstance().loadTime = 0.1f;
+            BattleMgr.GetInstance().loadTime = 0.2f;
         }
     }
 
@@ -489,6 +489,7 @@ public class BattleView : MonoBehaviour
     /// </summary>
     public void RetryGame()
     {
+        Time.timeScale = 1;
         PlayerPrefs.SetInt("firstPlay", 0);
         SceneManager.LoadScene(SceneManager.GetActiveScene().name,LoadSceneMode.Single);
     }
@@ -498,6 +499,7 @@ public class BattleView : MonoBehaviour
     /// </summary>
     public void BackToMenu()
     {
+        Time.timeScale = 1;
         SceneManager.LoadScene(0,LoadSceneMode.Single);
     }
 
@@ -548,11 +550,21 @@ public class BattleView : MonoBehaviour
     /// </summary>
     public void CloseGuide()
     {
-        guideWindow.SetActive(false);
+        foreach (var g in guideWindow)
+        {
+            g.SetActive(false);
+        }
         Time.timeScale = 1;
     }
-    
-    
+
+    /// <summary>
+    /// 新手引导下一页
+    /// </summary>
+    /// <param name="index"></param>
+    public void NextGuide(int index)
+    {
+        guideWindow[index].SetActive(true);
+    }
 
     /// <summary>
     /// 完成商店逻辑

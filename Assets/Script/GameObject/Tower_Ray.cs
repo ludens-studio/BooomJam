@@ -28,21 +28,6 @@ public class Tower_Ray : Tower
 
     }
 
-
-    /// <summary>
-    /// ´ÓMgrÖÐÉ¾³ý
-    /// </summary>
-    public override void DelFromBattleMgr()
-    {
-        Vector3 pos = gameObject.transform.position;
-        BattleMgr.GetInstance().towers.Remove(gameObject);
-        MapMgr.GetInstance().RemoveTower((int)pos.x, (int)-pos.y);
-        MapMgr.GetInstance().ReleaseGrid((int)pos.x, (int)-pos.y);
-        SetDefault();
-        string name = "Prefabs/Towers/" + gameObject.name.Substring(0, gameObject.name.Length - 7);    // È¥µô(Clone)
-        PoolMgr.GetInstance().PushObj(name, gameObject);
-    }
-
     /// <summary>
     /// ¼ì²â¹¥»÷·¶Î§²¢½øÐÐ¹¥»÷
     /// </summary>
