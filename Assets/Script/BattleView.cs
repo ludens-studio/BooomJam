@@ -159,7 +159,7 @@ public class BattleView : MonoBehaviour
                     if(_towers.Count == 2)
                     {
                         
-                        shopGuide.text = "Choose the Dice";
+                        shopGuide.text = "选择你要净化的小家伙吧";
                     }
                     
                 }
@@ -442,7 +442,7 @@ public class BattleView : MonoBehaviour
         if (mark > record)
         {
             retryWindow.transform.Find("Record").GetComponent<TMP_Text>().text =
-                "Best Record: " + timer.text;
+                "最佳成绩: " + timer.text;
             PlayerPrefs.SetInt("Record", mark);
         }
         else
@@ -451,7 +451,7 @@ public class BattleView : MonoBehaviour
             string sec = (record % 60 < 10) ? "0" + (record % 60) : (record % 60).ToString();
             
             retryWindow.transform.Find("Record").GetComponent<TMP_Text>().text =
-                "Best Record: " + min + ":" + sec;
+                "最佳成绩: " + min + ":" + sec;
         }
     }
     
@@ -471,7 +471,7 @@ public class BattleView : MonoBehaviour
             {
                 Time.timeScale = 0;
                 // 引导
-                shopGuide.text = "Choose Two Towers or Soldiers in the map";
+                shopGuide.text = "把两个单位献祭给我，我就帮你净化你的小家伙";
                 _beginSelect = true;
                 shopGirl.GetComponent<Animator>().Play("BeginShop",-1,0.0f);
             }
