@@ -10,17 +10,7 @@ public class TitleView : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        // 第一次打开游戏
-        if (PlayerPrefs.GetInt("firstPlay", 1) == 0)
-        {
-            return;
-        }
-        else
-        {
-            print("hello world");
-            PlayerPrefs.SetInt("firstPlay", 0);
-        }
-        
+        PlayerPrefs.SetInt("firstPlay", 0);
     }
 
     // Update is called once per frame
@@ -35,7 +25,9 @@ public class TitleView : MonoBehaviour
     /// </summary>
     public void QuitGame()
     {
-        PlayerPrefs.SetInt("firstPlay", 1);
+        // 0：第一次游戏
+        // 1：不是第一次
+        PlayerPrefs.SetInt("firstPlay", 0);
         Application.Quit();
     }
 
