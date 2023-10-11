@@ -19,11 +19,29 @@ public class Enemy : Obj
         if (!HasLevelup)
         {
             attack = attack * (1 + _upAttack * levelup *0.01f);
-            hp = hp * (1 + _upHp * levelup * 0.01f);
+            hp = defaultHP * (1 + _upHp * levelup * 0.01f);
 
-            defaultHP = hp;
-            defaultAttack = attack; 
-            
+            // 更新
+            if(hp > 0)
+            {
+                defaultHP = hp;
+            }
+            else
+            {
+                defaultHP = -hp; 
+            }
+
+            if(attack > 0)
+            {
+                defaultAttack = attack;
+
+            }
+            else
+            {
+                defaultAttack = -attack;
+
+            }
+
             hpUI.maxValue = hp;
             HasLevelup = true;
         }
