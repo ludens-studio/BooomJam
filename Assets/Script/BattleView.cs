@@ -107,7 +107,7 @@ public class BattleView : MonoBehaviour
         // 血量为0，游戏结束
         if (BattleMgr.GetInstance().hp <= 0)
         {
-            if (BattleMgr.GetInstance().killedEnemy >= 100)
+            if (BattleMgr.GetInstance().killedEnemy >= 75)
             {
                 // 特殊剧情(此处可以播动画，在动画末尾加上GameOver()事件即可)
                 gameObject.GetComponent<Animator>().SetBool("End",true);
