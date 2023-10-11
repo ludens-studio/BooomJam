@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &298073650276067530
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6369175410448985797}
+  m_Layer: 7
+  m_Name: Range
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6369175410448985797
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 298073650276067530}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.22, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 714121198497044026}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &568612791590825736
 GameObject:
   m_ObjectHideFlags: 0
@@ -88,6 +119,7 @@ GameObject:
   - component: {fileID: 714121198497044023}
   - component: {fileID: 714121198497044027}
   - component: {fileID: 4969025006795153313}
+  - component: {fileID: 4061474322950940821}
   m_Layer: 7
   m_Name: F1-2
   m_TagString: Tower
@@ -109,6 +141,7 @@ Transform:
   m_Children:
   - {fileID: 714121198874882984}
   - {fileID: 3144532094593163238}
+  - {fileID: 6369175410448985797}
   - {fileID: 8953507537313860661}
   - {fileID: 1201806077265869803}
   - {fileID: 1040515485630693064}
@@ -154,7 +187,7 @@ MonoBehaviour:
   attackRange: 1
   state: 0
   anim: {fileID: 0}
-  defaultSpeed: 0
+  defaultHP: 0
   HasLevelup: 0
   BuffTimer: 1
   buffs: []
@@ -219,6 +252,27 @@ SpriteRenderer:
   m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &4061474322950940821
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 714121198497044022}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 8fbf21a5753d84341bb1c67ab7dbcc83, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &714121198874882987
 GameObject:
   m_ObjectHideFlags: 0
@@ -407,7 +461,7 @@ Transform:
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 714121198497044026}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &7020711206181582902
 SpriteRenderer:
@@ -668,7 +722,7 @@ Transform:
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 714121198497044026}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &6410708122408571301
 SpriteRenderer:
@@ -742,7 +796,7 @@ PrefabInstance:
     - target: {fileID: 5223621883835891357, guid: 8e88e1f612b228c4891428b837d80d61,
         type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 5223621883835891357, guid: 8e88e1f612b228c4891428b837d80d61,
         type: 3}
@@ -852,7 +906,7 @@ PrefabInstance:
     - target: {fileID: 5255976735879317203, guid: 98665daa70a90864c802e6ef9ce646ec,
         type: 3}
       propertyPath: m_RootOrder
-      value: 5
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 5255976735879317203, guid: 98665daa70a90864c802e6ef9ce646ec,
         type: 3}

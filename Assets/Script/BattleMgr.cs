@@ -240,6 +240,7 @@ public class BattleMgr : BaseMgr<BattleMgr>
             print("生成：" + name + towerType);
             o.transform.parent = GameObject.Find("PoolTower").transform;
             o.transform.position = new Vector3(x, -y, -1.1f);
+            o.GetComponent<Animator>().Play("objShowRange",-1,0.0f);
             // 有的时候会触发一生成就死了的谜之问题
             if (o.GetComponent<Obj>().hp == 0)
             {
@@ -271,6 +272,7 @@ public class BattleMgr : BaseMgr<BattleMgr>
             print("生成：" + name + type);
             o.transform.parent = GameObject.Find("PoolTower").transform;
             o.transform.position = new Vector3(x, -y, -1.1f);
+            o.GetComponent<Animator>().Play("objShowRange",-1,0.0f);
             // 有的时候会触发一生成就死了的谜之问题
             if (o.GetComponent<Obj>().hp == 0)
             {
