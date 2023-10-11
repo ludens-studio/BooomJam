@@ -86,6 +86,7 @@ MonoBehaviour:
   buff_cache_del: []
   shootTower: 0
   isFlag: 0
+  isAOE: 1
   Bullet: {fileID: 0}
   firePoint: {fileID: 0}
   isDark: 0
