@@ -252,6 +252,8 @@ public class BattleView : MonoBehaviour
     /// </summary>
     public void OnDiceRelease(GameObject o)
     {
+        AudioMgr.GetInstance().PlaySound(2); 
+
         Cursor.SetCursor(Resources.Load<Texture2D>("Cursors/PointerPut"), Vector2.zero, CursorMode.Auto);
         Vector3 position = _dice.transform.position;
         int x = Mathf.RoundToInt(position.x);
@@ -281,6 +283,7 @@ public class BattleView : MonoBehaviour
                 case 0: // 资源-》恶魔
                     print("投到资源面" + towerType.ToString());
                     BattleMgr.GetInstance().ChangeDiceState(o.name, rdFace, 1);
+                    BattleMgr.GetInstance().FreezeDice(o.name);
                     BattleMgr.GetInstance().InitTower(x, y, diceType, towerType.ToString());
                     filePath = diceType == 0? "Dices/DiceTowerDark":"Dices/DiceSoldierDark";
                     o.transform.GetChild(rdFace).GetComponent<Image>().sprite =
@@ -289,6 +292,7 @@ public class BattleView : MonoBehaviour
                 case 1: // 恶魔-》资源
                     print("投到恶魔面" + towerType.ToString());
                     BattleMgr.GetInstance().ChangeDiceState(o.name, rdFace, 2);
+                    BattleMgr.GetInstance().FreezeDice(o.name);
                     BattleMgr.GetInstance().InitDarkTower(x, y, diceType, towerType.ToString());
                     filePath = diceType == 0? "Dices/DiceTower":"Dices/DiceSoldier";
                     o.transform.GetChild(rdFace).GetComponent<Image>().sprite =
@@ -297,20 +301,24 @@ public class BattleView : MonoBehaviour
                 case 2: // 魔王-》全净化为资源
                     print("投到魔王面");
                     BattleMgr.GetInstance().ChangeDiceState(o.name, rdFace, 3);
+                    BattleMgr.GetInstance().FreezeDice(o.name);
                     // init 魔王
                     BattleMgr.GetInstance().InitBoss();
                     for (int i = 0; i < 5; i++)
                     {
+                        print(o.name + "改变图标");
                         filePath = diceType == 0? "Dices/DiceTower":"Dices/DiceSoldier";
                         o.transform.GetChild(i).GetComponent<Image>().sprite =
                             Resources.Load<Sprite>(filePath);
                     }
+                    diceStateNum = CountStateList(stateList);
                     break;
             }
 
             // 判断是否除魔王面外全为恶魔面
             if (diceStateNum[0].Count == 0)
             {
+                print(o.name + "全恶魔！");
                 // 除魔王面外全部为恶魔面，则所有面都转换为魔王面
                 BattleMgr.GetInstance().ChangeDiceState(o.name, rdFace, 4);
                 for (int j = 0; j < 5; j++)
@@ -450,6 +458,9 @@ public class BattleView : MonoBehaviour
     /// </summary>
     public void OpenShop()
     {
+        AudioMgr.GetInstance().PlaySound(0);
+
+
         // 至少有两个塔才允许进行交易
         if (BattleMgr.GetInstance().towers.Count >= 2)
         {
@@ -482,6 +493,9 @@ public class BattleView : MonoBehaviour
             Time.timeScale = 1;
             o.GetComponent<Image>().sprite = ResMgr.GetInstance().Load<Sprite>("UIElements/StopUI");
         }
+
+        AudioMgr.GetInstance().PlaySound(0);
+
     }
 
     /// <summary>
@@ -489,6 +503,9 @@ public class BattleView : MonoBehaviour
     /// </summary>
     public void RetryGame()
     {
+        AudioMgr.GetInstance().PlaySound(0);
+
+
         Time.timeScale = 1;
         PlayerPrefs.SetInt("firstPlay", 0);
         SceneManager.LoadScene(SceneManager.GetActiveScene().name,LoadSceneMode.Single);
@@ -499,6 +516,7 @@ public class BattleView : MonoBehaviour
     /// </summary>
     public void BackToMenu()
     {
+        AudioMgr.GetInstance().PlaySound(0);
         Time.timeScale = 1;
         SceneManager.LoadScene(0,LoadSceneMode.Single);
     }
@@ -508,6 +526,8 @@ public class BattleView : MonoBehaviour
     /// </summary>
     public void BackToGame()
     {
+        AudioMgr.GetInstance().PlaySound(0);
+
         settingWindow.SetActive(false);
         Time.timeScale = 1;
     }
@@ -517,6 +537,8 @@ public class BattleView : MonoBehaviour
     /// </summary>
     public void ShowSetting()
     {
+        AudioMgr.GetInstance().PlaySound(0);
+
         Time.timeScale = 0;
         settingWindow.SetActive(true);
     }
@@ -526,6 +548,8 @@ public class BattleView : MonoBehaviour
     /// </summary>
     public void CloseLog()
     {
+        AudioMgr.GetInstance().PlaySound(0);
+
         logWindow.SetActive(false);
     }
 
@@ -534,6 +558,9 @@ public class BattleView : MonoBehaviour
     /// </summary>
     public void ShowHandbook()
     {
+        AudioMgr.GetInstance().PlaySound(0);
+
+
         handbookWindow.SetActive(true);
     }
 
@@ -542,6 +569,8 @@ public class BattleView : MonoBehaviour
     /// </summary>
     public void CloseHandbook()
     {
+        AudioMgr.GetInstance().PlaySound(0);
+
         handbookWindow.SetActive(false);
     }
 
@@ -550,6 +579,9 @@ public class BattleView : MonoBehaviour
     /// </summary>
     public void CloseGuide()
     {
+        AudioMgr.GetInstance().PlaySound(0);
+
+
         foreach (var g in guideWindow)
         {
             g.SetActive(false);
@@ -563,6 +595,8 @@ public class BattleView : MonoBehaviour
     /// <param name="index"></param>
     public void NextGuide(int index)
     {
+        AudioMgr.GetInstance().PlaySound(0);
+
         guideWindow[index].SetActive(true);
     }
 
@@ -590,6 +624,9 @@ public class BattleView : MonoBehaviour
         _beginSelect = false;
         shopGuide.text = "";
         pause.GetComponent<Image>().sprite = ResMgr.GetInstance().Load<Sprite>("UIElements/StopUI");
+
+        AudioMgr.GetInstance().PlaySound(0);
+
         Time.timeScale = 1;
     }
 
