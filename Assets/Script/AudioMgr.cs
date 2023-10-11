@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UI; 
 
 public class AudioMgr : BaseMgr<AudioMgr>
 {
@@ -8,7 +9,7 @@ public class AudioMgr : BaseMgr<AudioMgr>
     /// 背景音乐组件
     /// </summary>
     public AudioSource bkMusic = null;
-
+    
     /// <summary>
     /// 音效组件
     /// </summary>

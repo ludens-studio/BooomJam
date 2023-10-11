@@ -10071,6 +10071,7 @@ MonoBehaviour:
   soundList:
   - {fileID: 8300000, guid: df10cd66ee865b142a57f84fc0406529, type: 3}
   - {fileID: 8300000, guid: a2434084b02576142872a3a82637fb4e, type: 3}
+  - {fileID: 8300000, guid: 96a037dc0dde94341b486164f64d12d6, type: 3}
 --- !u!1 &1366642591
 GameObject:
   m_ObjectHideFlags: 0

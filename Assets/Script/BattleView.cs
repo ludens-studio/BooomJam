@@ -252,6 +252,8 @@ public class BattleView : MonoBehaviour
     /// </summary>
     public void OnDiceRelease(GameObject o)
     {
+        AudioMgr.GetInstance().PlaySound(2); 
+
         Cursor.SetCursor(Resources.Load<Texture2D>("Cursors/PointerPut"), Vector2.zero, CursorMode.Auto);
         Vector3 position = _dice.transform.position;
         int x = Mathf.RoundToInt(position.x);
