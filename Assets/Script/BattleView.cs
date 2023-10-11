@@ -65,9 +65,9 @@ public class BattleView : MonoBehaviour
 
     private void Awake()
     {
-        if (PlayerPrefs.GetInt("firstPlay",1) == 1)   // 第一次播放loading画面
+        if (PlayerPrefs.GetInt("firstPlay",1) == 0)   // 第一次播放loading画面
         {
-            PlayerPrefs.SetInt("firstPlay", 0);     // 不是第一次进行游戏了
+            PlayerPrefs.SetInt("firstPlay", 1);     // 不是第一次进行游戏了
             AudioMgr.GetInstance().ChangeBKMusic("Audios/loading2");
             AudioMgr.GetInstance().PlayBkMusic();
             loadingWindow.transform.GetChild(0).gameObject.SetActive(true);
@@ -446,8 +446,11 @@ public class BattleView : MonoBehaviour
         }
         else
         {
+            string min = (record / 60 < 10) ? "0" + (record / 60): (record / 60).ToString();
+            string sec = (record % 60 < 10) ? "0" + (record % 60) : (record % 60).ToString();
+            
             retryWindow.transform.Find("Record").GetComponent<TMP_Text>().text =
-                "Best Record: " + record;
+                "Best Record: " + min + ":" + sec;
         }
     }
     
@@ -505,9 +508,8 @@ public class BattleView : MonoBehaviour
     {
         AudioMgr.GetInstance().PlaySound(0);
 
-
         Time.timeScale = 1;
-        PlayerPrefs.SetInt("firstPlay", 0);
+        PlayerPrefs.SetInt("firstPlay", 1);
         SceneManager.LoadScene(SceneManager.GetActiveScene().name,LoadSceneMode.Single);
     }
 
