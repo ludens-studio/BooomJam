@@ -10056,8 +10056,8 @@ MonoBehaviour:
   enemies: []
   killedEnemy: 0
   nextLevelKilled: 10
-  enemyAttackUp: 1
-  enemyHpUp: 1.1
+  enemyAttackUp: 10
+  enemyHpUp: 20
 --- !u!4 &1361096408
 Transform:
   m_ObjectHideFlags: 0
@@ -10088,7 +10088,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bkMusic: {fileID: 1908361365}
+  bkSlider: {fileID: 0}
   soundMusic: {fileID: 299162719}
+  soundSlider: {fileID: 0}
   soundList:
   - {fileID: 8300000, guid: df10cd66ee865b142a57f84fc0406529, type: 3}
   - {fileID: 8300000, guid: a2434084b02576142872a3a82637fb4e, type: 3}
