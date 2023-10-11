@@ -45,9 +45,9 @@ public class Obj : MonoBehaviour
     public Animator anim;
 
     // 原始血量
-    private float defaultHP;
-    [SerializeField]private float defaultSpeed;
-    private float defaultAttack;
+    [SerializeField] protected float defaultHP;
+    protected float defaultSpeed;
+    protected float defaultAttack;
     [SerializeField]protected bool HasLevelup = false; // 是否已经被升级过了
 
     // Buff
