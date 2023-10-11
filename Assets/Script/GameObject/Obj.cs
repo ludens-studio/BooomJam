@@ -5,6 +5,7 @@ using UnityEngine;
 using static UnityEngine.RuleTile.TilingRuleOutput;
 using UnityEngine.Experimental.GlobalIllumination;
 using UnityEngine.UI;
+using System.Runtime.CompilerServices;
 
 /// <summary>
 /// 对象总类
@@ -45,18 +46,18 @@ public class Obj : MonoBehaviour
 
     // 原始血量
     private float defaultHP;
+    [SerializeField]private float defaultSpeed;
+    private float defaultAttack;
+    [SerializeField]protected bool HasLevelup = false; // 是否已经被升级过了
 
     // Buff
     [SerializeField] private float BuffTimer = 1.0f; 
     public List<Buff> buffs= new List<Buff>();
     public Dictionary<String , int> buffs_Dic = new Dictionary<String , int>(); // 拥有的buff
 
-    [SerializeField]private List<Buff> buff_cache =  new List<Buff>();
+    [SerializeField]private List<Buff> buff_cache_add =  new List<Buff>();
+    [SerializeField] private List<Buff> buff_cache_del =  new List<Buff>();
 
-    // 数值紧急恢复===============
-    public float save_speed;
-    public float save_attack;
-    public float save_hp; 
     // 
 
     public enum ObjState
@@ -66,32 +67,35 @@ public class Obj : MonoBehaviour
     }
 
 
-    private void Start()
+    private void Awake()
     {
         state = ObjState.Active;
         defaultHP = hp;
+        defaultSpeed = speed;
+        defaultAttack = attack;
+        HasLevelup = false; 
         hpUI.maxValue = hp;
         InitBuffDic();
 
-        // 数据备份
-        save_speed = speed; 
-        save_hp = hp; 
-        save_attack = attack; 
     }
 
     public void UpdateAttackSpeed()
     {
         attackSpeed_true = 1 / attackSpeed;  // 换算，策划案里面的攻速是这里实际表现的 1/speed 秒攻击一次
 
-        if (attackSpeedTimer <= 0.001f)
+        if(!canAttack)
         {
-            canAttack = true;
-            attackSpeedTimer = attackSpeed_true;
+            if (attackSpeedTimer <= 0.001f)
+            {
+                canAttack = true;
+                attackSpeedTimer = attackSpeed_true;
+            }
+            else
+            {
+                attackSpeedTimer -= Time.deltaTime;
+            }
         }
-        else
-        {
-            attackSpeedTimer -= Time.deltaTime; 
-        }
+
     }
     
     private void LateUpdate()
@@ -112,11 +116,6 @@ public class Obj : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    public virtual void AddToBattleMgr()
-    {
-        // 
-    }
-
     public virtual void DelFromBattleMgr()
     {
         // 
@@ -125,9 +124,13 @@ public class Obj : MonoBehaviour
     /// <summary>
     /// 回对象池之后需要把hp设回初始值
     /// </summary>
-    public void SetDefaultHP()
+    public void SetDefault()
     {
+        print(gameObject.name + " has set default hp: " + defaultHP);
         hp = defaultHP;
+        speed = defaultSpeed;
+        attack = defaultAttack;
+        HasLevelup = false;
     }
 
 
@@ -182,7 +185,7 @@ public class Obj : MonoBehaviour
 
     public void UseBuffTimer()
     {
-
+        RemoveBuff_Real(); 
         if (BuffTimer <= 0.0f)
         {
             BuffTimer = 1.0f;
@@ -199,7 +202,7 @@ public class Obj : MonoBehaviour
 
     public void AddBuff(Buff buff)
     {
-        buff_cache.Add(buff);
+        buff_cache_add.Add(buff);
     }
 
     /// <summary>
@@ -207,14 +210,15 @@ public class Obj : MonoBehaviour
     /// </summary>
     private void AddBuff_Real()
     {
-        if(buff_cache.Count> 0)
+        if(buff_cache_add.Count> 0)
         {
-            foreach (Buff buff in buff_cache)
+            foreach (Buff buff in buff_cache_add)
             {
                 buff.SetBuffTarget(this);
                 if (buffs_Dic.ContainsKey(buff.BuffName))
                 {
                     buffs_Dic[buff.BuffName]++;
+                    Debug.Log("For" +gameObject.name+ buff.name +":"+ buffs_Dic[buff.BuffName]); 
                 }
                 else
                 {
@@ -225,7 +229,7 @@ public class Obj : MonoBehaviour
             }
         }
 
-        buff_cache.Clear(); // 清空Buff栏
+        buff_cache_add.Clear(); // 清空Buff栏
 
     }
 
@@ -233,19 +237,21 @@ public class Obj : MonoBehaviour
     {
         if(buffs.Count > 0)
         {
-
             for(int i =  0;  i< buffs.Count; i++)
             {
                 Buff _buff = buffs[i];
 
                 if (_buff.count <= 0)
                 {
-                    Debug.Log(gameObject.name + "REOMOVE:  " + _buff.name); 
+                    Debug.Log(gameObject.name + "REOMOVE:  " + _buff.name);
+                    _buff.count = _buff.count_Set; 
                     RemoveBuff(_buff);
                 }
                 else
                 {
                     _buff.UseBuff();
+                    Debug.Log(gameObject.name + "USE!!!!!!!!!!:  " + _buff.name);
+
                 }
             }
         }
@@ -254,20 +260,43 @@ public class Obj : MonoBehaviour
 
     public void RemoveBuff(Buff buff)
     {
-        buff.ExitBuff();
-        if (buffs_Dic.ContainsKey(buff.BuffName))
+        buff_cache_del.Add(buff);
+    }
+
+    /// <summary>
+    /// 实际删除的部分
+    /// </summary>
+    public void RemoveBuff_Real()
+    {
+        if(buff_cache_del.Count > 0)
         {
-            buffs_Dic[buff.BuffName]--;
-            if(buffs_Dic[buff.BuffName] < 0)
+            foreach (Buff buff in buff_cache_del)
             {
-                Debug.Log("Buff Count Error");
+                buffs.Remove(buff);
+                //buff.ExitBuff();
+                if (buffs_Dic.ContainsKey(buff.BuffName))
+                {
+                    buffs_Dic[buff.BuffName]--;
+                    if (buffs_Dic[buff.BuffName] < 0)
+                    {
+                        Debug.Log("Buff Count Error");
+                    }
+                }
+                else
+                {
+                    Debug.Log("Buff有误");
+                }
+                //buffs.Remove(buff);
+                buff.ExitBuff();
+
             }
+
+
         }
-        else
-        {
-            Debug.Log("Buff有误");
-        }
-        buffs.Remove(buff);
+
+        buff_cache_del.Clear();
+
+
     }
 
 
@@ -334,6 +363,21 @@ public class Obj : MonoBehaviour
         return list ; 
 
     }
+
+    public void addAttack(float amount)
+    {
+        attack = defaultAttack + amount; 
+    }
+
+    public void addSpeed(float amount)
+    {
+        speed = defaultSpeed + amount;
+        if(speed <= 0)
+        {
+            speed = 0.05f; //最低速度
+        }
+    }
+
 
     // 测试用=================
     void OnDrawGizmos()

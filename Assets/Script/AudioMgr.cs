@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UI; 
 
 public class AudioMgr : BaseMgr<AudioMgr>
 {
@@ -8,12 +9,14 @@ public class AudioMgr : BaseMgr<AudioMgr>
     /// 背景音乐组件
     /// </summary>
     public AudioSource bkMusic = null;
-
+    public Slider bkSlider; 
     /// <summary>
     /// 音效组件
     /// </summary>
     public AudioSource soundMusic = null;
-    
+    public Slider soundSlider;
+
+
     //音效列表
     public List<AudioClip> soundList = new List<AudioClip>();
     
@@ -21,6 +24,25 @@ public class AudioMgr : BaseMgr<AudioMgr>
     private float bkValue = 1;
     //音效大小
     private float soundValue = 1;
+
+    private void Update()
+    {
+        float bk_value = bkSlider.value;
+        float sound_value = soundSlider.value;
+        ChangeBKValue(bk_value);
+        ChangeSoundValue(sound_value);
+    }
+
+
+
+    /// <summary>
+    /// 神父换碟
+    /// </summary>
+    /// <param name="fileName"></param>
+    public void ChangeBKMusic(string fileName)
+    {
+        bkMusic.clip = ResMgr.GetInstance().Load<AudioClip>(fileName);
+    }
 
     /// <summary>
     /// 播放背景音乐

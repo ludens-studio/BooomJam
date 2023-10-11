@@ -11,7 +11,16 @@ public class TitleView : MonoBehaviour
     void Start()
     {
         // 第一次打开游戏
-        PlayerPrefs.SetInt("firstPlay", 1);
+        if (PlayerPrefs.GetInt("firstPlay", 1) == 0)
+        {
+            return;
+        }
+        else
+        {
+            print("hello world");
+            PlayerPrefs.SetInt("firstPlay", 0);
+        }
+        
     }
 
     // Update is called once per frame
@@ -26,6 +35,7 @@ public class TitleView : MonoBehaviour
     /// </summary>
     public void QuitGame()
     {
+        PlayerPrefs.SetInt("firstPlay", 1);
         Application.Quit();
     }
 
@@ -34,15 +44,8 @@ public class TitleView : MonoBehaviour
     /// </summary>
     public void StartGame()
     {
-        if (PlayerPrefs.GetInt("firstPlay") == 1)
-        {
-            storyBoard.gameObject.SetActive(true);
-            gameObject.GetComponent<Animator>().Play("Story");
-        }
-        else
-        {
-            LoadNextLevel();
-        }
+        storyBoard.gameObject.SetActive(true);
+        gameObject.GetComponent<Animator>().Play("Story",-1,0.0f);
     }
 
     /// <summary>
@@ -50,6 +53,6 @@ public class TitleView : MonoBehaviour
     /// </summary>
     public void LoadNextLevel()
     {
-        SceneManager.LoadScene(1,LoadSceneMode.Single);
+        SceneManager.LoadScene(1, LoadSceneMode.Single);
     }
 }

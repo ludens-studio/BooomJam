@@ -9,7 +9,14 @@ public class Tower_Aoe : Tower
     [Header("AOE塔设计以及Boom")]
     public List<GameObject> targets = new List<GameObject>();
     public bool isBoom = false; //是否为炸弹
-    public float BoomTimer; 
+    public float BoomTimer;
+
+    private float _timer;
+
+    void Start()
+    {
+        _timer = BoomTimer;
+    }
 
     private void Update()
     {
@@ -26,7 +33,6 @@ public class Tower_Aoe : Tower
             {
                 // 否则Idle
                 Idle();
-
             }
         }
 
@@ -41,9 +47,9 @@ public class Tower_Aoe : Tower
 
         if (isBoom)
         {
-            if (BoomTimer > 0)
+            if (_timer > 0)
             {
-                BoomTimer -= Time.fixedDeltaTime;
+                _timer -= Time.fixedDeltaTime;
             }
             else
             {
@@ -67,13 +73,7 @@ public class Tower_Aoe : Tower
         }
     }
 
-    /// 
-    /// 加入到Mgr中
-    ///
-    public override void AddToBattleMgr()
-    {
-        BattleMgr.GetInstance().towers.Add(gameObject);
-    }
+
     /// <summary>
     /// 从Mgr中删除
     /// </summary>
@@ -83,7 +83,8 @@ public class Tower_Aoe : Tower
         BattleMgr.GetInstance().towers.Remove(gameObject);
         MapMgr.GetInstance().RemoveTower((int)pos.x, (int)-pos.y);
         MapMgr.GetInstance().ReleaseGrid((int)pos.x, (int)-pos.y);
-        SetDefaultHP();
+        SetDefault();
+        _timer = BoomTimer;
         string name = "Prefabs/Towers/" + gameObject.name.Substring(0, gameObject.name.Length - 7);    // 去掉(Clone)
         PoolMgr.GetInstance().PushObj(name, gameObject);
     }

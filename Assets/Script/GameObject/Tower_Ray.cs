@@ -28,27 +28,6 @@ public class Tower_Ray : Tower
 
     }
 
-    /// 
-    /// 加入到Mgr中
-    ///
-    public override void AddToBattleMgr()
-    {
-        BattleMgr.GetInstance().towers.Add(gameObject);
-    }
-    /// <summary>
-    /// 从Mgr中删除
-    /// </summary>
-    public override void DelFromBattleMgr()
-    {
-        Vector3 pos = gameObject.transform.position;
-        BattleMgr.GetInstance().towers.Remove(gameObject);
-        MapMgr.GetInstance().RemoveTower((int)pos.x, (int)-pos.y);
-        MapMgr.GetInstance().ReleaseGrid((int)pos.x, (int)-pos.y);
-        SetDefaultHP();
-        string name = "Prefabs/Towers/" + gameObject.name.Substring(0, gameObject.name.Length - 7);    // 去掉(Clone)
-        PoolMgr.GetInstance().PushObj(name, gameObject);
-    }
-
     /// <summary>
     /// 检测攻击范围并进行攻击
     /// </summary>

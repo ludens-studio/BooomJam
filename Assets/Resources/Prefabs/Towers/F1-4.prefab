@@ -152,7 +152,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1312307242229823191}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.16000009, y: 0.24, z: 0}
+  m_LocalPosition: {x: 0.16000009, y: 0.061, z: 0}
   m_LocalScale: {x: 0.22, y: 0.22, z: 0.22}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -289,14 +289,15 @@ MonoBehaviour:
   attackRange: 1
   state: 0
   anim: {fileID: 0}
+  defaultSpeed: 0
+  HasLevelup: 0
   BuffTimer: 1
   buffs: []
-  buff_cache: []
-  save_speed: 0
-  save_attack: 0
-  save_hp: 0
+  buff_cache_add: []
+  buff_cache_del: []
   shootTower: 0
   isFlag: 0
+  isAOE: 1
   Bullet: {fileID: 1540398006885209217, guid: 4e22db5f841710d49863840068df436a, type: 3}
   firePoint: {fileID: 5103338117573474017}
   isDark: 0
@@ -414,7 +415,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5402461720652313254}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0.436}
+  m_LocalPosition: {x: 0, y: 0, z: 0.1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -665,8 +666,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7783076094891965146}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2.119386, y: -1.8913453, z: 0}
-  m_LocalScale: {x: 0.197, y: 0.197, z: 0.197}
+  m_LocalPosition: {x: 0.16, y: 0.062, z: 0}
+  m_LocalScale: {x: 0.214, y: 0.214, z: 0.214}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 5103338117156311923}
@@ -713,7 +714,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: f35fc668c14c6c54b9847e628340a5a8, type: 3}
+  m_Sprite: {fileID: 21300000, guid: c6164c06d75d0044792b700697988521, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

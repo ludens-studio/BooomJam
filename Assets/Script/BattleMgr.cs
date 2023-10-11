@@ -132,8 +132,13 @@ public class BattleMgr : BaseMgr<BattleMgr>
 
                         o.transform.position = new Vector3(9, row, -1f);
                         o.transform.parent = GameObject.Find("PoolEnemy").transform;
+                        // 有的时候会触发一生成就死了的谜之问题
+                        if (o.GetComponent<Obj>().hp == 0)
+                        {
+                            o.GetComponent<Obj>().SetDefault();
+                        }
                         o.GetComponent<Obj>().state = Obj.ObjState.Active;
-                        o.gameObject.GetComponent<Enemy>().LevelUp(enemyAttackUp , enemyHpUp , killedEnemy/nextLevelKilled); //检测
+                        o.gameObject.GetComponent<Enemy>().LevelUp(enemyAttackUp, enemyHpUp, killedEnemy/nextLevelKilled); //检测
 
                         enemies.Add(o);
                     });
@@ -182,15 +187,16 @@ public class BattleMgr : BaseMgr<BattleMgr>
     /// <returns></returns>
     IEnumerator StartLoadingBar(float loadTime)
     {
-        print(loadTime);
         yield return new WaitForSeconds(loadTime);
-        _barTime = 100;
+        AudioMgr.GetInstance().ChangeBKMusic("Audios/fightbgm");
+        AudioMgr.GetInstance().PlayBkMusic();
         StartCoroutine(Timer());
         StartCoroutine(WaveSpawner());
+        _barTime = 100;
     }
     
     /// <summary>
-    /// 实例化塔并放置在地图上
+    /// 实例化Boss并放置在地图上
     /// </summary>
     public void InitBoss()
     {
@@ -223,8 +229,14 @@ public class BattleMgr : BaseMgr<BattleMgr>
         
         PoolMgr.GetInstance().GetObj(name + towerType,o=>
         {
+            print("生成：" + name + towerType);
             o.transform.parent = GameObject.Find("PoolTower").transform;
             o.transform.position = new Vector3(x, -y, -1.1f);
+            // 有的时候会触发一生成就死了的谜之问题
+            if (o.GetComponent<Obj>().hp == 0)
+            {
+                o.GetComponent<Obj>().SetDefault();
+            }
             o.GetComponent<Obj>().state = Obj.ObjState.Active;
             MapMgr.GetInstance().SetTower(x, y, o);
             towers.Add(o);
@@ -248,8 +260,14 @@ public class BattleMgr : BaseMgr<BattleMgr>
         
         PoolMgr.GetInstance().GetObj(name + type,o=>
         {
+            print("生成：" + name + type);
             o.transform.parent = GameObject.Find("PoolTower").transform;
             o.transform.position = new Vector3(x, -y, -1.1f);
+            // 有的时候会触发一生成就死了的谜之问题
+            if (o.GetComponent<Obj>().hp == 0)
+            {
+                o.GetComponent<Obj>().SetDefault();
+            }
             o.GetComponent<Obj>().state = Obj.ObjState.Active;
             MapMgr.GetInstance().SetTower(x, y, o);
             if (name.Contains("T2"))
@@ -329,6 +347,7 @@ public class BattleMgr : BaseMgr<BattleMgr>
                 break;
             case 3:
                 // 全部净化
+                print(diceName + "全净化");
                 for (int i = 0; i < 5; i++)
                 {
                     diceList[id].state[i] = 0;
@@ -342,7 +361,6 @@ public class BattleMgr : BaseMgr<BattleMgr>
                 }
                 break;
         }
-        FreezeDice(diceName);
     }
 
     /// <summary>
@@ -363,7 +381,9 @@ public class BattleMgr : BaseMgr<BattleMgr>
     public void PlayerDamage(int _damage)
     {
         hp -= _damage;
+        AudioMgr.GetInstance().PlaySound(1); 
        // CameraMgr.GetInstance().ShakeCamera(); 
+       Camera.main.transform.Find("PanelLoading").gameObject.SetActive(false);
        Camera.main.GetComponent<Animator>().Play("CameraShake",-1,0.0f);
     }
 

@@ -12,6 +12,7 @@ public class Tower : Obj
     public bool isFlag = false; 
 
     [Header("Attack Type")]
+    public bool isAOE = false;
     public GameObject Bullet; // 生成的子弹
     public Transform firePoint; // 生成子弹的位置
 
@@ -22,8 +23,10 @@ public class Tower : Obj
 
     private void Update()
     {
+        checkTarget(); // 检测目标 !!! 目前只是使用激光+攻击距离检测
+
         // 这一行有目标,Attack
-        if(isFlag)
+        if (isFlag)
         {
             // 图腾时间到了就攻击
             if(canAttack)
@@ -33,17 +36,48 @@ public class Tower : Obj
         }
         else
         {
+
+            if (target == null)
+            {
+                haveTarget = false;
+            }
+
             if (haveTarget && canAttack)
             {
-                if (shootTower)
+                if(isAOE)
                 {
-                    Shoot();
+                    if (shootTower)
+                    {
+                        Debug.Log(gameObject.name + "||" + haveTarget + "|||" + target.name + "||||" + target.transform.position.y);
+                        Shoot();
+
+                    }
+                    else
+                    {
+                        Attack();
+                    }
+                    canAttack = false;
                 }
                 else
                 {
-                    Attack();
+                    if(target.transform.position.y == transform.position.y)
+                    {
+                        // 单行攻击的只能在同一行射击
+                        if (shootTower)
+                        {
+                            Debug.Log(gameObject.name + "||" + haveTarget + "|||" + target.name + "||||" + target.transform.position.y);
+                            Shoot();
+
+                        }
+                        else
+                        {
+                            Attack();
+                        }
+                        canAttack = false;
+                    }
+ 
                 }
-                canAttack = false;
+
             }
             else
             {
@@ -60,7 +94,6 @@ public class Tower : Obj
     {
         darkTimer(); // 暗属性扣血
         UseBuffTimer();
-        checkTarget(); // 检测目标 !!! 目前只是使用激光+攻击距离检测
         UpdateAttackSpeed();
     }
 
@@ -77,13 +110,7 @@ public class Tower : Obj
         }
     }
 
-    /// 
-    /// 加入到Mgr中
-    ///
-    public override void AddToBattleMgr()
-    {
-        BattleMgr.GetInstance().towers.Add(gameObject);
-    }
+
     /// <summary>
     /// 从Mgr中删除
     /// 回到对象池
@@ -94,7 +121,7 @@ public class Tower : Obj
         BattleMgr.GetInstance().towers.Remove(gameObject);
         MapMgr.GetInstance().RemoveTower((int)pos.x, (int)-pos.y);
         MapMgr.GetInstance().ReleaseGrid((int)pos.x, (int)-pos.y);
-        SetDefaultHP();
+        SetDefault();
         string name = "Prefabs/Towers/" + gameObject.name.Substring(0, gameObject.name.Length - 7);    // 去掉(Clone)
         PoolMgr.GetInstance().PushObj(name, gameObject);
     }
@@ -104,6 +131,13 @@ public class Tower : Obj
     /// </summary>
     public virtual void checkTarget()
     {
+
+        if (target == null)
+        {
+            haveTarget = false;
+        }
+
+
         // ! 这部分塔的激光朝右打，怪的激光朝左打。如果有特殊需求再改
         //==================================================
         int layerMask = 1 << LayerMask.NameToLayer("Enemy");
@@ -123,6 +157,11 @@ public class Tower : Obj
             Debug.DrawLine(ray.origin, ray.origin + ray.direction * attackRange, Color.blue);
             haveTarget = false;
             target = null;
+        }
+
+        if(target == null)
+        {
+            haveTarget = false; 
         }
 
     }
