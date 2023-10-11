@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEngine.GraphicsBuffer;
 
 /// <summary>
 /// 敌人
@@ -19,9 +18,13 @@ public class Enemy : Obj
 
         if (!HasLevelup)
         {
-            hpUI.maxValue = hp;
             attack = attack * (1 + _upAttack * levelup *0.01f);
             hp = hp * (1 + _upHp * levelup * 0.01f);
+
+            defaultHP = hp;
+            defaultAttack = attack; 
+            
+            hpUI.maxValue = hp;
             HasLevelup = true;
         }
 
