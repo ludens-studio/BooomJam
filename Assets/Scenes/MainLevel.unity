@@ -10068,7 +10068,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bkMusic: {fileID: 1908361365}
   soundMusic: {fileID: 299162719}
-  soundList: []
+  soundList:
+  - {fileID: 8300000, guid: df10cd66ee865b142a57f84fc0406529, type: 3}
+  - {fileID: 8300000, guid: a2434084b02576142872a3a82637fb4e, type: 3}
 --- !u!1 &1366642591
 GameObject:
   m_ObjectHideFlags: 0

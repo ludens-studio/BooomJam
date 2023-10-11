@@ -381,6 +381,7 @@ public class BattleMgr : BaseMgr<BattleMgr>
     public void PlayerDamage(int _damage)
     {
         hp -= _damage;
+        AudioMgr.GetInstance().PlaySound(1); 
        // CameraMgr.GetInstance().ShakeCamera(); 
        Camera.main.transform.Find("PanelLoading").gameObject.SetActive(false);
        Camera.main.GetComponent<Animator>().Play("CameraShake",-1,0.0f);
