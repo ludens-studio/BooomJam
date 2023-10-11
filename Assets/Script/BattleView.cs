@@ -6,7 +6,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
-using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
 /// <summary>
@@ -41,7 +40,7 @@ public class BattleView : MonoBehaviour
     
     public GameObject handbookWindow;   // 手册面板
 
-    public GameObject guideWindow;      // 新手引导面板
+    public GameObject[] guideWindow;      // 新手引导面板
 
     /// <summary>
     /// 场景中生成的骰子（唯一
@@ -551,11 +550,21 @@ public class BattleView : MonoBehaviour
     /// </summary>
     public void CloseGuide()
     {
-        guideWindow.SetActive(false);
+        foreach (var g in guideWindow)
+        {
+            g.SetActive(false);
+        }
         Time.timeScale = 1;
     }
-    
-    
+
+    /// <summary>
+    /// 新手引导下一页
+    /// </summary>
+    /// <param name="index"></param>
+    public void NextGuide(int index)
+    {
+        guideWindow[index].SetActive(true);
+    }
 
     /// <summary>
     /// 完成商店逻辑
