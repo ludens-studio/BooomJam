@@ -36,6 +36,8 @@ public class TitleView : MonoBehaviour
         // 0：第一次游戏
         // 1：不是第一次
         PlayerPrefs.SetInt("firstPlay", 0);
+        AudioMgr.GetInstance().PlaySound(0);
+
         Application.Quit();
     }
 
@@ -44,12 +46,17 @@ public class TitleView : MonoBehaviour
     /// </summary>
     public void StartGame()
     {
+        AudioMgr.GetInstance().PlaySound(0);
+
         storyBoard.gameObject.SetActive(true);
         gameObject.GetComponent<Animator>().Play("Story",-1,0.0f);
     }
 
     public void Quick()
     {
+        AudioMgr.GetInstance().PlaySound(0);
+
+
         SceneManager.LoadScene(1, LoadSceneMode.Single);
     }
 
