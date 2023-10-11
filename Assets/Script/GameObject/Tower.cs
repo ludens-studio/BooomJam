@@ -12,6 +12,7 @@ public class Tower : Obj
     public bool isFlag = false; 
 
     [Header("Attack Type")]
+    public bool isAOE = false;
     public GameObject Bullet; // 生成的子弹
     public Transform firePoint; // 生成子弹的位置
 
@@ -35,17 +36,48 @@ public class Tower : Obj
         }
         else
         {
+
+            if (target == null)
+            {
+                haveTarget = false;
+            }
+
             if (haveTarget && canAttack)
             {
-                if (shootTower)
+                if(isAOE)
                 {
-                    Shoot();
+                    if (shootTower)
+                    {
+                        Debug.Log(gameObject.name + "||" + haveTarget + "|||" + target.name + "||||" + target.transform.position.y);
+                        Shoot();
+
+                    }
+                    else
+                    {
+                        Attack();
+                    }
+                    canAttack = false;
                 }
                 else
                 {
-                    Attack();
+                    if(target.transform.position.y == transform.position.y)
+                    {
+                        // 单行攻击的只能在同一行射击
+                        if (shootTower)
+                        {
+                            Debug.Log(gameObject.name + "||" + haveTarget + "|||" + target.name + "||||" + target.transform.position.y);
+                            Shoot();
+
+                        }
+                        else
+                        {
+                            Attack();
+                        }
+                        canAttack = false;
+                    }
+ 
                 }
-                canAttack = false;
+
             }
             else
             {
@@ -99,6 +131,13 @@ public class Tower : Obj
     /// </summary>
     public virtual void checkTarget()
     {
+
+        if (target == null)
+        {
+            haveTarget = false;
+        }
+
+
         // ! 这部分塔的激光朝右打，怪的激光朝左打。如果有特殊需求再改
         //==================================================
         int layerMask = 1 << LayerMask.NameToLayer("Enemy");
@@ -118,6 +157,11 @@ public class Tower : Obj
             Debug.DrawLine(ray.origin, ray.origin + ray.direction * attackRange, Color.blue);
             haveTarget = false;
             target = null;
+        }
+
+        if(target == null)
+        {
+            haveTarget = false; 
         }
 
     }
