@@ -23,6 +23,15 @@ public class AudioMgr : BaseMgr<AudioMgr>
     private float soundValue = 1;
 
     /// <summary>
+    /// 神父换碟
+    /// </summary>
+    /// <param name="fileName"></param>
+    public void ChangeBKMusic(string fileName)
+    {
+        bkMusic.clip = ResMgr.GetInstance().Load<AudioClip>(fileName);
+    }
+
+    /// <summary>
     /// 播放背景音乐
     /// </summary>
     /// <param name="name"></param>

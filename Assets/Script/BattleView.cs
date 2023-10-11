@@ -68,8 +68,9 @@ public class BattleView : MonoBehaviour
     {
         if (PlayerPrefs.GetInt("firstPlay",1) == 1)   // 第一次播放loading画面
         {
-            PlayerPrefs.SetInt("firstPlay", 0);
-            print(loadingWindow.transform.GetChild(0).name);
+            PlayerPrefs.SetInt("firstPlay", 0);     // 不是第一次进行游戏了
+            AudioMgr.GetInstance().ChangeBKMusic("Audios/loading2");
+            AudioMgr.GetInstance().PlayBkMusic();
             loadingWindow.transform.GetChild(0).gameObject.SetActive(true);
             loadingWindow.GetComponent<Animator>().Play("EyeLoading",-1,0.0f);
             gameWindow.SetActive(false);
@@ -79,7 +80,7 @@ public class BattleView : MonoBehaviour
         else
         {
             loadingWindow.transform.GetChild(0).gameObject.SetActive(false);
-            BattleMgr.GetInstance().loadTime = 0.1f;
+            BattleMgr.GetInstance().loadTime = 0.2f;
         }
     }
 
@@ -489,6 +490,7 @@ public class BattleView : MonoBehaviour
     /// </summary>
     public void RetryGame()
     {
+        Time.timeScale = 1;
         PlayerPrefs.SetInt("firstPlay", 0);
         SceneManager.LoadScene(SceneManager.GetActiveScene().name,LoadSceneMode.Single);
     }
@@ -498,6 +500,7 @@ public class BattleView : MonoBehaviour
     /// </summary>
     public void BackToMenu()
     {
+        Time.timeScale = 1;
         SceneManager.LoadScene(0,LoadSceneMode.Single);
     }
 

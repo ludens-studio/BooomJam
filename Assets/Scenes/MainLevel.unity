@@ -1935,7 +1935,7 @@ PrefabInstance:
     - target: {fileID: -7552582706839291426, guid: 97972af8c9be6c6478c9c3b4db8ccfdd,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 6.3199463
+      value: 6.319946
       objectReference: {fileID: 0}
     - target: {fileID: -7552582706839291426, guid: 97972af8c9be6c6478c9c3b4db8ccfdd,
         type: 3}
@@ -9177,7 +9177,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1229467512
 RectTransform:
   m_ObjectHideFlags: 0
@@ -10487,7 +10487,13 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 260452952}
   m_PrefabAsset: {fileID: 0}
---- !u!95 &1445477017
+--- !u!4 &1445477018 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -7552582706839291426, guid: 97972af8c9be6c6478c9c3b4db8ccfdd,
+    type: 3}
+  m_PrefabInstance: {fileID: 260452952}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &1445477019
 Animator:
   serializedVersion: 5
   m_ObjectHideFlags: 0
@@ -10499,7 +10505,7 @@ Animator:
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 2b3133c92ad52c245a0a1c1f10f532f4, type: 2}
   m_CullingMode: 0
-  m_UpdateMode: 2
+  m_UpdateMode: 0
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
@@ -10508,12 +10514,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!4 &1445477018 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: -7552582706839291426, guid: 97972af8c9be6c6478c9c3b4db8ccfdd,
-    type: 3}
-  m_PrefabInstance: {fileID: 260452952}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1450420344
 GameObject:
   m_ObjectHideFlags: 0
@@ -12946,7 +12946,7 @@ AudioSource:
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -13328,7 +13328,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: -5, y: 0}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}

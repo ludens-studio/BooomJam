@@ -67,7 +67,7 @@ public class Obj : MonoBehaviour
     }
 
 
-    private void Start()
+    private void Awake()
     {
         state = ObjState.Active;
         defaultHP = hp;
@@ -122,6 +122,7 @@ public class Obj : MonoBehaviour
     /// </summary>
     public void SetDefault()
     {
+        print(gameObject.name + " has set default hp: " + defaultHP);
         hp = defaultHP;
         speed = defaultSpeed;
         attack = defaultAttack;
