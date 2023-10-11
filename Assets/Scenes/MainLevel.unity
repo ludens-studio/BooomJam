@@ -10191,7 +10191,7 @@ MonoBehaviour:
   settingWindow: {fileID: 1683987650}
   loadingWindow: {fileID: 1190898758}
   logWindow: {fileID: 572506477}
-  handbookWindow: {fileID: 0}
+  handbookWindow: {fileID: 1837443985}
   guideWindow: {fileID: 1813501218}
 --- !u!1 &1403962771
 GameObject:
@@ -12942,7 +12942,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: c9d18ca52c3d7984289a513aa84c8910, type: 3}
+  m_audioClip: {fileID: 8300000, guid: b1fd8770a9fefde4ba2f5c84864edacd, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
