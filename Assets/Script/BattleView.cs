@@ -441,7 +441,7 @@ public class BattleView : MonoBehaviour
         if (mark > record)
         {
             retryWindow.transform.Find("Record").GetComponent<TMP_Text>().text =
-                "Best Record: " + mark;
+                "Best Record: " + timer.text;
             PlayerPrefs.SetInt("Record", mark);
         }
         else
