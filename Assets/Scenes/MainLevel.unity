@@ -8517,10 +8517,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waves:
-  - waveRate: 5
+  - waveRate: 10
     rate: 2
     enemyObj:
-    - {fileID: 6204324833779771937, guid: 42e19623e7709504da308debdd1eb5cf, type: 3}
+    - {fileID: 2249909054583975362, guid: 42ff0841a42558246ad0f627932602a1, type: 3}
   - waveRate: 4
     rate: 3
     enemyObj:
@@ -8537,23 +8537,44 @@ MonoBehaviour:
   - waveRate: 4
     rate: 2.5
     enemyObj:
-    - {fileID: 587069962221228619, guid: 534bae9b127c0ab48a7b9b4d615541ba, type: 3}
-    - {fileID: 587069962221228619, guid: 534bae9b127c0ab48a7b9b4d615541ba, type: 3}
-    - {fileID: 587069962221228619, guid: 534bae9b127c0ab48a7b9b4d615541ba, type: 3}
-  - waveRate: 4
-    rate: 2.5
+    - {fileID: 397412956120048591, guid: 07cba1619266b234e95de95a719fe3a3, type: 3}
+    - {fileID: 397412956120048591, guid: 07cba1619266b234e95de95a719fe3a3, type: 3}
+    - {fileID: 397412956120048591, guid: 07cba1619266b234e95de95a719fe3a3, type: 3}
+  - waveRate: 10
+    rate: 1
     enemyObj:
     - {fileID: 587069962221228619, guid: 534bae9b127c0ab48a7b9b4d615541ba, type: 3}
     - {fileID: 587069962221228619, guid: 534bae9b127c0ab48a7b9b4d615541ba, type: 3}
     - {fileID: 587069962221228619, guid: 534bae9b127c0ab48a7b9b4d615541ba, type: 3}
-  - waveRate: 4
-    rate: 2.5
-    enemyObj:
     - {fileID: 587069962221228619, guid: 534bae9b127c0ab48a7b9b4d615541ba, type: 3}
+    - {fileID: 587069962221228619, guid: 534bae9b127c0ab48a7b9b4d615541ba, type: 3}
+    - {fileID: 587069962221228619, guid: 534bae9b127c0ab48a7b9b4d615541ba, type: 3}
+  - waveRate: 10
+    rate: 2
+    enemyObj:
+    - {fileID: 6204324833779771937, guid: 42e19623e7709504da308debdd1eb5cf, type: 3}
+    - {fileID: 6204324833779771937, guid: 42e19623e7709504da308debdd1eb5cf, type: 3}
+    - {fileID: 6204324833779771937, guid: 42e19623e7709504da308debdd1eb5cf, type: 3}
+    - {fileID: 6204324833779771937, guid: 42e19623e7709504da308debdd1eb5cf, type: 3}
+    - {fileID: 6204324833779771937, guid: 42e19623e7709504da308debdd1eb5cf, type: 3}
+    - {fileID: 6204324833779771937, guid: 42e19623e7709504da308debdd1eb5cf, type: 3}
+  - waveRate: 6
+    rate: 0.5
+    enemyObj:
+    - {fileID: 6204324833779771937, guid: 42e19623e7709504da308debdd1eb5cf, type: 3}
+    - {fileID: 397412956120048591, guid: 07cba1619266b234e95de95a719fe3a3, type: 3}
+    - {fileID: 587069962221228619, guid: 534bae9b127c0ab48a7b9b4d615541ba, type: 3}
+  - waveRate: 6
+    rate: 1
+    enemyObj:
+    - {fileID: 6204324833779771937, guid: 42e19623e7709504da308debdd1eb5cf, type: 3}
+    - {fileID: 6204324833779771937, guid: 42e19623e7709504da308debdd1eb5cf, type: 3}
+    - {fileID: 397412956120048591, guid: 07cba1619266b234e95de95a719fe3a3, type: 3}
+    - {fileID: 397412956120048591, guid: 07cba1619266b234e95de95a719fe3a3, type: 3}
     - {fileID: 587069962221228619, guid: 534bae9b127c0ab48a7b9b4d615541ba, type: 3}
     - {fileID: 587069962221228619, guid: 534bae9b127c0ab48a7b9b4d615541ba, type: 3}
   beforeWaveStartTime: 3
-  hp: 20
+  hp: 8
   timer: 0
   diceList:
   - state: 000000000000000000000000000000000000000002000000
@@ -8569,9 +8590,9 @@ MonoBehaviour:
   towers: []
   enemies: []
   killedEnemy: 0
-  nextLevelKilled: 3
+  nextLevelKilled: 10
   enemyAttackUp: 1
-  enemyHpUp: 0
+  enemyHpUp: 1.1
 --- !u!4 &1361096408
 Transform:
   m_ObjectHideFlags: 0
