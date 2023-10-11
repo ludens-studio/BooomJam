@@ -117,7 +117,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f59d8cbb4b58f9640aa82e65e71c958f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attack: 20
+  attack: 30
   haveTarget: 0
   hp: 100
   hpUI: {fileID: 1626356026230752908}
@@ -130,12 +130,12 @@ MonoBehaviour:
   attackRange: 3.5
   state: 0
   anim: {fileID: 0}
+  defaultSpeed: 0
+  HasLevelup: 0
   BuffTimer: 1
   buffs: []
-  buff_cache: []
-  save_speed: 0
-  save_attack: 0
-  save_hp: 0
+  buff_cache_add: []
+  buff_cache_del: []
   shootTower: 0
   isFlag: 0
   Bullet: {fileID: 0}

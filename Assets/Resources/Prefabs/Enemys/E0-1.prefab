@@ -568,9 +568,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9902e5ba992c764ab7353768e6ec339, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attack: 500
+  attack: 200
   haveTarget: 0
-  hp: 1000
+  hp: 600
   hpUI: {fileID: 4244533606917404674}
   speed: 0.3
   attackSpeed: 1
