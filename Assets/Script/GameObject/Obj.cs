@@ -59,6 +59,10 @@ public class Obj : MonoBehaviour
     [SerializeField] private List<Buff> buff_cache_del =  new List<Buff>();
 
     // 
+    [Header("受伤特效")]
+    public SpriteRenderer sp;
+    public float HurtLength = 0.1f; //持续时间
+    public float HurtCounter; //计数器
 
     public enum ObjState
     {
@@ -69,6 +73,11 @@ public class Obj : MonoBehaviour
 
     private void Awake()
     {
+        if(sp == null)
+        {
+            sp = GetComponent<SpriteRenderer>();
+
+        }
         state = ObjState.Active;
         defaultHP = hp;
         defaultSpeed = speed;
@@ -105,6 +114,29 @@ public class Obj : MonoBehaviour
         {
             Death();
         }
+        HurtTimer();
+    }
+
+    protected void HurtTimer()
+    {
+
+        if (HurtCounter <= 0)
+        {
+            sp.material.SetFloat("_FlashAmount", 0);
+        }
+        else
+        {
+            HurtCounter -= Time.deltaTime;
+
+        }
+    }
+
+    protected void HurtEx()
+    {
+        
+            sp.material.SetFloat("_FlashAmount", 1);//变白
+            HurtCounter = HurtLength;
+        
     }
 
     /// <summary>
@@ -148,6 +180,7 @@ public class Obj : MonoBehaviour
     /// </summary>
     public virtual void Bleed(float harm)
     {
+        HurtEx();
         hp -= harm;
         if (hp <= 0)
         {

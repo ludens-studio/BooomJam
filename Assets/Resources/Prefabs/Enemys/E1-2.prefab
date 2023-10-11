@@ -55,7 +55,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: ec3a81a5d1b80364d9a744ac09291895, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -348,12 +348,15 @@ MonoBehaviour:
   attackRange: 0.9
   state: 0
   anim: {fileID: 0}
-  defaultSpeed: 0
+  defaultHP: 0
   HasLevelup: 0
   BuffTimer: 1
   buffs: []
   buff_cache_add: []
   buff_cache_del: []
+  sp: {fileID: 8272422989440710247}
+  HurtLength: 0.1
+  HurtCounter: 0
   testBuff: {fileID: 11400000, guid: 7ccb64224779a6a44be921150394bb6a, type: 2}
 --- !u!54 &4001205368177196343
 Rigidbody:
