@@ -325,10 +325,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Exit
+  m_text: "\u9000\u51FA\u6E38\u620F"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: a6310fc4bb336314889cfcc398ff479b, type: 2}
-  m_sharedMaterial: {fileID: 8567304722819508566, guid: a6310fc4bb336314889cfcc398ff479b,
+  m_fontAsset: {fileID: 11400000, guid: 82649aaf20f093647b9e2ea9eca30104, type: 2}
+  m_sharedMaterial: {fileID: 4103056366588042704, guid: 82649aaf20f093647b9e2ea9eca30104,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -1163,10 +1163,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Tap to Start
+  m_text: "\u5F00\u59CB\u6E38\u620F"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: a6310fc4bb336314889cfcc398ff479b, type: 2}
-  m_sharedMaterial: {fileID: 8567304722819508566, guid: a6310fc4bb336314889cfcc398ff479b,
+  m_fontAsset: {fileID: 11400000, guid: 82649aaf20f093647b9e2ea9eca30104, type: 2}
+  m_sharedMaterial: {fileID: 4103056366588042704, guid: 82649aaf20f093647b9e2ea9eca30104,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
