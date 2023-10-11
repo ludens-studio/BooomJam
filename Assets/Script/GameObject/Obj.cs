@@ -181,6 +181,9 @@ public class Obj : MonoBehaviour
     public virtual void Bleed(float harm)
     {
         HurtEx();
+        Debug.Log("????"+gameObject.name);
+        AudioMgr.GetInstance().PlaySound(3);
+
         hp -= harm;
         if (hp <= 0)
         {

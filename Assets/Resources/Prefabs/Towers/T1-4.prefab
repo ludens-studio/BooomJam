@@ -457,8 +457,8 @@ MonoBehaviour:
   buffs: []
   buff_cache_add: []
   buff_cache_del: []
-  sp: {fileID: 0}
-  HurtLength: 0
+  sp: {fileID: 6678720354114317428}
+  HurtLength: 0.1
   HurtCounter: 0
   shootTower: 1
   isFlag: 0

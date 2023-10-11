@@ -99,15 +99,23 @@ public class Tower : Obj
 
     private void darkTimer()
     {
-        if(dark_debuff_Hp_Timer <= 0f)
+        if(isDark)
         {
-            Bleed(dark_debuff_Hp);
-            dark_debuff_Hp_Timer = 1.0f;
+            if (dark_debuff_Hp_Timer <= 0f)
+            {
+                if (dark_debuff_Hp > 0)
+                {
+                    Bleed(dark_debuff_Hp);
+                    dark_debuff_Hp_Timer = 1.0f;
+                }
+
+            }
+            else
+            {
+                dark_debuff_Hp_Timer -= Time.fixedDeltaTime;
+            }
         }
-        else
-        {
-            dark_debuff_Hp_Timer -= Time.fixedDeltaTime; 
-        }
+
     }
 
 
