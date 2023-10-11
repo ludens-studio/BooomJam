@@ -237,12 +237,12 @@ public class BattleView : MonoBehaviour
     {
         if (!BattleMgr.GetInstance().IsDiceFreeze(o.name) && Time.timeScale != 0)
         {
+            o.GetComponent<Animation>().Stop();
             Cursor.SetCursor(Resources.Load<Texture2D>("Cursors/PointerGrab"), Vector2.zero, CursorMode.Auto);
             _dice = GameObject.FindWithTag("Dice");
             var mousePos = new Vector3(Input.mousePosition.x, Input.mousePosition.y, 10);
             var objectPosition = Camera.main.ScreenToWorldPoint(mousePos);
             _dice.transform.position = objectPosition;
-            // todo: 格子高亮或者阴影落点
         }
     }
 
