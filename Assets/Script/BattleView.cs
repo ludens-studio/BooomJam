@@ -107,15 +107,16 @@ public class BattleView : MonoBehaviour
         // 血量为0，游戏结束
         if (BattleMgr.GetInstance().hp <= 0)
         {
-/*            if (BattleMgr.GetInstance().hasReachKilled)
+            if (BattleMgr.GetInstance().killedEnemy >= 100)
             {
-                // todo: 特殊剧情(此处可以播动画，在动画末尾加上GameOver()事件即可)
-                GameOver();
+                // 特殊剧情(此处可以播动画，在动画末尾加上GameOver()事件即可)
+                gameObject.GetComponent<Animator>().SetBool("End",true);
             }
             else
-            {*/
+            {
                 GameOver();
-            //}
+            }
+
         }
         
         // 开始商店逻辑
@@ -273,15 +274,13 @@ public class BattleView : MonoBehaviour
             int towerType = Random.Range(1, 6); //1~5
             string filePath = "";
             
-            // 播放冷却动画
-            // o.GetComponent<Animator>().Play("CountDown",-1,0.0f);
-            o.GetComponent<Animation>().Play("CountDown");
             GameObject.FindWithTag("Dice").GetComponent<Animator>().Play((rdFace+1).ToString(), -1, 0f);
 
             switch (stateList[rdFace])
             {
                 case 0: // 资源-》恶魔
                     print("投到资源面" + towerType.ToString());
+                    o.GetComponent<Animation>().Play("CountDown");
                     BattleMgr.GetInstance().ChangeDiceState(o.name, rdFace, 1);
                     BattleMgr.GetInstance().FreezeDice(o.name);
                     BattleMgr.GetInstance().InitTower(x, y, diceType, towerType.ToString());
@@ -291,6 +290,7 @@ public class BattleView : MonoBehaviour
                     break;
                 case 1: // 恶魔-》资源
                     print("投到恶魔面" + towerType.ToString());
+                    o.GetComponent<Animation>().Play("CountDown");
                     BattleMgr.GetInstance().ChangeDiceState(o.name, rdFace, 2);
                     BattleMgr.GetInstance().FreezeDice(o.name);
                     BattleMgr.GetInstance().InitDarkTower(x, y, diceType, towerType.ToString());
@@ -300,6 +300,7 @@ public class BattleView : MonoBehaviour
                     break;
                 case 2: // 魔王-》全净化为资源
                     print("投到魔王面");
+                    o.GetComponent<Animation>().Play("CountDown");
                     BattleMgr.GetInstance().ChangeDiceState(o.name, rdFace, 3);
                     BattleMgr.GetInstance().FreezeDice(o.name);
                     // init 魔王
