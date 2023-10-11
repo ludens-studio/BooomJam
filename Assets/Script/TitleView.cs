@@ -10,7 +10,15 @@ public class TitleView : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        PlayerPrefs.SetInt("firstPlay", 0);
+        if (PlayerPrefs.GetInt("firstPlay", 0) == 0)    // 第一次
+        {
+            return;
+        }
+        if (PlayerPrefs.GetInt("firstPlay", 0) == 1)    // 不是第一次
+        {
+            PlayerPrefs.SetInt("firstPlay", 1);
+        }
+        
     }
 
     // Update is called once per frame

@@ -463,21 +463,35 @@ public class BattleView : MonoBehaviour
     {
         AudioMgr.GetInstance().PlaySound(0);
 
-
-        // 至少有两个塔才允许进行交易
-        if (BattleMgr.GetInstance().towers.Count >= 2)
+        if (!_beginSelect)
         {
-            Time.timeScale = 0;
-            // 引导
-            shopGuide.text = "Choose Two Towers or Soldiers in the map";
-            _beginSelect = true;
-            shopGirl.GetComponent<Animator>().Play("BeginShop",-1,0.0f);
+            // 至少有两个塔才允许进行交易
+            if (BattleMgr.GetInstance().towers.Count >= 2)
+            {
+                Time.timeScale = 0;
+                // 引导
+                shopGuide.text = "Choose Two Towers or Soldiers in the map";
+                _beginSelect = true;
+                shopGirl.GetComponent<Animator>().Play("BeginShop",-1,0.0f);
+            }
+            else
+            {
+                // 播放无法交易的动画
+                shopGirl.GetComponent<Animator>().Play("CantShop",-1,0.0f);
+            }
         }
         else
         {
-            // 播放无法交易的动画
-            shopGirl.GetComponent<Animator>().Play("CantShop",-1,0.0f);
+            Time.timeScale = 1;
+            foreach (var o in _towers)
+            {
+                o.transform.Find("Board").gameObject.SetActive(false);
+            }
+
+            shopGuide.text = "";
+            _towers.Clear();
         }
+        
     }
 
     /// <summary>

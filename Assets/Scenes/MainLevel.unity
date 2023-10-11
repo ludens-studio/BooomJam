@@ -8260,7 +8260,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: e34b39d0d44cc994bad4636958876ea6, type: 3}
+  m_Sprite: {fileID: 0}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -9404,7 +9404,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1229467512
 RectTransform:
   m_ObjectHideFlags: 0
@@ -10034,6 +10034,10 @@ MonoBehaviour:
     - {fileID: 397412956120048591, guid: 07cba1619266b234e95de95a719fe3a3, type: 3}
     - {fileID: 587069962221228619, guid: 534bae9b127c0ab48a7b9b4d615541ba, type: 3}
     - {fileID: 587069962221228619, guid: 534bae9b127c0ab48a7b9b4d615541ba, type: 3}
+  additionalWave:
+    waveRate: 0
+    rate: 0
+    enemyObj: []
   beforeWaveStartTime: 3
   hp: 8
   timer: 0
@@ -13551,7 +13555,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: -5, y: 0}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
