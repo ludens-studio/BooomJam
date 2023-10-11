@@ -27,7 +27,9 @@ public class BattleMgr : BaseMgr<BattleMgr>
     /// <summary>
     /// 波数配置
     /// </summary>
-    public Wave[] waves;
+    public List<Wave> waves;
+
+    public Wave additionalWave;     // 达到击杀数之后的额外波次
 
     public float beforeWaveStartTime;   // 怪物波开始之前的空隙时间
 
@@ -57,6 +59,7 @@ public class BattleMgr : BaseMgr<BattleMgr>
     public List<GameObject> enemies;
 
     private float _barTime;    // 伪进度条数值
+    private bool additionalAdded = false;
 
     /// <summary>
     /// 骰子
@@ -110,7 +113,12 @@ public class BattleMgr : BaseMgr<BattleMgr>
         yield return new WaitForSeconds(beforeWaveStartTime);
         while (hp >= 1 )
         {
-            int n = waves.Length;
+            if (killedEnemy >= 50 && !additionalAdded)
+            {
+                waves.Add(additionalWave);
+                additionalAdded = true;
+            }
+            int n = waves.Count;
             // 打乱顺序
             for (int i = 0; i < n; i++)
             {
@@ -118,7 +126,7 @@ public class BattleMgr : BaseMgr<BattleMgr>
                 (waves[i], waves[r]) = (waves[r], waves[i]);
             }
             // 波之间
-            for (int i = 0; i < waves.Length; i++)
+            for (int i = 0; i < waves.Count; i++)
             {
                 // 波内生成的
                 for (int j = 0; j < waves[i].enemyObj.Count; j++)

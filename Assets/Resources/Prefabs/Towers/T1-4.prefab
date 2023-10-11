@@ -117,6 +117,7 @@ MonoBehaviour:
   buff_cache_del: []
   shootTower: 1
   isFlag: 0
+  isAOE: 0
   Bullet: {fileID: 1540398006885209217, guid: 4e22db5f841710d49863840068df436a, type: 3}
   firePoint: {fileID: 3245064749351530984}
   isDark: 0
