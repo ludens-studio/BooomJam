@@ -1539,7 +1539,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1221344920}
         m_TargetAssemblyTypeName: TitleView, Assembly-CSharp
-        m_MethodName: LoadNextLevel
+        m_MethodName: Quick
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

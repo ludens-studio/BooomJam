@@ -48,6 +48,11 @@ public class TitleView : MonoBehaviour
         gameObject.GetComponent<Animator>().Play("Story",-1,0.0f);
     }
 
+    public void Quick()
+    {
+        SceneManager.LoadScene(1, LoadSceneMode.Single);
+    }
+
     /// <summary>
     /// 加载下一关
     /// </summary>
