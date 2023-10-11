@@ -83,15 +83,19 @@ public class Obj : MonoBehaviour
     {
         attackSpeed_true = 1 / attackSpeed;  // 换算，策划案里面的攻速是这里实际表现的 1/speed 秒攻击一次
 
-        if (attackSpeedTimer <= 0.001f)
+        if(!canAttack)
         {
-            canAttack = true;
-            attackSpeedTimer = attackSpeed_true;
+            if (attackSpeedTimer <= 0.001f)
+            {
+                canAttack = true;
+                attackSpeedTimer = attackSpeed_true;
+            }
+            else
+            {
+                attackSpeedTimer -= Time.deltaTime;
+            }
         }
-        else
-        {
-            attackSpeedTimer -= Time.deltaTime; 
-        }
+
     }
     
     private void LateUpdate()
