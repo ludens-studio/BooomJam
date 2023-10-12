@@ -7,6 +7,8 @@ public class TitleView : MonoBehaviour
 {
 
     public GameObject storyBoard;
+
+    public AudioSource a;
     // Start is called before the first frame update
     void Start()
     {
@@ -36,7 +38,7 @@ public class TitleView : MonoBehaviour
         // 0：第一次游戏
         // 1：不是第一次
         PlayerPrefs.SetInt("firstPlay", 0);
-        AudioMgr.GetInstance().PlaySound(0);
+        a.Play();
 
         Application.Quit();
     }
@@ -46,7 +48,7 @@ public class TitleView : MonoBehaviour
     /// </summary>
     public void StartGame()
     {
-        AudioMgr.GetInstance().PlaySound(0);
+        a.Play();
 
         storyBoard.gameObject.SetActive(true);
         gameObject.GetComponent<Animator>().Play("Story",-1,0.0f);
@@ -54,8 +56,7 @@ public class TitleView : MonoBehaviour
 
     public void Quick()
     {
-        AudioMgr.GetInstance().PlaySound(0);
-
+        a.Play();
 
         SceneManager.LoadScene(1, LoadSceneMode.Single);
     }
