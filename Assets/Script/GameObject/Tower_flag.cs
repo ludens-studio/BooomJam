@@ -10,7 +10,6 @@ public class Tower_flag : Tower
 
     protected override void Attack()
     {
-        Debug.Log("图腾");
         Collider[] colliders = Physics.OverlapSphere(transform.position, attackRange); //获得范围内所有物体
 
         foreach (Collider col in colliders)

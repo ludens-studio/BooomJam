@@ -20,7 +20,6 @@ public class AttackBuff : Buff
     {
         int n = target.CheckBuffCount("Attack_Up"); 
         target.addAttack(amount * n);
-        Debug.Log(target.name + "||Atk:  " + n+"|||"+target.attack);
         count--;
     }
 

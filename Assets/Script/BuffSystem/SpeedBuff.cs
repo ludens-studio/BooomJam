@@ -46,7 +46,6 @@ public class SpeedBuff : Buff
     {
         int n = target.CheckBuffCount("Speed_Up");
         target.addSpeed(amount * n);
-        Debug.Log(target.name + "||Speed:  " + n);
         count--; 
     }
 

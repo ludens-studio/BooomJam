@@ -93,7 +93,6 @@ public class Enemy : Obj
             {
                 s += test[i] + ","; 
             }
-            Debug.Log(gameObject.name + ":"  + s);
 
         }
 
@@ -133,7 +132,7 @@ public class Enemy : Obj
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit, attackRange,layerMask))
         {
-            Debug.DrawLine(ray.origin, hit.point, Color.blue);
+            // Debug.DrawLine(ray.origin, hit.point, Color.blue);
             if (hit.collider.CompareTag("Tower"))
             {
                 haveTarget = true;
@@ -142,7 +141,7 @@ public class Enemy : Obj
         }
         else
         {
-            Debug.DrawLine(ray.origin, ray.origin + ray.direction * attackRange, Color.blue);
+            // Debug.DrawLine(ray.origin, ray.origin + ray.direction * attackRange, Color.blue);
             haveTarget = false;
             target = null; 
         }

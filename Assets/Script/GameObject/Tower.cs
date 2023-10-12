@@ -48,7 +48,6 @@ public class Tower : Obj
                 {
                     if (shootTower)
                     {
-                        Debug.Log(gameObject.name + "||" + haveTarget + "|||" + target.name + "||||" + target.transform.position.y);
                         Shoot();
 
                     }
@@ -65,7 +64,6 @@ public class Tower : Obj
                         // 单行攻击的只能在同一行射击
                         if (shootTower)
                         {
-                            Debug.Log(gameObject.name + "||" + haveTarget + "|||" + target.name + "||||" + target.transform.position.y);
                             Shoot();
 
                         }
@@ -189,7 +187,6 @@ public class Tower : Obj
         // 播放受击特效.该特效位于子节点的最后一个，不要调整
         target.transform.GetChild(target.transform.childCount-1).GetComponent<ParticleSystem>().Play();
         canAttack = false;
-        Debug.Log("攻击");
     }
 
     /// <summary>

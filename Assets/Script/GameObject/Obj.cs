@@ -181,7 +181,6 @@ public class Obj : MonoBehaviour
     public virtual void Bleed(float harm)
     {
         HurtEx();
-        Debug.Log("????"+gameObject.name);
         AudioMgr.GetInstance().PlaySound(3);
 
         hp -= harm;
@@ -254,7 +253,6 @@ public class Obj : MonoBehaviour
                 if (buffs_Dic.ContainsKey(buff.BuffName))
                 {
                     buffs_Dic[buff.BuffName]++;
-                    Debug.Log("For" +gameObject.name+ buff.name +":"+ buffs_Dic[buff.BuffName]); 
                 }
                 else
                 {
@@ -279,14 +277,12 @@ public class Obj : MonoBehaviour
 
                 if (_buff.count <= 0)
                 {
-                    Debug.Log(gameObject.name + "REOMOVE:  " + _buff.name);
                     _buff.count = _buff.count_Set; 
                     RemoveBuff(_buff);
                 }
                 else
                 {
                     _buff.UseBuff();
-                    Debug.Log(gameObject.name + "USE!!!!!!!!!!:  " + _buff.name);
 
                 }
             }
