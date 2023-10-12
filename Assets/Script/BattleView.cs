@@ -65,9 +65,22 @@ public class BattleView : MonoBehaviour
 
     private void Awake()
     {
-        loadingWindow.transform.GetChild(0).gameObject.SetActive(false);
-        BattleMgr.GetInstance().loadTime = 0.2f;
-        // Invoke(nameof(CameraTransition),0.1f);
+        if (PlayerPrefs.GetInt("firstPlay",0) == 0)   // 第一次播放loading画面
+        {
+            PlayerPrefs.SetInt("firstPlay", 1);     // 不是第一次进行游戏了
+            AudioMgr.GetInstance().ChangeBKMusic("Audios/loading2");
+            AudioMgr.GetInstance().PlayBkMusic();
+            loadingWindow.transform.GetChild(0).gameObject.SetActive(true);
+            loadingWindow.GetComponent<Animator>().Play("EyeLoading",-1,0.0f);
+            gameWindow.SetActive(false);
+            BattleMgr.GetInstance().loadTime = 12.0f;
+            Invoke(nameof(CameraTransition),10f);
+        }
+        else
+        {
+            loadingWindow.transform.GetChild(0).gameObject.SetActive(false);
+            BattleMgr.GetInstance().loadTime = 0.2f;
+        }
         
     }
 
