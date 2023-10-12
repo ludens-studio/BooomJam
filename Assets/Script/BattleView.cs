@@ -65,7 +65,7 @@ public class BattleView : MonoBehaviour
 
     private void Awake()
     {
-        if (PlayerPrefs.GetInt("firstPlay",1) == 0)   // 第一次播放loading画面
+        if (PlayerPrefs.GetInt("firstPlay",0) == 0)   // 第一次播放loading画面
         {
             PlayerPrefs.SetInt("firstPlay", 1);     // 不是第一次进行游戏了
             AudioMgr.GetInstance().ChangeBKMusic("Audios/loading2");
