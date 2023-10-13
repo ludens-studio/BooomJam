@@ -70,17 +70,21 @@ public class BattleView : MonoBehaviour
             PlayerPrefs.SetInt("firstPlay", 1);     // 不是第一次进行游戏了
             AudioMgr.GetInstance().ChangeBKMusic("Audios/loading2");
             AudioMgr.GetInstance().PlayBkMusic();
-            loadingWindow.transform.GetChild(0).gameObject.SetActive(true);
+            loadingWindow.SetActive(true);
+            print(loadingWindow.name);
             loadingWindow.GetComponent<Animator>().Play("EyeLoading",-1,0.0f);
             gameWindow.SetActive(false);
+            shopGirl.SetActive(false);
             BattleMgr.GetInstance().loadTime = 12.0f;
             Invoke(nameof(CameraTransition),10f);
         }
         else
         {
             loadingWindow.transform.GetChild(0).gameObject.SetActive(false);
+            shopGirl.SetActive(true);
             BattleMgr.GetInstance().loadTime = 0.2f;
         }
+        
     }
 
     // Start is called before the first frame update
@@ -175,6 +179,7 @@ public class BattleView : MonoBehaviour
     /// </summary>
     public void CameraTransition()
     {
+        shopGirl.SetActive(true);
         Camera.main.GetComponent<Animator>().Play("CameraTransition");
     }
 
@@ -478,12 +483,14 @@ public class BattleView : MonoBehaviour
             else
             {
                 // 播放无法交易的动画
+                shopGuide.text = "你的实力还不足以和我交易呢";
                 shopGirl.GetComponent<Animator>().Play("CantShop",-1,0.0f);
             }
         }
         else
         {
             Time.timeScale = 1;
+            _beginSelect = false;
             foreach (var o in _towers)
             {
                 o.transform.Find("Board").gameObject.SetActive(false);
@@ -597,7 +604,7 @@ public class BattleView : MonoBehaviour
     public void CloseGuide()
     {
         AudioMgr.GetInstance().PlaySound(0);
-
+        print("click close guide");
 
         foreach (var g in guideWindow)
         {
