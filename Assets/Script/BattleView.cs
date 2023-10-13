@@ -483,12 +483,14 @@ public class BattleView : MonoBehaviour
             else
             {
                 // 播放无法交易的动画
+                shopGuide.text = "你的实力还不足以和我交易呢";
                 shopGirl.GetComponent<Animator>().Play("CantShop",-1,0.0f);
             }
         }
         else
         {
             Time.timeScale = 1;
+            _beginSelect = false;
             foreach (var o in _towers)
             {
                 o.transform.Find("Board").gameObject.SetActive(false);
